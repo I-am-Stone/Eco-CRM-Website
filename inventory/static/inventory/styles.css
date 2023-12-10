@@ -1,0 +1,60 @@
+
+
+
+body{
+    overflow: hidden;
+}
+
+.nav-item{
+    padding-left: 2rem;
+}
+
+.nav-list{
+    padding-left: 2rem;
+    font-size: small;
+}
+
+.nav-brand{
+    font-family: Algerian;
+}
+
+
+
+
+.overlay-drawer{
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    background-color: #FBFCF8;
+    width: 400px;
+    height: 100%;
+    right: -400px;
+    transition: right 1s ease-in-out;
+    overflow: hidden;
+}
+.overlay-drawer.active{
+    right: 0;
+    box-shadow: 0px 0px 1000px #494F55;
+    transition: right 1s ease-in-out;
+}
+
+.drawer-content {
+    float: right;
+    display: flex;
+    }
+
+.cart-section{
+    text-align: center;
+}
+.closer{
+    right: 2%;
+}
+
+.page-header{
+    font-family: Algerian;
+}
+
+.border-dotted{
+    height: 10px;
+    border-style: dotted;
+}
