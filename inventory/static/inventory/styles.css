@@ -2,10 +2,11 @@
 
 
 body{
-    overflow: hidden;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
-.nav-item{
+.nav-link{
     padding-left: 2rem;
 }
 
@@ -18,7 +19,10 @@ body{
     font-family: Algerian;
 }
 
-
+.body-content{
+        height: 20%;
+    width: 100%;
+}
 
 
 .overlay-drawer{
@@ -49,12 +53,68 @@ body{
 .closer{
     right: 2%;
 }
-
-.page-header{
+.bars{
+    display: none;
+}
+.back-img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.text-overlay{
+    position: absolute;
+    top: 30%;
+    left: 9%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: 24px;
+}
+.featured-text{
     font-family: Algerian;
+
+}
+@media only screen and (max-width: 1024px) {
+  /* Styles for screens up to 600px wide (typically mobile devices) */
+
+    body{
+        overflow: hidden;
+    }
+
+
+    .nav-header{
+        flex-direction: row !important;
+    }
+    .nav-list{
+        display: none;
+    }
+    .drawer-content{
+        background-size: cover;
+        width: 50px !important;
+        height: 100%;
+    }
+
+    .overlay-drawer{
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    background-color: #FBFCF8;
+    width: 100%;
+    height: 100%;
+    right: -400px;
+    transition: right 1s ease-in-out;
+    overflow: hidden;
+}
+    .animate-box{
+        width: 50%;
+        /*height: 200px;*/
+        /*border: 2px dotted #000;*/
+        /*padding-left: 30px;*/
+        /*border-radius: 50%; !* 50% for top-left, top-right, 0 for bottom-left, bottom-right *!*/
+        float: right;
+        overflow: hidden;
+    }
+
+
 }
 
-.border-dotted{
-    height: 10px;
-    border-style: dotted;
-}

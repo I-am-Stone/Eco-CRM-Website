@@ -6,7 +6,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'inventory/styles.css' %}">
   {% tailwind_css %}
   <title>Nepali Clothing</title>
@@ -14,51 +13,55 @@
 <body>
 <div>
 <header class="head-bar">
-  <div class="bars-btn">
-  </div>
   <div class="navbar bg-black-900">
+    <div class="bars"><button><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></button></div>
     <div class="flex-1 nav-brand">
       <a class="btn btn-ghost font-thin">Nepali Clothing</a>
     </div>
-    <div class="nav-list">
-      <ul class="flex">
-        <li class="nav-item"><a href="#">Home</a></li>
-        <li class="nav-item"><a href="#">T-Shirt</a></li>
-        <li class="nav-item"><a href="#">About us</a></li>
-        <li class="nav-item"><a href="#">Contact us</a> </li>
-      </ul>
-    </div>
-    <div class="flex-none" id="open-drawer" onclick="openDrawer()">
-      <div>
-        <label tabindex="0" class="btn btn-ghost btn-square">
-          <div class="indicator">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-          </div>
-        </label>
+      <div class="nav-list">
+        <ul class="flex nav-item">
+          <li class="nav-link"><a href="#">Home</a></li>
+          <li class="nav-link"><a href="#">T-Shirt</a></li>
+          <li class="nav-link"><a href="#">About us</a></li>
+          <li class="nav-link"><a href="#">Contact us</a> </li>
+        </ul>
       </div>
-    </div>
-  </div>
+      <div class="flex-none" id="open-drawer" onclick="openDrawer()">
+        <div>
+          <label tabindex="0" class="btn btn-ghost btn-square">
+            <div class="indicator">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+            </div>
+          </label>
+        </div>
+      </div>
+</div>
   <div class="drawer-content">
     <div class="overlay-drawer" id ='myDrawer'>
-      <div class="cart-section">
-        <h4>Your Cart</h4>
-      </div>
-      <div class="closer">
-        <button onclick="openDrawer()">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="20" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-        </button>
+      <div class="drawer-cards">
+        <div class="cart-section">
+          <h4>Your Cart</h4>
+        </div>
+        <div class="closer">
+          <button onclick="openDrawer()">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" width="20" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-<div class="body-content ">
-  <div class="border-dotted"></div>
-  <h4 class="page-header">
-    Plain T-shirt
-  </h4>
-  <div class="border-dotted"></div>
-  <button>
-    See T-shirt
-  </button>
+<div class="body-content">
+</div>
+<div class="back-img">
+  <img src="{% static 'inventory/images/KpJ1ql2.jpg' %}">
+  <div class="div-block"></div>
+  <div class="text-overlay">
+    <div class="div-block"></div>
+    <div class="featured-text">Nepali Clothing</div>
+    <button>
+      See T-shirt
+    </button>
+  </div>
 </div>
 </header>
 <footer class="footer p-10 bg-neutral text-neutral-content">
@@ -82,6 +85,5 @@
 </body>
 <script src="{% static 'inventory/js/main.js' %}">
 </script>
-
 </html>
 
