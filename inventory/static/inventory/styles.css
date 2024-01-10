@@ -1,9 +1,11 @@
 
-
+@font-face {
+    font-family: 'neon';
+    src: url('images/Neoneon.otf') format('opentype');
+  }
 
 body{
     box-sizing: border-box;
-    overflow-x: hidden;
 }
 
 .nav-link{
@@ -16,14 +18,12 @@ body{
 }
 
 .nav-brand{
-    font-family: Algerian;
+    font-family: 'neon',sans-serif;
 }
-
 .body-content{
-        height: 20%;
     width: 100%;
+    height: 40%;
 }
-
 
 .overlay-drawer{
     position: absolute;
@@ -33,13 +33,16 @@ body{
     width: 400px;
     height: 100%;
     right: -400px;
-    transition: right 1s ease-in-out;
+    display: none;
+    transition: right 10s ease-in-out;
     overflow: hidden;
 }
 .overlay-drawer.active{
     right: 0;
+    display: block;
+    opacity: 1;
     box-shadow: 0px 0px 1000px #494F55;
-    transition: right 1s ease-in-out;
+    transition: right 10s ease-in-out;
 }
 
 .drawer-content {
@@ -56,24 +59,41 @@ body{
 .bars{
     display: none;
 }
-.back-img{
-    display: block;
-    width: 100%;
-    height: auto;
-}
+
+
 .text-overlay{
     position: absolute;
-    top: 30%;
-    left: 9%;
+    top: 50%;
+    left: 10%;
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
-    font-size: 24px;
-}
-.featured-text{
-    font-family: Algerian;
 
 }
+
+.btn-t{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff; /* Text color */
+    background-color: #fff;
+    border: 2px solid #fff; /* Border color */
+    border-radius: 0;
+    cursor: pointer;
+
+}
+
+.featured-text{
+    font-family: 'neon',sans-serif;
+
+}
+
+.featured{
+    color: black;
+}
+
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
 
@@ -104,6 +124,7 @@ body{
     right: -400px;
     transition: right 1s ease-in-out;
     overflow: hidden;
+
 }
     .animate-box{
         width: 50%;
