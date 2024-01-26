@@ -37,6 +37,10 @@ body{
     transition: right 10s ease-in-out;
     overflow: hidden;
 }
+.bars{
+    display: none;
+}
+
 .overlay-drawer.active{
     right: 0;
     display: block;
@@ -45,142 +49,10 @@ body{
     transition: right 10s ease-in-out;
 }
 
-.drawer-content {
-    float: right;
-    display: flex;
-    }
-
-.cart-section{
-    text-align: center;
+.body-section{
+    height:80vh;
+    background:linear-gradient(0deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
 }
-.closer{
-    right: 2%;
-}
-.bars{
-    display: none;
-}
-
-
-.container{
-    position: absolute;
-    top: 30%;
-    left: 10%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-
-}
-
-.btn-t{
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 10px;
-    text-align: center;
-    text-decoration: none;
-    color: black; /* Text color */
-    background-color: #fff;
-    border: 2px solid #fff; /* Border color */
-    border-radius: 0;
-    cursor: pointer;
-
-}
-
-.featured-text{
-    font-family: 'neon',sans-serif;
-
-}
-
-
-
-.featured-text{
-    color: White;
-}
-
-@keyframes rotatePlanets {
-    from {
-        transform: rotate(360deg);
-    }
-    to {
-        transform: rotate(0deg);
-    }
-}
-
-.orbit-path {
-    position: absolute;
-    left: auto;
-    top: 15%;
-    right: -240px;
-    bottom: 0;
-    height: 450px;
-    opacity: 1;
-}
-.orbit-path-2 {
-    position: absolute;
-    left: auto;
-    top: 17%;
-    right: -200px;
-    bottom: 0;
-    height: 450px;
-    opacity: 1;
-
-}
-
-.far-planets {
-    position: absolute;
-    left: auto;
-    top: 17%;
-    right: -205px;
-    bottom: 0;
-    height: 450px;
-    opacity: 1;
-    animation: rotatePlanets 10s infinite linear;
-}
-.close-planets {
-    position: absolute;
-    left: auto;
-    top: 15%;
-    right: -245px;
-    bottom: 0;
-    height: 450px;
-    opacity: 1;
-    animation: rotatePlanets 10s infinite linear;
-}
-img {
-    border: 0;
-    max-width: 100%;
-    vertical-align: middle;
-    display: inline-block;
-}
-
-.item-section{
-    position: relative;
-    display: flex;
-    width: 50%;
-    top: 50%;
-    padding-left: 50%;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    bottom: 0%;
-    justify-content: center;
-    text-align: center;
-}
-
-
-.section-header{
-    font-family: 'neon',sans-serif;
-    font-size: 30px;
-    padding-left: 50%;
-}
-
-.item-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 200px;
-    border: 2px solid black;
-}
-
-
 
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
@@ -212,17 +84,8 @@ img {
     right: -400px;
     transition: right 1s ease-in-out;
     overflow: hidden;
-
-}
-    .animate-box{
-        width: 50%;
-        /*height: 200px;*/
-        /*border: 2px dotted #000;*/
-        /*padding-left: 30px;*/
-        /*border-radius: 50%; !* 50% for top-left, top-right, 0 for bottom-left, bottom-right *!*/
-        float: right;
-        overflow: hidden;
     }
+
 
 
 }
