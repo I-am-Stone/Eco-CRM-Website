@@ -4,4 +4,5 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request,"inventory/base.html")
+    return render(request,"inventory/cart.html")
+
