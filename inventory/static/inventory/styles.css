@@ -60,7 +60,7 @@ body {
 
 .body-section{
     height:80vh;
-    background:linear-gradient(0deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
+    background-image:linear-gradient(0deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
 }
 
 
