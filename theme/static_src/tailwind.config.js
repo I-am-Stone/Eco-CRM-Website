@@ -4,6 +4,7 @@
  * If you need the full config, get it from here:
  * https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
  */
+/** @type {import('tailwindcss').Config} */
 
 module.exports = {
     content: [
@@ -12,13 +13,13 @@ module.exports = {
          */
 
         /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
-        '../templates/**/*.html',
+        // '../inventory/**/*.html',
 
         /*
          * Main templates directory of the project (BASE_DIR/templates).
          * Adjust the following line to match your project structure.
          */
-        '../../templates/**/*.html',
+        './inventory/**/*.html',
 
         /*
          * Templates in other django apps (BASE_DIR/<any_app_name>/templates).
@@ -42,7 +43,21 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                transparent: 'transparent',
+                current: 'currentColor',
+                'black':'#0f172a',
+                'white': '#ffffff',
+                'purple': '#3f3cbb',
+                'midnight': '#121063',
+                'metal': '#565584',
+                'tahiti': '#3ab7bf',
+                'silver': '#ecebff',
+                'bubble-gum': '#ff77e9',
+                'bermuda': '#78dcca',
+            },
+        },
     },
     plugins: [
         /**
@@ -54,5 +69,10 @@ module.exports = {
         require('@tailwindcss/typography'),
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/aspect-ratio'),
+        require("daisyui"),
     ],
+    daisyui: {
+    themes: ["light, dark", "cupcake"],
+  },
+
 }
