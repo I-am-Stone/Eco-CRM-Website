@@ -39,12 +39,14 @@ body {
     top: 0%;
     bottom: 0%;
     background-color: #FBFCF8;
+    opacity: 1;
     width: 400px;
     height: 100%;
     right: -400px;
     display: none;
     transition: right 10s ease-in-out;
     overflow: hidden;
+    color: #000;
 }
 .bars{
     display: none;
@@ -60,7 +62,7 @@ body {
 
 .body-section{
     height:80vh;
-    background-image:linear-gradient(0deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
+    background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
 }
 
 
@@ -167,9 +169,10 @@ section{
     max-width: 100%;
     display: inline-block;
 }
+
 .product-list-images{
     position: relative;
-    z-index: 1;
+    z-index: 5;
     box-shadow: 0 15px 60px 0 rgba(0,0,0,.35);
     width: 500px;
 }
@@ -187,6 +190,7 @@ section{
     border: 2px solid #000;
     font-family: 'IBM Plex Mono',sans-serif;
 }
+
 h2 {
     display: block;
     font-size: 1.5em;
@@ -265,6 +269,27 @@ h2 {
     background-color: #1f1f1f;
     color: #fff;
 }
+
+section.checkout_hero{
+    padding-bottom: 150px;
+}
+
+.section-container{
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.checkout_hero{
+    height: 20vh;
+    background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
+    display: flex;
+
+}
+
+.checkout-nav-button{
+    color: white;
+}
+
 
 
 

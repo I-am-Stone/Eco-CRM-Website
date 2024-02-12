@@ -1,0 +1,24 @@
+{% load static %}
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'inventory/styles.css' %}">
+  {% tailwind_css %}
+  <title>Nepali Clothing</title>
+</head>
+<body>
+    <div class="section checkout_hero">
+        <div class="section-container">
+            <img src="{% static 'inventory/images/arrow.png' %}" alt="arrow" class="back-arrow" style="width: 20px; height: 20px;">
+            <a href="" class="checkout-nav-button">Back</a>
+        </div>
+    </div>
+</body>
+<script src="{% static 'inventory/js/main.js' %}">
+</script>
+</html>
+
