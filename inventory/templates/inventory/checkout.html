@@ -1,0 +1,47 @@
+{% load static %}
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'inventory/styles.css' %}">
+  {% tailwind_css %}
+  <title>Nepali Clothing</title>
+</head>
+<body>
+    <div class='section-hero'>
+        <div class='section-container'>
+            <div class='section-nav'>
+                <a href='/' class='section-nav-button'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30" height="20"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M177.5 414c-8.8 3.8-19 2-26-4.6l-144-136C2.7 268.9 0 262.6 0 256s2.7-12.9 7.5-17.4l144-136c7-6.6 17.2-8.4 26-4.6s14.5 12.5 14.5 22l0 72 288 0c17.7 0 32 14.3 32 32l0 64c0 17.7-14.3 32-32 32l-288 0 0 72c0 9.6-5.7 18.2-14.5 22z" fill="#ffffff"/></svg>
+                </a>
+                <a href='#' class='section-header'>
+                    Nepali Clothing
+                </a>
+                <div class="indicator">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" fill="#ffffff"/></svg>
+                </div>
+            </div>
+        </div>
+        <div class='section-checkout'>
+            <div class='section-checkout-wrapper'>
+                <div class='checkout-link'>
+                    <div class='checkout-link-text'>Summry</div>
+                </div>
+                <div class='checkout-line'></div>
+                <div class='checkout-link'>
+                    <div class='checkout-link-text'>Shipping</div>
+                </div>
+                <div class='checkout-line'></div>
+                <div class='checkout-link'>
+                    <div class='checkout-link-text'>Payment</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{% static 'inventory/js/main.js' %}">
+</script>
+</html>
