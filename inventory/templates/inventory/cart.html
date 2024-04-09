@@ -7,7 +7,7 @@
 
     <section class="section">
       <h3 class="section-title">T-Shirt</h3>
-      <div class="item-list">
+      <div class="item-list">-6
         <div class="product-list-item">
           <div class="product-list-item-img-wrap">
             <img src="{% static '/inventory/images/tshirt-img.png' %}" alt="T-Shirt" class="product-list-images">
@@ -19,10 +19,11 @@
             <form class="item-add-to-cart">
               <input type="number" class="item-count">
               <input type="submit" class="item-submit button" value="Add to Cart">
-              <a href="#" class="item-submit button button-filled">Buy Now</a>
+              <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit button button-filled">Buy Now</a>
             </form>
           </div>
         </div>
       </div>
     </section>
+    
 {% endblock %}
