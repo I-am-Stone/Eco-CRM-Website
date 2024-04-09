@@ -172,6 +172,12 @@ section{
     z-index: 1;
     box-shadow: 0 15px 60px 0 rgba(0,0,0,.35);
     width: 500px;
+} 
+
+.item-list{
+    width: 1200px;
+    margin-inline: auto;
+
 }
 
 .item-list-content-warp{
