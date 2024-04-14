@@ -79,6 +79,10 @@ body {
     text-justify: auto;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid gray;
+    box-shadow: 0 4px 2px -2px gray;
+    
+    
 }
 
 .cart-section{
