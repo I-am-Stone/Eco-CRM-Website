@@ -18,7 +18,7 @@
             <p class="paragraph">Elevate your style with our premium cotton blend T-shirt, where comfort meets fashion. Embrace individuality with our unique design, making a bold statement that effortlessly stands out in any crowd.</p>
             <form class="item-add-to-cart">
               <input type="number" class="item-count">
-              <input type="submit" class="item-submit button" value="Add to Cart">
+              <input type="button" data-loading-text="Adding to cart..." class="item-submit button" onclick="addToCart('Plain Black T-shirt', 100, '/inventory/images/tshirt-img.png')" value="Add to Cart">
               <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit button button-filled">Buy Now</a>
             </form>
           </div>
@@ -30,6 +30,11 @@
 
 
 {% block Cart %}
-  <p>ul</p>
+    <div class="cart-item">
+      <ul class="cart-list">
+
+      </ul>
+    </div>
+
 
 {% endblock %}

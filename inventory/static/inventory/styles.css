@@ -292,6 +292,9 @@ h2 {
     font-family: 'IBM Plex Mono',sans-serif;
     color: #000;
     text-decoration: none;
+    cursor: pointer;
+    align-items: center;
+    
 }
 
 
