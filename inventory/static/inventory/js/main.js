@@ -48,10 +48,12 @@ function updateCartDisplay() {
         const itemremove = document.createElement('button');
         itemremove.textContent = 'Remove';
         itemremove.onclick = () => removeFromCart(index);
+        itemremove.classList.add('rmvbtn')
 
         listItem.appendChild(img)
         listItem.appendChild(itemInfo)
         listItem.appendChild(itemremove)
+
 
         cartList.appendChild(listItem);
     });

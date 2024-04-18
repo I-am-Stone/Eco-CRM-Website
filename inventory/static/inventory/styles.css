@@ -378,6 +378,15 @@ h2 {
     flex: 1;
 }
 
+.cart-list{
+    text-decoration: none;
+}
+
+.rmvbtn{
+    color: red;
+    padding: 2px;
+}
+
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
 
