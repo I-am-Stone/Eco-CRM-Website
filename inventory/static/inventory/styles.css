@@ -378,6 +378,12 @@ h2 {
     flex: 1;
 }
 
+.cart-item{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    display: flex;
+}
+
 .cart-list{
     text-decoration: none;
 }

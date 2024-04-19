@@ -39,7 +39,7 @@ function updateCartDisplay() {
         const img = document.createElement('img');
         img.src = item.image
         img.alt = item.name
-        img.width = '10px'
+        img.width = '40px'
 
         const itemInfo = document.createElement('span');
 

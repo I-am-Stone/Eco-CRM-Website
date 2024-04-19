@@ -7,15 +7,18 @@
 
     <section class="section">
       <h3 class="section-title">T-Shirt</h3>
+
+  {% if cart %}
+    {% for item in cart%}
       <div class="item-list">
         <div class="product-list-item">
           <div class="product-list-item-img-wrap">
-            <img src="{% static '/inventory/images/tshirt-img.png' %}" alt="T-Shirt" class="product-list-images">
+            <img src="{{ item.media.image }}" alt="T-Shirt" class="product-list-images">
           </div>
           <div class="item-list-content-warp">
-            <h2 class="item-list-title">Plain Black T-Shirt</h2>
-            <div class="product-list-price">15$</div>
-            <p class="paragraph">Elevate your style with our premium cotton blend T-shirt, where comfort meets fashion. Embrace individuality with our unique design, making a bold statement that effortlessly stands out in any crowd.</p>
+            <h2 class="item-list-title">{{item.product.name}}</h2>
+            <div class="product-list-price">Rs.{{item.retail_price}}</div>
+            <p class="paragraph">{{item.product.description}}</p>
             <form class="item-add-to-cart">
               <input type="number" class="item-count">
               <input type="button" data-loading-text="Adding to cart..." class="item-submit button" onclick="addToCart('Plain Black T-shirt', 100, '/inventory/images/tshirt-img.png')" value="Add to Cart">
@@ -24,8 +27,11 @@
           </div>
         </div>
       </div>
+    {% endfor %}
+  {% endif %}
     </section>
-    white
+    
+
 {% endblock %}
 
 
