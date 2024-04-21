@@ -13,7 +13,9 @@
       <div class="item-list">
         <div class="product-list-item">
           <div class="product-list-item-img-wrap">
-            <img src="{{ item.media.image }}" alt="T-Shirt" class="product-list-images">
+          {% for media in item.media_product_inventory.all %}
+            <img src="{{ media.image }}" alt="{{ media.alt_text }}">
+          {% endfor %}
           </div>
           <div class="item-list-content-warp">
             <h2 class="item-list-title">{{item.product.name}}</h2>
@@ -21,7 +23,7 @@
             <p class="paragraph">{{item.product.description}}</p>
             <form class="item-add-to-cart">
               <input type="number" class="item-count">
-              <input type="button" data-loading-text="Adding to cart..." class="item-submit button" onclick="addToCart('Plain Black T-shirt', 100, '/inventory/images/tshirt-img.png')" value="Add to Cart">
+              <input type="button" data-loading-text="Adding to cart..." class="item-submit button" onclick="addToCart('{{ item.product.name }}', {{ item.retail_price }}, '{{ item.media_set.first.image.url }}')" value="Add to Cart">
               <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit button button-filled">Buy Now</a>
             </form>
           </div>

@@ -5,10 +5,12 @@ from .models import *
 
 
 def home(request):
-    cart_data = ProductInventory.objects.all().select_related("product_inventory")
+    cart_data = ProductInventory.objects.prefetch_related("media_product_inventory").all()
+    print(cart_data)
     context ={
         'cart':cart_data
     }
+    print(context)
     
     return render(request,"inventory/cart.html", context)
 
