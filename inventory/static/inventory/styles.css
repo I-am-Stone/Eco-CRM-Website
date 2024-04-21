@@ -266,12 +266,9 @@ h2 {
 
 .item-count{
     width: 60px;
-    appearance: none;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    display: block;
+    border: 1px solid #ddd;
     line-height: 20px;
+    padding: 5px;
 }
 
 

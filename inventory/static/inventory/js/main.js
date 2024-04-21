@@ -14,16 +14,18 @@ function closeDrawer(){
 
 
 
-let cart_item = [];
+// Define an array to store cart items
+let cartItems = [];
 
-function addToCart(productName, price, ImageURL) {
-    const item = {
+// Function to add items to the cart
+function addToCart(productName, price, itemCount) {
+    const newItem = {
         name: productName,
         price: price,
-        image:ImageURL
+        count: itemCount
     };
-    
-    cart_item.push(item);
+
+    cartItems.push(newItem);
 
     updateCartDisplay();
 }
@@ -33,34 +35,27 @@ function updateCartDisplay() {
 
     cartList.innerHTML = '';
 
-    cart_item.forEach((item, index) => {
+    cartItems.forEach((item, index) => {
         const listItem = document.createElement('li');
 
-        const img = document.createElement('img');
-        img.src = item.image
-        img.alt = item.name
-        img.width = '40px'
-
         const itemInfo = document.createElement('span');
+        itemInfo.textContent = `${item.name} - $${item.price.toFixed(2)} - ${item.count}`;
 
-        itemInfo.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+        const itemRemove = document.createElement('button');
+        itemRemove.textContent = 'Remove';
+        itemRemove.onclick = () => removeFromCart(index);
+        itemRemove.classList.add('rmvbtn');
 
-        const itemremove = document.createElement('button');
-        itemremove.textContent = 'Remove';
-        itemremove.onclick = () => removeFromCart(index);
-        itemremove.classList.add('rmvbtn')
-
-        listItem.appendChild(img)
-        listItem.appendChild(itemInfo)
-        listItem.appendChild(itemremove)
-
+        listItem.appendChild(itemInfo);
+        listItem.appendChild(itemRemove);
 
         cartList.appendChild(listItem);
     });
 }
 
 function removeFromCart(index) {
-    cart_item.splice(index, 1);
+    cartItems.splice(index, 1);
+
     updateCartDisplay();
 }
 
