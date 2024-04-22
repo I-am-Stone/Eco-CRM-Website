@@ -13,16 +13,13 @@ function closeDrawer(){
 }
 
 
+let cartItems = []; 
 
-// Define an array to store cart items
-let cartItems = [];
-
-// Function to add items to the cart
 function addToCart(productName, price, itemCount) {
     const newItem = {
         name: productName,
         price: price,
-        count: itemCount
+        count: parseInt(itemCount) 
     };
 
     cartItems.push(newItem);
@@ -30,16 +27,15 @@ function addToCart(productName, price, itemCount) {
     updateCartDisplay();
 }
 
+
 function updateCartDisplay() {
     const cartList = document.querySelector('.cart-list');
-
-    cartList.innerHTML = '';
+    cartList.innerHTML = ''; 
 
     cartItems.forEach((item, index) => {
         const listItem = document.createElement('li');
-
         const itemInfo = document.createElement('span');
-        itemInfo.textContent = `${item.name} - $${item.price.toFixed(2)} - ${item.count}`;
+        itemInfo.textContent = `${item.name} - Rs.${item.price.toFixed(2)} - Quantity: ${item.count}`;
 
         const itemRemove = document.createElement('button');
         itemRemove.textContent = 'Remove';
@@ -48,14 +44,12 @@ function updateCartDisplay() {
 
         listItem.appendChild(itemInfo);
         listItem.appendChild(itemRemove);
-
         cartList.appendChild(listItem);
     });
 }
 
 function removeFromCart(index) {
-    cartItems.splice(index, 1);
-
+    cartItems.splice(index, 1); 
     updateCartDisplay();
 }
 

@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-9k6u2=qln8pr2r&y(2&^^lo2isd3g@s#tfy*f7za59+!9r!aih
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -130,4 +130,5 @@ INTERNAL_IPS = [
 ]
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
+# settings.py
 

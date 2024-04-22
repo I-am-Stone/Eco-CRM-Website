@@ -5,8 +5,8 @@
   {% load static %}
   {% load static tailwind_tags %}
 
-    <section class="section">
-      <h3 class="section-title">T-Shirt</h3>
+<section class="section">
+    <h3 class="section-title">T-Shirt</h3>
 
   {% if cart %}
     {% for item in cart%}
@@ -23,15 +23,17 @@
             <p class="paragraph">{{item.product.description}}</p>
             <form class="item-add-to-cart">
               <input type="number" class="item-count" min="1" value="1">
-              <input type="button" data-loading-text="Adding to cart..." class="item-submit button" onclick="addToCart('{{ item.product.name }}', {{ item.retail_price }}, document.querySelector('.item-count').value)" value="Add to Cart">
+              <input type="button" data-loading-text="Adding to cart..." class="item-submit button"
+                     onclick="addToCart('{{ item.product.name }}', {{ item.retail_price }}, this.parentNode.querySelector('.item-count').value)"
+                     value="Add to Cart">
               <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit button button-filled">Buy Now</a>
-            </form>
+          </form>
           </div>
         </div>
       </div>
     {% endfor %}
   {% endif %}
-  </section>
+ </section>
     
 
 {% endblock %}
