@@ -390,6 +390,13 @@ h2 {
     padding: 2px;
 }
 
+.order-steps-wrpper{
+    margin-top: -61px;
+    flex: 0 800px;
+    margin-right:20px:
+
+}
+
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
 

@@ -12,6 +12,8 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['web_id', 'slug', 'name', 'description', 'created_at', 'updated_at']
     prepopulated_fields = {'slug':('name',)}
 
+    list_editable = ['name']
+
 @admin.register(ProductType)
 class ProductTypeAdmin(admin.ModelAdmin):
     list_display = ['name']
@@ -31,6 +33,7 @@ class ProductAttributeValuesAdmin(admin.ModelAdmin):
 @admin.register(ProductInventory)
 class ProductInventoryAdmin(admin.ModelAdmin):
     list_display =['sku','upc','product_type','product','is_active','retail_price','store_price','sale_price','weight','created_at','updated_at']
+    list_editable = ['retail_price','sale_price', 'store_price' ]
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
