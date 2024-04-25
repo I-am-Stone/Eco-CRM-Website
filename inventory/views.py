@@ -9,9 +9,11 @@ def home(request):
     cart = request.session.get('cart',[])
 
     if request.method == 'POST':
-        product_id = request.post.get('product_id')
-        quantity = int(request.POST.get('Quantity', 1))
-    
+        product_id = request.POST.get('product_id')
+        product_name = request.POST.get('product_name')
+        product_price = float(request.POST.get('product_price'))
+        quantity = int(request.POST.get('quantity'))
+
 
 
 

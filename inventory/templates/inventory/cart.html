@@ -21,8 +21,7 @@
             <h2 class="item-list-title">{{item.product.name}}</h2>
             <div class="product-list-price">Rs.{{item.retail_price}}</div>
             <p class="paragraph">{{item.product.description}}</p>
-            <form class="item-add-to-cart" action="{% url 'home' %}>
-              {% csrf_token %}
+            <form class="item-add-to-cart">
               <input type="number" class="item-count" min="1" value="1">
               <input type="button" data-loading-text="Adding to cart..." class="item-submit button"
                      onclick="addToCart('{{ item.product.name }}', {{ item.retail_price }}, this.parentNode.querySelector('.item-count').value)"
