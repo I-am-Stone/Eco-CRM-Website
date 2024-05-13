@@ -397,6 +397,12 @@ h2 {
 
 }
 
+.order-h1{
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
 
