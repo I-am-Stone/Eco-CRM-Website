@@ -6,7 +6,8 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("checkout", views.checkout, name="home"),
+    path("add_to_cart", views.add_to_cart, name="add_to_cart"),
+    path("cart", views.cart_details, name="cart"),
     path("checkout", views.checkout, name="checkout"),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

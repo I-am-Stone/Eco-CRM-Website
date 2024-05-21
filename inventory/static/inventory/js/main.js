@@ -13,54 +13,43 @@ function closeDrawer(){
 }
 
 
+// let cartItems = []; 
 
-let cart_item = [];
+// function addToCart(productName, price, itemCount) {
+//     const newItem = {
+//         name: productName,
+//         price: price,
+//         count: parseInt(itemCount) 
+//     };
 
-function addToCart(productName, price, ImageURL) {
-    const item = {
-        name: productName,
-        price: price,
-        image:ImageURL
-    };
-    
-    cart_item.push(item);
+//     cartItems.push(newItem);
 
-    updateCartDisplay();
-}
-
-function updateCartDisplay() {
-    const cartList = document.querySelector('.cart-list');
-
-    cartList.innerHTML = '';
-
-    cart_item.forEach((item, index) => {
-        const listItem = document.createElement('li');
-
-        const img = document.createElement('img');
-        img.src = item.image
-        img.alt = item.name
-        img.width = '40px'
-
-        const itemInfo = document.createElement('span');
-
-        itemInfo.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-
-        const itemremove = document.createElement('button');
-        itemremove.textContent = 'Remove';
-        itemremove.onclick = () => removeFromCart(index);
-        itemremove.classList.add('rmvbtn')
-
-        listItem.appendChild(img)
-        listItem.appendChild(itemInfo)
-        listItem.appendChild(itemremove)
+//     updateCartDisplay();
+// }
 
 
-        cartList.appendChild(listItem);
-    });
-}
+// function updateCartDisplay() {
+//     const cartList = document.querySelector('.cart-list');
+//     cartList.innerHTML = ''; 
 
-function removeFromCart(index) {
-    cart_item.splice(index, 1);
-    updateCartDisplay();
-}
+//     cartItems.forEach((item, index) => {
+//         const listItem = document.createElement('li');
+//         const itemInfo = document.createElement('span');
+//         itemInfo.textContent = `${item.name} - Rs.${item.price.toFixed(2)} - Quantity: ${item.count}`;
+
+//         const itemRemove = document.createElement('button');
+//         itemRemove.textContent = 'Remove';
+//         itemRemove.onclick = () => removeFromCart(index);
+//         itemRemove.classList.add('rmvbtn');
+
+//         listItem.appendChild(itemInfo);
+//         listItem.appendChild(itemRemove);
+//         cartList.appendChild(listItem);
+//     });
+// }
+
+// function removeFromCart(index) {
+//     cartItems.splice(index, 1); 
+//     updateCartDisplay();
+// }
 

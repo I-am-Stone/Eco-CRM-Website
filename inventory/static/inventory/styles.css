@@ -266,12 +266,9 @@ h2 {
 
 .item-count{
     width: 60px;
-    appearance: none;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    display: block;
+    border: 1px solid #ddd;
     line-height: 20px;
+    padding: 5px;
 }
 
 
@@ -391,6 +388,19 @@ h2 {
 .rmvbtn{
     color: red;
     padding: 2px;
+}
+
+.order-steps-wrpper{
+    margin-top: -61px;
+    flex: 0 800px;
+    margin-right:20px;
+
+}
+
+.order-h1{
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 @media only screen and (max-width: 1024px) {

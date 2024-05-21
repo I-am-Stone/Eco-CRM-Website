@@ -5,23 +5,27 @@
   {% load static %}
   {% load static tailwind_tags %}
 
-    <section class="section">
-      <h3 class="section-title">T-Shirt</h3>
+<section class="section">
+    <h3 class="section-title">T-Shirt</h3>
 
-  {% if cart %}
-    {% for item in cart%}
+  {% if products %}
+    {% for item in products%}
       <div class="item-list">
         <div class="product-list-item">
           <div class="product-list-item-img-wrap">
-            <img src="{{ item.media.image }}" alt="T-Shirt" class="product-list-images">
+          {% for media in item.media_product_inventory.all %}
+            <img src="{{ media.image }}" alt="{{ media.alt_text }}" class="product-list-images">
+          {% endfor %}
           </div>
           <div class="item-list-content-warp">
             <h2 class="item-list-title">{{item.product.name}}</h2>
             <div class="product-list-price">Rs.{{item.retail_price}}</div>
             <p class="paragraph">{{item.product.description}}</p>
             <form class="item-add-to-cart">
-              <input type="number" class="item-count">
-              <input type="button" data-loading-text="Adding to cart..." class="item-submit button" onclick="addToCart('Plain Black T-shirt', 100, '/inventory/images/tshirt-img.png')" value="Add to Cart">
+              {% csrf_token %}
+              <input type="hidden" name="product_id" value="{{ item.product.pk }}">
+              <input type="number" name="quantity" class="item-count" min="1" value="1">
+              <input type="submit" data-loading-text="Adding to cart..." class="item-submit button" value="Add to Cart">
               <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit button button-filled">Buy Now</a>
             </form>
           </div>
@@ -29,18 +33,31 @@
       </div>
     {% endfor %}
   {% endif %}
-    </section>
-    
-
+ </section>
 {% endblock %}
 
 
 {% block Cart %}
-    <div class="cart-item">
-      <ul class="cart-list">
-
-      </ul>
+  {% if cart_items %}
+    {% for product in cart_items %}
+      <div class="cart-item">
+        <ul class="cart-list">
+          <li>{{ product.product_name }}</li>
+          <li>Quantity: {{ product.quantity }}</li>
+          <li>Total: Rs.{{ product.item_total }}</li>
+        </ul>
+        <div class="product-list-item-img-wrap">
+          {% for media in product.media_product_inventory %}
+            <img src="{{ media.image.url }}" alt="{{ media.alt_text }}" class="product-list-images">
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    <div class="cart-total">
+      <strong>Total Price: Rs.{{ total_price }}</strong>
     </div>
-
-
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
 {% endblock %}
+
