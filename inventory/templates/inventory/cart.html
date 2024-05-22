@@ -37,7 +37,6 @@
 {% endblock %}
 
 
-
 {% block Cart %}
   {% if cart_items %}
     {% for item in cart_items %}
@@ -45,13 +44,11 @@
         <ul class="cart-list">
           <li>Quantity: {{ item.quantity }}</li>
           <li>Total: Rs.{{ item.item_total }}</li>
-          <li>{{item.product}}</li>
+          <li>{{ item.product_name }}</li>
           <li>
-            <div class="product-list-item-img-wrap">
-            {% for media in item.media_product_inventory  %}
-              <img src="{{ media.image }}" alt="{{ media.alt_text }}" class="product-list-images">
+            {% for media in item.media_info %}
+              <img src="{{ media.url }}" alt="{{ media.alt_text }}">
             {% endfor %}
-            </div>
           </li>
         </ul>
       </div>

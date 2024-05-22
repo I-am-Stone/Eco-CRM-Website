@@ -4,11 +4,7 @@ from inventory.models import *
 
 
 def home(request):
-    products = ProductInventory.objects.prefetch_related("media_product_inventory").all()
-    
-    context = {
-        'products': products
-    }
+    shop = ProductInventory.objects.prefetch_related("media_product_inventory").all()
 
     if request.method == "POST":
         product_id = request.POST.get('product_id')
@@ -32,23 +28,34 @@ def home(request):
     total_price = 0
 
     for product_id, quantity in cart.items():
-            product = ProductInventory.objects.prefetch_related("media_product_inventory").get(pk=product_id)
+        product = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk=product_id).first()
+            
+        if product:
             item_total = product.retail_price * int(quantity)
-            total_price += item_total
-            print(product)
+            product_name = product.product.name
+            media_info = [{'url': media.image, 'alt_text': media.alt_text} for media in product.media_product_inventory.all()]
 
-            cart_items.append({
+                      
+        total_price += item_total
+        print(product)
+
+        cart_items.append({
                 'product': product,
                 'quantity': quantity,
-                'item_total': item_total
+                'item_total': item_total,
+                'image': product,
+                'product_name':product_name,
+                'media_info':media_info
+
             })
+        print(cart_items)
 
     context = {
-        'products': products,
+        'products': shop,
         'cart_items': cart_items,
         'total_price': total_price
     }
-    print(context)
+    
     return render(request, "inventory/cart.html",context)
 
 
