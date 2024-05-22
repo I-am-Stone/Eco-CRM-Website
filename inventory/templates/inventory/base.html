@@ -40,7 +40,7 @@
       <div class="overlay-drawer" id ='myDrawer'>
         <div class="drawer-cards">
           <div class="cart-section">
-            <h4>Your Cart</h4>
+            <h4 class="text">Your Cart</h4>
           </div>
           <div class="closer">
             <button onclick="openDrawer()">
@@ -48,6 +48,7 @@
             </button>
           </div>
         </div>
+        {% block Cart %}{% endblock %}
       </div>
     </div>
   </header>
