@@ -13,19 +13,21 @@ def home(request):
     if request.method == "POST":
         product_id = request.POST.get('product_id')
         quantity = request.POST.get('quantity')
+        print(product_id)
 
 
 
         cart = request.session.get('cart', {})
 
         if product_id in cart:
-            cart[product_id] += quantity
+            cart[product_id] += int(quantity)
         else:
-            cart[product_id] = quantity
+            cart[product_id] = int(quantity)
 
         request.session['cart'] = cart
     
     cart = request.session.get('cart', {})
+    print(request.session.get('cart',{}))
     cart_items = []
     total_price = 0
 
@@ -33,6 +35,7 @@ def home(request):
             product = ProductInventory.objects.prefetch_related("media_product_inventory").get(pk=product_id)
             item_total = product.retail_price * int(quantity)
             total_price += item_total
+            print(product)
 
             cart_items.append({
                 'product': product,
@@ -45,6 +48,7 @@ def home(request):
         'cart_items': cart_items,
         'total_price': total_price
     }
+    print(context)
     return render(request, "inventory/cart.html",context)
 
 
