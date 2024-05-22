@@ -375,15 +375,7 @@ h2 {
     flex: 1;
 }
 
-.cart-item{
-    padding-top: 12px;
-    padding-bottom: 12px;
-    display: flex;
-}
 
-.cart-list{
-    text-decoration: none;
-}
 
 .rmvbtn{
     color: red;
@@ -402,6 +394,121 @@ h2 {
     margin-top: 0;
     margin-bottom: 0;
 }
+
+
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+.view-cart {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-list-item {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.cart-img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-info div {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.remove-item-btn {
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    align-self: start;
+}
+
+.remove-item-btn:hover {
+    background-color: #c53030;
+}
+
+.cart-total {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #000;
+}
+
+.cart-total strong {
+    color: #e63946;
+}
+
+.empty-cart {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+    margin: 20px auto;
+}
+
+@media (max-width: 600px) {
+    .view-cart {
+        padding: 10px;
+    }
+
+    .cart-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-img {
+        max-width: 80px;
+        max-height: 80px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .cart-item-info {
+        align-items: flex-start;
+    }
+
+    .cart-item-info div {
+        font-size: 14px;
+    }
+
+    .remove-item-btn {
+        font-size: 12px;
+    }
+
+    .cart-total {
+        font-size: 16px;
+    }
+}
+
+
 
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
