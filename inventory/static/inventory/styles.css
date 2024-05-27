@@ -457,10 +457,10 @@ body {
 }
 
 .cart-total {
-    text-align: right;
     margin-top: 20px;
     font-size: 18px;
     color: #000;
+    
 }
 
 .cart-total strong {

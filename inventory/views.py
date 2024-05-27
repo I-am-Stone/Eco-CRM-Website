@@ -10,8 +10,7 @@ def home(request):
         quantity = request.POST.get('quantity')
         print(product_id)
 
-
-
+        # Retrieve the cart from the session, defaulting to an empty dictionary if it doesn't exist
         cart = request.session.get('cart', {})
 
         if product_id in cart:
@@ -19,6 +18,7 @@ def home(request):
         else:
             cart[product_id] = int(quantity)
 
+        # Save the updated cart back to the session
         request.session['cart'] = cart
     
     cart = request.session.get('cart', {})
