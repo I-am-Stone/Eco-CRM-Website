@@ -452,7 +452,7 @@ body {
     align-self: start;
 }
 
-.remove-item-btn:hover {
+.remove-item-btn {
     background-color: #c53030;
 }
 
