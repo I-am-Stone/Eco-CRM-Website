@@ -442,7 +442,7 @@ body {
 
 .remove-item-btn {
     background-color: #e63946;
-    color: white;
+    color: #000;
     border: none;
     padding: 8px 12px;
     margin-top: 10px;
@@ -452,9 +452,7 @@ body {
     align-self: start;
 }
 
-.remove-item-btn {
-    background-color: #c53030;
-}
+
 
 .cart-total {
     margin-top: 20px;
@@ -467,12 +465,6 @@ body {
     color: #e63946;
 }
 
-.empty-cart {
-    text-align: center;
-    font-size: 18px;
-    color: #888;
-    margin: 20px auto;
-}
 
 @media (max-width: 600px) {
     .view-cart {
