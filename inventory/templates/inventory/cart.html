@@ -51,7 +51,7 @@
             <div>Quantity: {{ item.quantity }}</div>
             <div>Total: Rs.{{ item.item_total }}</div>
             <div>{{ item.product_name }}</div>
-            <button class="remove-item-btn" data-item-id="{{ item.product.pk }}">Remove</button>
+            <button onclick="removeFromCart('{{ item.product.id }}')" class="remove-item-btn">Remove</button>
         </li>
         </ul>
       </div>

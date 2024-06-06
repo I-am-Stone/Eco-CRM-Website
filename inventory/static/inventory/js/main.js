@@ -7,23 +7,40 @@ function closeDrawer() {
 }
 
 // main.js
-console.log("main.js is loaded");
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
 
-$(document).ready(function () {
-  $(".remove-item-btn").click(function () {
-    console.log("Remove button clicked"); // Add this line for debugging
-    var itemId = $(this).data("item-id");
-    $.ajax({
-      type: "POST",
-      url: "/remove-from-cart/",
-      data: {
-        remove_item_id: itemId,
-        csrfmiddlewaretoken: "{{ csrf_token }}",
+function removeFromCart(productId) {
+  const csrftoken = getCookie('csrftoken');
+
+  fetch("{% url 'home' %}", {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
       },
-      success: function (data) {
-        // Update the cart display as needed
-        location.reload(); // Refresh the page for simplicity, you can update the cart dynamically instead
-      },
-    });
+      body: JSON.stringify({
+          'remove_item_id': productId
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.message) {
+          location.reload();  // Refresh the page to update the cart
+      } else {
+          alert(data.error);
+      }
   });
-});
+}
