@@ -23,24 +23,23 @@ function getCookie(name) {
 }
 
 function removeFromCart(productId) {
-  const csrftoken = getCookie('csrftoken');
-
-  fetch("{% url 'home' %}", {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken,
-      },
-      body: JSON.stringify({
-          'remove_item_id': productId
-      })
-  })
-  .then(response => response.json())
-  .then(data => {
-      if (data.message) {
-          location.reload();  // Refresh the page to update the cart
-      } else {
-          alert(data.error);
-      }
-  });
+    fetch("{% url 'home' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token for security
+        },
+        body: JSON.stringify({ 'product_id': productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Item removed from cart');
+            // Optionally, you can remove the item from the DOM here
+            document.querySelector(`#item-${productId}`).remove();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }

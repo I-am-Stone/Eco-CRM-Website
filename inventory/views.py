@@ -48,6 +48,10 @@ def home(request):
         'total_price': total_price
     }
 
+    if product_id in cart:
+        del cart[product_id]
+        request.session['cart'] = cart
+
     return render(request, "inventory/cart.html", context)
 
 
