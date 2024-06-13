@@ -27,7 +27,7 @@
                           <input type="number" name="quantity" class="item-count" min="1" value="1">
                           <input type="submit" data-loading-text="Adding to cart..." class="item-submit button" value="Add to Cart">
                           <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit button button-filled">Buy Now</a>
-                      </form>                      
+                        </form>                      
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
 {% block Cart %}
   {% if cart_items %}
     {% for item in cart_items %}
-      <div class="view-cart">
+      <div class="view-cart" id="cart-item-{{ item.product.id }}">
         <ul class="cart-list-item">
           <li>
             {% for media in item.media_info %}
@@ -51,8 +51,10 @@
             <div>Quantity: {{ item.quantity }}</div>
             <div>Total: Rs.{{ item.item_total }}</div>
             <div>{{ item.product_name }}</div>
-            <button onclick="removeFromCart('{{ item.product.id }}')" class="remove-item-btn">Remove</button>
-        </li>
+            <div id="item-{{ item.product.pk }}">
+              <button onclick="removeFromCart('{{ item.product.pk }}')" class="remove-item-btn">Remove</button>
+            </div>
+          </li>
         </ul>
       </div>
     {% endfor %}
@@ -62,8 +64,7 @@
   {% else %}
     <p>Your cart is empty.</p>
   {% endif %}
-{% endblock %}
-
+  {% endblock %}
 
 
 
