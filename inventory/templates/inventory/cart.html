@@ -51,9 +51,11 @@
             <div>Quantity: {{ item.quantity }}</div>
             <div>Total: Rs.{{ item.item_total }}</div>
             <div>{{ item.product_name }}</div>
-            <div id="item-{{ item.product.pk }}">
-              <button onclick="removeFromCart('{{ item.product.pk }}')" class="remove-item-btn">Remove</button>
-            </div>
+            <form method="post" action="{% url 'remove_from_cart' %}">
+              {% csrf_token %}
+              <input type="hidden" name="remove_item_id" value="{{ item.product.id }}">
+              <button type="submit" class="remove-item-btn">Remove</button>
+            </form>  
           </li>
         </ul>
       </div>

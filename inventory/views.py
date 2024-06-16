@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from inventory.models import *
 from django.http import JsonResponse
-
+import json
 
 
 def home(request):
@@ -59,16 +59,13 @@ def checkout(request):
 
 def remove_from_cart(request):
     if request.method == "POST":
-        product_id = request.POST.get('product_id')
+        remove_item_id = request.POST.get('remove_item_id')
         cart = request.session.get('cart', {})
-
-        if product_id in cart:
-            del cart[product_id]
+        
+        if remove_item_id in cart:
+            del cart[remove_item_id]
             request.session['cart'] = cart
-
-        return JsonResponse({'success': True})
     
-    return JsonResponse({'success': False})
-
+    return redirect('home')
 
 
