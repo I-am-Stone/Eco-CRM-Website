@@ -25,8 +25,8 @@
                           {% csrf_token %}
                           <input type="hidden" name="product_id" value="{{ item.product.pk }}">
                           <input type="number" name="quantity" class="item-count" min="1" value="1">
-                          <input type="submit" data-loading-text="Adding to cart..." class="item-submit button" value="Add to Cart">
-                          <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit button button-filled">Buy Now</a>
+                          <input type="submit" data-loading-text="Adding to cart..." class="item-submit btn-design" value="Add to Cart">
+                          <a href="{% static '/templates/inventory/checkout.html' %}" class="item-submit btn-design button-filled">Buy Now</a>
                         </form>                      
                     </div>
                 </div>

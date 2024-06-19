@@ -37,13 +37,55 @@
                 <div class='checkout-line'></div>
                 <div class='checkout-link'>
                     <div class='checkout-link-text'>Payment</div>
+                    <div class="checkout-bc-line dotted"></div>
                 </div>
             </div>
         <div>
     </div>
-    <div class="order-steps-wrapper">
-        <div class="checkout-title-wrapper">
-            <h1 class="order-h1">Your Order</h1>
+    <div class="checkout-body">
+        <div class="checkout-wrapper">
+            <div class="order-steps-wrapper">
+                <div class="checkout-title-wrapper">
+                    <h1 class="order-h1">Your Order</h1>
+                    <div class="checkout-bc-line-new dotted"></div>
+                </div>
+            </div>
+            <div class="order-summary-wrapper">
+                <div class="order-summary-content">
+                    <div class="order-summary">
+                        <div class="order-summary-section top">
+                            <div class="order-summary-title order-summary-title-solo">Order Summary</div>
+                        </div>
+                    </div>
+                    <div class="order-items">
+                        <fieldset class="order-summary-section">
+                            <div class="order-summary-title">Posters</div>
+                            <div role="list" class="order-item-list">
+                                <!-- Order items will be injected here -->
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="order-summary-2">
+                        <fieldset class="price-summary">
+                            <div class="summary-line-item">
+                                <div class="grey-subtitle-text">Posters</div>
+                                <div class="grey-subtitle-text grey-subtitle-text-black">$0 USD</div>
+                            </div>
+                            <div class="grey-line-2"></div>
+                            <div class="summary-line-item total">
+                                <div class="order-summary-title order-summary-title-solo">Total</div>
+                                <div class="order-total-price">$0 USD</div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <form class="discounts">
+                        <label for="discount-code" class="order-summary-title">Discount Code</label>
+                        <input id="discount-code" class="text-field" type="text" maxlength="256" name="discount-code" placeholder="">
+                        <button class="button" type="button">Apply</button>
+                    </form>
+                </div>
+                <a href="#" class="pay-button">Place Order</a>
+            </div>
         </div>
     </div>
 </body>

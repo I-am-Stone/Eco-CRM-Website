@@ -276,7 +276,7 @@ h2 {
     padding: 1rem;
 }
 
-.button {
+.btn-design {
     display: flex;
     height: 50px;
     margin-top: 0;
@@ -386,23 +386,25 @@ h2 {
     margin-top: -61px;
     flex: 0 800px;
     margin-right:20px;
+}
+
+.checkout-title-wrapper{
+    align-items: center;
+    margin-bottom: 45px;
+    display: flex;
 
 }
 
 .order-h1{
     color: #fff;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 45px;
+    font-family: 'neon',sans-serif;
+    font-size: 50px;
+
 }
 
 
-/* General styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 0;
-}
+
 
 .view-cart {
     background-color: #ffffff;
@@ -465,7 +467,48 @@ body {
     color: #e63946;
 }
 
+.checkout-wrapper{
+    width: auto;
+    min-height: auto;
+    background-color: transparent;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 0 40px 40px;
+    font-family: IBM Plex Mono, sans-serif;
+    display: flex;
 
+}
+
+.checkout-body{
+    background-color: var(--white);
+    padding-top: 0;
+    padding-bottom: 65px;
+}
+
+.checkout-bc-line.dotted {
+    border: 1px dashed #000;
+}
+
+.checkout-bc-line {
+    height: 0.2px;
+    background-color: #fff;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.checkout-bc-line-new.dotted {
+    border: 1px dashed #000;
+}
+
+.checkout-bc-line-new{
+    height: 0.2px;
+    background-color: #fff;
+    flex: 1;
+    box-sizing: border-box;
+
+}
 @media (max-width: 600px) {
     .view-cart {
         padding: 10px;
@@ -500,7 +543,36 @@ body {
     }
 }
 
+.order-summary-wrapper {
 
+    margin-top: -61px;
+    flex: 0 0 320px;
+    position: sticky;
+    top: 20px
+}
+
+.order-summary-content {
+    border: 1px solid #000;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 50px -4px rgba(0,0,0,.12);
+}
+
+.order-summary-section {
+    border-style: none none solid;
+    border-width: 1px;
+    border-color: black black var(--grey-line);
+    background-color: #fff;
+    padding: 20px;
+}
+
+.order-summary-title {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.order-summary{
+    margin-bottom: 0;
+}
 
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
