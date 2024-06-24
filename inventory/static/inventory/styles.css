@@ -300,6 +300,9 @@ h2 {
     color: #fff;
 }
 
+
+/* Cart.html design */
+
 .section-hero{
     min-height: 30vh;
     background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
@@ -382,27 +385,6 @@ h2 {
     padding: 2px;
 }
 
-.order-steps-wrpper{
-    margin-top: -61px;
-    flex: 0 800px;
-    margin-right:20px;
-}
-
-.checkout-title-wrapper{
-    align-items: center;
-    margin-bottom: 45px;
-    display: flex;
-
-}
-
-.order-h1{
-    color: #fff;
-    margin-top: 45px;
-    font-family: 'neon',sans-serif;
-    font-size: 50px;
-
-}
-
 
 
 
@@ -481,22 +463,7 @@ h2 {
 
 }
 
-.checkout-body{
-    background-color: var(--white);
-    padding-top: 0;
-    padding-bottom: 65px;
-}
 
-.checkout-bc-line.dotted {
-    border: 1px dashed #000;
-}
-
-.checkout-bc-line {
-    height: 0.2px;
-    background-color: #fff;
-    flex: 1;
-    box-sizing: border-box;
-}
 
 .checkout-bc-line-new.dotted {
     border: 1px dashed #000;
@@ -509,6 +476,29 @@ h2 {
     box-sizing: border-box;
 
 }
+
+.order-steps-wrapper{
+    margin-top: -31px;
+    flex: 0 800px;
+    margin-right:20px;
+}
+
+.checkout-title-wrapper{
+    align-items: center;
+    margin-bottom: 45px;
+    display: flex;
+
+}
+
+.order-h1{
+    color: #fff;
+    margin-top: 45px;
+    font-family: 'neon',sans-serif;
+    font-size: 50px;
+
+}
+
+
 @media (max-width: 600px) {
     .view-cart {
         padding: 10px;
@@ -543,36 +533,9 @@ h2 {
     }
 }
 
-.order-summary-wrapper {
 
-    margin-top: -61px;
-    flex: 0 0 320px;
-    position: sticky;
-    top: 20px
-}
 
-.order-summary-content {
-    border: 1px solid #000;
-    margin-bottom: 20px;
-    box-shadow: 0 15px 50px -4px rgba(0,0,0,.12);
-}
 
-.order-summary-section {
-    border-style: none none solid;
-    border-width: 1px;
-    border-color: black black var(--grey-line);
-    background-color: #fff;
-    padding: 20px;
-}
-
-.order-summary-title {
-    font-size: 15px;
-    font-weight: 400;
-}
-
-.order-summary{
-    margin-bottom: 0;
-}
 
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
