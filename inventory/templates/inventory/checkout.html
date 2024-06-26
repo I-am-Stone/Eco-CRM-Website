@@ -28,7 +28,7 @@
         <div class='section-checkout'>
             <div class='section-checkout-wrapper'>
                 <div class='checkout-link'>
-                    <div class='checkout-link-text'>Summry</div>
+                    <div class='checkout-link-text'>Summary</div>
                 </div>
                 <div class='checkout-line'></div>
                 <div class='checkout-link'>
@@ -40,17 +40,43 @@
                     <div class="checkout-bc-line dotted"></div>
                 </div>
             </div>
-        <div>
+        </div>
     </div>
-    <div class="checkout-wrapper">
-        <div class="order-steps-wrapper">
-            <div class="checkout-title-wrapper">
-                <h1 class="order-h1">Your Order</h1>
-                <div class="checkout-bc-line-new dotted"></div>
+    <div class="section checkout-body">
+        <div class="checkout-wrapper">
+            <div class="order-steps-wrapper">
+                <div class="checkout-title-wrapper">
+                    <h1 class="order-h1">Your Order</h1>
+                </div>
+                <div class="order-step-item">
+                    <div class="order-step-title">
+                        <div class="checkout-section-title">1.Summary</div>
+                    </div>
+                    <div class="order-step-content">
+                        <div class="order-items-wrapper">
+                            <fieldset class="order-items-content">
+
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-step-item">
+                    <div class="order-step-title">
+                        <div class="checkout-section-title">2.Shipping</div>
+                        <div>• Required</div>
+                        <div class="order-step-content">
+                            <form class="customer-info">
+                                <fieldset class="items">
+                                    <label class="text-field-label">Email</label>
+                                    <input class="text-field" type="text" name="email">
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-        
 </body>
 <script src="{% static 'inventory/js/main.js' %}">
 </script>
