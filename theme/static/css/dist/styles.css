@@ -438,7 +438,7 @@ video {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: #fff;
+  background-color: gainsboro;
   border-color: #6b7280;
   border-width: 1px;
   border-radius: 0px;
