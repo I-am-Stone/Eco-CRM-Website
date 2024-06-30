@@ -54,6 +54,7 @@ def home(request):
 
 
 def checkout(request):
+    cart = request.session.get('cart', {})
     return render(request, "inventory/checkout.html")
 
 
