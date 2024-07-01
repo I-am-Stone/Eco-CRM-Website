@@ -559,31 +559,29 @@ h2 {
     line-height: 1em
 }
 
-.order-step-content{
+.order-step-content {
     background-color: transparent;
     border-top: 1px solid #e0e0e0;
     padding: 10px 36px;
     display: block;
-    position: static
+    position: static;
 }
 
-.order-items-content{
-    border: 1px #000;
+.order-items-content {
     padding: 30px 0;
 }
 
-.customer-info{
+.customer-info {
     margin-bottom: 0;
 }
 
-.items{
-    border: 1px #000;
+.items {
     padding-bottom: 0;
     background-color: #fff;
     padding: 20px;
 }
 
-.text-field-label{
+.text-field-label {
     letter-spacing: .5px;
     font-size: 13px;
     font-weight: 500;
@@ -592,17 +590,29 @@ h2 {
     display: block;
 }
 
-.text-field{
+.text-field {
+    background-color: gainsboro;
     height: 40px;
     margin-bottom: 15px;
     font-size: 16px;
-    width: 18cm;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.checkoutrow{
+.checkoutrow {
     margin-left: -8px;
     margin-right: -8px;
     display: flex;
+}
+
+.checkoutcolumn {
+    flex: 1;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.size {
+    width: 100%;
 }
 
 .cart-footer{
