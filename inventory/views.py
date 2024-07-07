@@ -54,7 +54,27 @@ def home(request):
 
 
 def checkout(request):
-    return render(request, "inventory/checkout.html")
+    cart_items = []
+    cart = request.session.get('cart', {})
+    for product_id, quantity in cart.items():
+        product = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk=product_id).first()
+        
+        if product:
+            item_total = product.retail_price * int(quantity)
+            product_name = product.product.name
+            media_info = [{'url': media.image, 'alt_text': media.alt_text} for media in product.media_product_inventory.all()]
+
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'item_total': item_total,
+                'product_name': product_name,
+                'media_info': media_info
+            })
+    context = {
+        'cart_items': cart_items,
+    }
+    return render(request, "inventory/checkout.html", context)
 
 
 def remove_from_cart(request):
