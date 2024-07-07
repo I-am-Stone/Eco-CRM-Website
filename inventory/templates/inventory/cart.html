@@ -26,7 +26,7 @@
                           <input type="hidden" name="product_id" value="{{ item.product.pk }}">
                           <input type="number" name="quantity" class="item-count" min="1" value="1">
                           <input type="submit" data-loading-text="Adding to cart..." class="item-submit btn-design" value="Add to Cart">
-                          <a href="{% url 'checkout' %}" class="item-submit btn-design button-filled">Buy Now</a>
+                          <button type="submit" formaction="{% url 'buy_now' %}" class="item-submit btn-design button-filled">Buy Now</button>                        
                         </form>                      
                     </div>
                 </div>

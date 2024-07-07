@@ -691,6 +691,41 @@ h2 {
     display: flex;
 }
 
+
+.order-product {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 20px;
+    max-width: 600px;
+}
+
+.order-product-image {
+    max-width: 150px;
+    height: auto;
+}
+
+.order-product-details {
+    flex-grow: 1;
+    padding: 0 20px;
+}
+
+.order-product-price {
+    white-space: nowrap;
+}
+
+.product-details h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.product-details p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+
 @media only screen and (max-width: 1024px) {
   /* Styles for screens up to 600px wide (typically mobile devices) */
 
