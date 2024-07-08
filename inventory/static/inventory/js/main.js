@@ -5,3 +5,14 @@ function openDrawer() {
 function closeDrawer() {
   document.getElementById("myDrawer").classList.toggle("active");
 }
+
+
+
+// document.getElementById('buy-now').addEventListener('click', function(){
+//   var product_id = do
+// })
+
+
+
+
+

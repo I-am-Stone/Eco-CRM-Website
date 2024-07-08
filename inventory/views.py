@@ -65,6 +65,7 @@ def checkout(request):
     }
     return render(request, "inventory/checkout.html", context)
 
+
 def remove_from_cart(request):
     if request.method == "POST":
         remove_item_id = request.POST.get('remove_item_id')
@@ -75,6 +76,7 @@ def remove_from_cart(request):
             request.session['cart'] = cart
     
     return redirect('home')
+
 
 def buy_now(request):
     if request.method == "POST":
