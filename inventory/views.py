@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from inventory.models import *
 from django.http import JsonResponse
 import json
-from .form import CustomerInfoForm
 
 
 def get_cart_items(cart):
@@ -93,17 +92,6 @@ def buy_now(request):
 
 
 
-
-def customer_info_view(request):
-    if request.method == 'POST':
-        form = CustomerInfoForm(request.POST)
-        if form.is_valid():
-            # Process the form data
-            return render(request, 'success.html')
-    else:
-        form = CustomerInfoForm()
-
-    return render(request, 'template.html', {'form': form})
 
 
 
