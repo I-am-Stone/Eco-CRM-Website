@@ -92,18 +92,25 @@
                                 <input class="text-field" type="email" name="email">
                                 <label class="text-field-label">FULL NAME *</label>
                                 <input class="text-field" type="text" name="customer">
-                                <label class="text-field-label">PHONE NUMBER *</label>
-                                <input class="text-field" type="tel" name="phone">
+                                <label class="text-field-label">PHONE NUMBER *</label><input class="text-field" type="tel" name="phone">
                                 <label class="text-field-label">STREET ADDRESS *</label>
                                 <input class="text-field" type="text" name="address">
                                 <div class="checkoutrow">
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">CITY *</label>
-                                        <input class="text-field size" type="text" name="city">
+                                        <select class="text-field size" name="state" id="stateSelect" required>
+                                            <option value="">city</option>
+                                            <option value="Bagmati">Kathmandu</option>
+                                            <!-- Add more options for other states/provinces in Nepal as needed -->
+                                        </select>
                                     </div>
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">STATE/PROVINCE *</label>
-                                        <input class="text-field size" type="text" name="state">
+                                        <select class="text-field size" name="state" id="stateSelect" required>
+                                            <option value="">Select State/Province</option>
+                                            <option value="Bagmati">Bagmati</option>
+                                            <!-- Add more options for other states/provinces in Nepal as needed -->
+                                        </select>
                                     </div>
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">ZIP/POSTAL CODE *</label>
