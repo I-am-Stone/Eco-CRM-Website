@@ -39,6 +39,8 @@ class ProductInventoryAdmin(admin.ModelAdmin):
 class MediaAdmin(admin.ModelAdmin):
     list_display = ['product_inventory','image','alt_text','is_feature','created_at','updated_at']
 
+    list_editable = ['image','alt_text']
+
 @admin.register(Stock)
 class stockAdmin(admin.ModelAdmin):
     list_display = ['product_inventory', 'last_checked', 'units','units_sold']

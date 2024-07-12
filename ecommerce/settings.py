@@ -53,7 +53,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
+
 ]
 
 ROOT_URLCONF = "ecommerce.urls"
@@ -133,3 +133,5 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # settings.py
 
+SESSION_COOKIE_AGE = 10800  # 3 hours in seconds
+SESSION_SAVE_EVERY_REQUEST = True  # Optionally, save the session to keep it active

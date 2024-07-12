@@ -229,7 +229,7 @@ button,
 [type='submit'] {
   -webkit-appearance: button;
   /* 1 */
-  background-color: transparent;
+  /* background-color: transparent; */
   /* 2 */
   background-image: none;
   /* 2 */
@@ -438,8 +438,6 @@ video {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: #fff;
-  border-color: #6b7280;
   border-width: 1px;
   border-radius: 0px;
   padding-top: 0.5rem;
