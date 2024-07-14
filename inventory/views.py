@@ -4,7 +4,6 @@ from django.http import JsonResponse
 import json
 import re
 from .form import CustomerForm
-from .models import customer
 
 def get_cart_items(cart):
     cart_items = []
@@ -107,8 +106,21 @@ def customerInfo(request):
             street = form.cleaned_data['street']
             city = form.cleaned_data['city']
             state = form.cleaned_data['state']
+            phone = form.cleaned_data['phone']
             zip = form.cleaned_data['zip']
             country = form.cleaned_data['country']
+
+            new_customer = customer(
+                email=email,
+                name=name,
+                phone=phone,
+                street=street,
+                city=city,
+                state=state,
+                zip=zip,
+                country=country
+            )
+            new_customer.save()
 
             # Perform any necessary actions (e.g., save to the database)
 
