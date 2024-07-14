@@ -86,22 +86,28 @@
                         <div>• Required</div>
                     </div>
                     <div class="order-step-content">
-                        <form class="customer-info" action="{% url 'customerinfo' %}">
+                        <form class="customer-info" method="POST" action="{% url 'customerInfo' %}">
+                            {% csrf_token %}
                             <fieldset class="items">
                                 <label class="text-field-label">EMAIL *</label>
-                                <input class="text-field" type="email" name="email">
+                                <input class="text-field" type="email" name="email" required>
+                                
                                 <label class="text-field-label">FULL NAME *</label>
-                                <input class="text-field" type="text" name="customer">
-                                <label class="text-field-label">PHONE NUMBER *</label><input class="text-field" type="tel" name="phone">
+                                <input class="text-field" type="text" name="name" required>
+                                
+                                <label class="text-field-label">PHONE NUMBER *</label>
+                                <input class="text-field" type="tel" name="phone" required>
+                                
                                 <label class="text-field-label">STREET ADDRESS *</label>
-                                <input class="text-field" type="text" name="address">
+                                <input class="text-field" type="text" name="address" required>
+                                
                                 <div class="checkoutrow">
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">CITY *</label>
-                                        <select class="text-field size" name="state" id="stateSelect" required>
+                                        <select class="text-field size" name="city" id="stateSelect" required>
                                             <option value="">city</option>
                                             <option value="Bagmati">Kathmandu</option>
-                                            <!-- Add more options for other states/provinces in Nepal as needed -->
+                                            <!-- Add more options for other cities in Nepal as needed -->
                                         </select>
                                     </div>
                                     <div class="checkoutcolumn">
@@ -114,13 +120,15 @@
                                     </div>
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">ZIP/POSTAL CODE *</label>
-                                        <input class="text-field size" type="text" name="zip">
+                                        <input class="text-field size" type="text" name="zip" required>
                                     </div>
                                 </div>
+                                
                                 <label class="text-field-label">COUNTRY *</label>
-                                <input class="text-field" type="text" name="country">
+                                <input class="text-field" type="text" name="country" required>
 
                             </fieldset>
+                            <input type="submit" data-loading-text="submiting..." class="item-submit btn-design" value="submit">
                         </form>
                     </div>                    
                 </div>

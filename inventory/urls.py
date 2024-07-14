@@ -9,6 +9,7 @@ urlpatterns = [
     path('checkout', views.checkout, name='checkout'),
     path('remove_from_cart/', views.remove_from_cart, name='remove_from_cart'),
     path('buy_now/', views.buy_now, name='buy_now'),
+    path('customerInfo', views.customerInfo, name='customerInfo'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

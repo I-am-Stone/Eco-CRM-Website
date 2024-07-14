@@ -396,3 +396,17 @@ class ProductAttributeValues(models.Model):
 
     class Meta:
         unique_together = (("attributevalues", "productinventory"),)
+
+
+class customer(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20)
+    street = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip = models.CharField(max_length=20)
+    country = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
