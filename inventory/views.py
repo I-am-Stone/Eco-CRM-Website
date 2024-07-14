@@ -93,7 +93,15 @@ def buy_now(request):
 
 
 
-
+def customerInfo(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        name = request.POST.get('customer')
+        street = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip = request.POST.get('zip')
+        country = request.POST.get('country')
 
 
 

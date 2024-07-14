@@ -86,7 +86,7 @@
                         <div>• Required</div>
                     </div>
                     <div class="order-step-content">
-                        <form class="customer-info">
+                        <form class="customer-info" method="POST" action="{% url 'customerInfo' %}">
                             <fieldset class="items">
                                 <label class="text-field-label">EMAIL *</label>
                                 <input class="text-field" type="email" name="email">
@@ -98,7 +98,7 @@
                                 <div class="checkoutrow">
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">CITY *</label>
-                                        <select class="text-field size" name="state" id="stateSelect" required>
+                                        <select class="text-field size" name="city" id="stateSelect" required>
                                             <option value="">city</option>
                                             <option value="Bagmati">Kathmandu</option>
                                             <!-- Add more options for other states/provinces in Nepal as needed -->
@@ -119,7 +119,6 @@
                                 </div>
                                 <label class="text-field-label">COUNTRY *</label>
                                 <input class="text-field" type="text" name="country">
-
                             </fieldset>
                         </form>
                     </div>                    
