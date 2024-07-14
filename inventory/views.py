@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from inventory.models import *
 from django.http import JsonResponse
 import json
-
+import re
+from .form import CustomerForm
+from .models import customer
 
 def get_cart_items(cart):
     cart_items = []
@@ -93,15 +95,29 @@ def buy_now(request):
 
 
 
+
+
 def customerInfo(request):
     if request.method == "POST":
-        email = request.POST.get('email')
-        name = request.POST.get('customer')
-        street = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        zip = request.POST.get('zip')
-        country = request.POST.get('country')
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            # Process the valid form data
+            email = form.cleaned_data['email']
+            name = form.cleaned_data['name']
+            street = form.cleaned_data['street']
+            city = form.cleaned_data['city']
+            state = form.cleaned_data['state']
+            zip = form.cleaned_data['zip']
+            country = form.cleaned_data['country']
+
+            # Perform any necessary actions (e.g., save to the database)
+
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
 
 
 

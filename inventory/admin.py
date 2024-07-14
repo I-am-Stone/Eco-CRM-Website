@@ -57,3 +57,8 @@ class ValuesAdmin(admin.ModelAdmin):
 # admin.site.register(Media)
 # admin.site.register(Stock)
 # admin.site.register(ProductAttributeValues)
+
+@admin.register(customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'city', 'state', 'country', 'created_at')
+    search_fields = ('name', 'email', 'phone')
