@@ -135,3 +135,8 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 SESSION_COOKIE_AGE = 10800  # 3 hours in seconds
 SESSION_SAVE_EVERY_REQUEST = True  # Optionally, save the session to keep it active
+INTEGRATION = {
+    'loaders': [
+        'tailwind.loaders.TailwindLoader',
+    ]
+}
