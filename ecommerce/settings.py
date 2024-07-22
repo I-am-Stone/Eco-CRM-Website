@@ -20,6 +20,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
 INSTALLED_APPS = [
     # Local applications
     "inventory.apps.InventoryConfig",
+    "dashboard.apps.DashboardConfig",
     
     # Django applications
     "django.contrib.admin",
