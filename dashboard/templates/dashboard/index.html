@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@1.14.0/dist/full.css" rel="stylesheet">
+  <style>
+    .sidebar {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+<!-- Sidebar -->
+<div class="sidebar bg-gray-800 text-white w-64 h-screen fixed top-0 left-0 flex flex-col">
+  <div class="p-4">
+    <h1 class="text-xl font-semibold">Dashboard</h1>
+  </div>
+  <nav class="flex-1">
+    <ul>
+      <li>
+        <a href="#" class="block p-4 hover:bg-gray-700">Home</a>
+      </li>
+      <li>
+        <a href="#" class="block p-4 hover:bg-gray-700">Orders</a>
+      </li>
+      <li>
+        <a href="#" class="block p-4 hover:bg-gray-700">Products</a>
+      </li>
+      <li>
+        <a href="#" class="block p-4 hover:bg-gray-700">Customers</a>
+      </li>
+      <li>
+        <a href="#" class="block p-4 hover:bg-gray-700">Reports</a>
+      </li>
+      <li>
+        <a href="#" class="block p-4 hover:bg-gray-700">Settings</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="p-4 border-t border-gray-700">
+    <a href="#" class="block text-gray-400 hover:text-white">Logout</a>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="ml-64 p-6">
+  <!-- Header -->
+  <div class="header bg-white p-4 flex justify-between items-center">
+    <h2 class="text-2xl font-semibold">Welcome, User!</h2>
+    <div>
+      <button class="btn btn-primary">Add New</button>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Card 1 -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-lg font-semibold">Total Sales</h3>
+      <p class="text-2xl font-bold mt-2">$15,000</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-lg font-semibold">Orders Pending</h3>
+      <p class="text-2xl font-bold mt-2">45</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-lg font-semibold">New Customers</h3>
+      <p class="text-2xl font-bold mt-2">12</p>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
