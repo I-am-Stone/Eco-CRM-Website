@@ -2,6 +2,7 @@
 from django import forms
 import re
 
+
 class CustomerForm(forms.Form):
     email = forms.EmailField()
     name = forms.CharField(max_length=100)
@@ -11,7 +12,6 @@ class CustomerForm(forms.Form):
     state = forms.CharField(max_length=100, required=False)
     zip = forms.CharField(max_length=20, required=False)
     country = forms.CharField(max_length=100, required=False)
-
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
