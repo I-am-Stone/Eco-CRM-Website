@@ -114,9 +114,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = ["127.0.0.1"]
 
 # NPM binary path for Tailwind
-# NPM_BIN_PATH = " /usr/bin/npm"
+NPM_BIN_PATH = "/home/stone/.nvm/versions/node/v22.4.1/bin/npm"
 
-NPM_BIN_PATH = '/usr/bin/npm'
+# NPM_BIN_PATH = '/usr/bin/npm'
 # Session settings
 SESSION_COOKIE_AGE = 10800  # 3 hours in seconds
 SESSION_SAVE_EVERY_REQUEST = True
