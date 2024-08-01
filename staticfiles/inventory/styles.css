@@ -43,7 +43,7 @@ body {
     overflow: hidden;
     color: #000;
     z-index: 1001;
-    box-shadow: 0px 0px 1000px #494F55;
+    box-shadow: 0 0 1000px #494F55;
 }
 
 .overlay-drawer.active {
@@ -248,7 +248,7 @@ h2 {
 
 .item-list-title {
     margin: 0 0 20px;
-    font-family: "Bell MT";
+    font-family: "Bell MT", serif;
     font-size: 35px;
     line-height: 1em;
     font-weight: 400;
@@ -262,7 +262,7 @@ h2 {
 
 .paragraph {
     margin-bottom: 15px;
-    font-family: "Bell MT";
+    font-family: "Bell MT", serif;
     font-size: 15px;
     line-height: 1.5em;
     font-weight: 400;
@@ -355,7 +355,7 @@ h2 {
 
 .checkout-link {
     color: white;
-    letter-spacing: 1.25px;
+    letter-spacing: 1px;
     display: flex;
     font-size: 15px;
     padding: 10px 15px;
@@ -490,7 +490,6 @@ h2 {
 
 /* Checkout Styles */
 .section.checkout-body {
-    background-color: var(--white);
     padding-top: 0;
     padding-bottom: 65px;
 }
@@ -578,11 +577,10 @@ h2 {
 .items {
     padding-bottom: 0;
     background-color: #fff;
-    padding: 20px;
 }
 
 .text-field-label {
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     font-size: 13px;
     font-weight: 500;
     margin-bottom: 8px;
