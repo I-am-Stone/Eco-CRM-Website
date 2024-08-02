@@ -1,4 +1,9 @@
 
-.head-h1{
-    font-family: Arimo, sans-serif;
+@font-face {
+    font-family: 'neon';
+    src: url('images/Neoneon.otf') format('opentype');
+  }
+
+.side-brand{
+  font-family: 'neon',sans-serif;
 }
