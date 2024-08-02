@@ -5,6 +5,7 @@ import json
 import re
 from .form import CustomerForm
 
+
 def get_cart_items(cart):
     cart_items = []
     total_price = 0
@@ -16,7 +17,8 @@ def get_cart_items(cart):
         quantity = cart[str(product.pk)]
         item_total = product.retail_price * quantity
         product_name = product.product.name
-        media_info = [{'url': media.image, 'alt_text': media.alt_text} for media in product.media_product_inventory.all()]
+        media_info = [{'url': media.image, 'alt_text': media.alt_text} for media in
+                      product.media_product_inventory.all()]
 
         cart_items.append({
             'product': product,
@@ -58,6 +60,7 @@ def home(request):
     }
     return render(request, "inventory/cart.html", context)
 
+
 def checkout(request):
     cart = request.session.get('cart', {})
     cart_items, total_price = get_cart_items(cart)
@@ -72,11 +75,11 @@ def remove_from_cart(request):
     if request.method == "POST":
         remove_item_id = request.POST.get('remove_item_id')
         cart = request.session.get('cart', {})
-        
+
         if remove_item_id in cart:
             del cart[remove_item_id]
             request.session['cart'] = cart
-    
+
     return redirect('home')
 
 
@@ -92,9 +95,6 @@ def buy_now(request):
     return redirect('home')
 
 
-
-
-
 def customerinfo(request):
     if request.method == "POST":
         cust_email = request.POST.get('email')
@@ -103,6 +103,7 @@ def customerinfo(request):
         state = request.POST.get('state')
         zip = request.POST.get('zip')
         country = request.POST.get('country')
+
 
 def customerInfo(request):
     if request.method == "POST":
@@ -137,14 +138,3 @@ def customerInfo(request):
             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-
-
-
-
-
-
-
-
-
-
-
