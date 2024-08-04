@@ -1,17 +1,24 @@
 {% extends 'dashboard/index.html' %}
 
 {% block product %}
-<div style="width: 80%; margin: auto;">
-    <canvas id="myChart" width="800" height="400"></canvas>
+<div class="flex my-8">
+    <div class="w-2/5 mx-2 shadow-2xl">
+        <canvas id="PieChart"></canvas>
+    </div>
+    <div class="w-2/5 mx-2 shadow-2xl">
+        <canvas id="SalesChart"></canvas>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('myChart').getContext('2d');
+        const salesCtx = document.getElementById('SalesChart').getContext('2d');
+        const pieCtx = document.getElementById('PieChart').getContext('2d');
 
-        const data = {
+        // Data and configuration for SalesChart
+        const salesData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
                 {
@@ -23,9 +30,9 @@
             ]
         };
 
-        const config = {
+        const salesConfig = {
             type: 'line',
-            data: data,
+            data: salesData,
             options: {
                 responsive: true,
                 plugins: {
@@ -34,7 +41,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Chart.js Line Chart'
+                        text: 'Sales Chart'
                     }
                 },
                 scales: {
@@ -51,10 +58,59 @@
                         }
                     }
                 }
-            },
+            }
         };
 
-        new Chart(ctx, config);
+        // Initialize SalesChart
+        new Chart(salesCtx, salesConfig);
+
+        // Data and configuration for PieChart
+        const pieData = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [
+                {
+                    label: 'Dataset 1',
+                    data: [300, 50, 100, 75, 150, 200],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        const pieConfig = {
+            type: 'pie',
+            data: pieData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Pie Chart'
+                    }
+                }
+            }
+        };
+
+        // Initialize PieChart
+        new Chart(pieCtx, pieConfig);
     });
 </script>
 
