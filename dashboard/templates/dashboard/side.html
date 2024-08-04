@@ -1,12 +1,28 @@
 {% extends 'dashboard/index.html' %}
 
 {% block product %}
-<div class="flex my-8">
-    <div class="w-2/5 mx-2 shadow-2xl">
-        <canvas id="PieChart"></canvas>
+<div class="flex flex-wrap my-8">
+    <div class="w-full md:w-1/2 lg:w-1/3 p-4">
+        <div class="bg-white shadow-2xl p-4">
+            <canvas id="PieChart"></canvas>
+        </div>
+        <div class="bg-white shadow-2xl p-4 mt-4">
+            <h2 class="text-xl font-semibold mb-2">Pie Chart Details</h2>
+            <p class="text-gray-700">
+                The pie chart represents the distribution of various categories. Each segment of the pie chart corresponds to a category with the size of the segment proportional to the category's share of the total. This chart helps to visualize the composition and relative proportions of the different categories.
+            </p>
+        </div>
     </div>
-    <div class="w-2/5 mx-2 shadow-2xl">
-        <canvas id="SalesChart"></canvas>
+    <div class="w-full md:w-1/2 lg:w-1/3 p-4">
+        <div class="bg-white shadow-2xl p-4">
+            <canvas id="SalesChart"></canvas>
+        </div>
+        <div class="bg-white shadow-2xl p-4 mt-4">
+            <h2 class="text-xl font-semibold mb-2">Sales Chart Details</h2>
+            <p class="text-gray-700">
+                The sales chart displays the sales data over a period of seven months. The line chart format highlights trends and patterns in the sales data, making it easy to observe fluctuations and overall performance. Each point on the chart represents the sales value for a particular month, with the line connecting these points to show the progression over time.
+            </p>
+        </div>
     </div>
 </div>
 
@@ -14,103 +30,78 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        function createChart(ctx, type, data, options) {
+            return new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+
         const salesCtx = document.getElementById('SalesChart').getContext('2d');
         const pieCtx = document.getElementById('PieChart').getContext('2d');
 
-        // Data and configuration for SalesChart
         const salesData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Dataset 1',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                }
-            ]
+            datasets: [{
+                label: 'Sales',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                tension: 0.4,
+                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
+            }]
         };
 
-        const salesConfig = {
-            type: 'line',
-            data: salesData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Sales Chart'
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Value'
-                        }
-                    }
-                }
+        const salesOptions = {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'Sales Chart' }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Month' } },
+                y: { title: { display: true, text: 'Value' } }
             }
         };
 
-        // Initialize SalesChart
-        new Chart(salesCtx, salesConfig);
-
-        // Data and configuration for PieChart
         const pieData = {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [
-                {
-                    label: 'Dataset 1',
-                    data: [300, 50, 100, 75, 150, 200],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }
-            ]
+            datasets: [{
+                data: [300, 50, 100, 75, 150, 200],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
         };
 
-        const pieConfig = {
-            type: 'pie',
-            data: pieData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Pie Chart'
-                    }
-                }
+        const pieOptions = {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'Pie Chart' }
             }
         };
 
-        // Initialize PieChart
-        new Chart(pieCtx, pieConfig);
+        createChart(salesCtx, 'line', salesData, salesOptions);
+        createChart(pieCtx, 'pie', pieData, pieOptions);
     });
 </script>
 
