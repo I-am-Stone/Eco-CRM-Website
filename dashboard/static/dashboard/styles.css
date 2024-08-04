@@ -7,3 +7,7 @@
 .side-brand{
   font-family: 'neon',sans-serif;
 }
+
+body{
+  overflow-x: hidden;
+}
