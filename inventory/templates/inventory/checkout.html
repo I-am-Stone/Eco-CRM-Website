@@ -84,22 +84,24 @@
                         <form class="customer-info" method="POST" action="{% url 'customerInfo' %}">
                             {% csrf_token %}
                             <fieldset class="items">
-                                <label class="text-field-label">EMAIL *</label>
-                                <input class="text-field" type="email" name="email" required>
-                                
-                                <label class="text-field-label">FULL NAME *</label>
-                                <input class="text-field" type="text" name="name" required>
-                                
-                                <label class="text-field-label">PHONE NUMBER *</label>
-                                <input class="text-field" type="tel" name="phone" required>
-                                
-                                <label class="text-field-label">STREET ADDRESS *</label>
-                                <input class="text-field" type="text" name="address" required>
-                                
+                                <label class="text-field-label">EMAIL *
+                                    <input class="text-field" type="email" name="email" required>
+                                </label>
+                                <label class="text-field-label">FULL NAME *
+                                    <input class="text-field" type="text" name="name" required>
+                                </label>
+
+                                <label class="text-field-label">PHONE NUMBER *
+                                    <input class="text-field" type="tel" name="phone" required>
+                                </label>
+
+                                <label class="text-field-label">STREET ADDRESS *
+                                    <input class="text-field" type="text" name="address" required>
+                                </label>
                                 <div class="checkoutrow">
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">CITY *</label>
-                                        <select class="text-field size" name="city" id="stateSelect" required>
+                                        <select class="text-field size" name="city" id="citySelect" required>
                                             <option value="">city</option>
                                             <option value="Bagmati">Kathmandu</option>
                                             <option value="Banapa">Banapa</option>
@@ -108,21 +110,24 @@
                                         </select>
                                     </div>
                                     <div class="checkoutcolumn">
-                                        <label class="text-field-label">STATE/PROVINCE *</label>
-                                        <select class="text-field size" name="state" id="stateSelect" required>
-                                            <option value="">Select State/Province</option>
-                                            <option value="Bagmati">Bagmati</option>
-                                        </select>
+                                        <label class="text-field-label">STATE/PROVINCE *
+                                            <select class="text-field size" name="state" id="stateSelect" required>
+                                                <option value="">Select State/Province</option>
+                                                <option value="Bagmati">Bagmati</option>
+                                            </select>
+                                        </label>
                                     </div>
                                     <div class="checkoutcolumn">
-                                        <label class="text-field-label">ZIP/POSTAL CODE *</label>
-                                        <input class="text-field size" type="text" name="zip" required>
+                                        <label class="text-field-label">ZIP/POSTAL CODE *
+                                            <input class="text-field size" type="text" name="zip" required>
+                                        </label>
                                     </div>
                                 </div>
                                 
-                                <label class="text-field-label">COUNTRY *</label>
-                                <input class="text-field" type="text" name="country" required>
-                                <input type="submit" data-loading-text="submiting..." class="item-submit btn-design" value="submit">
+                                <label class="text-field-label">COUNTRY *
+                                    <input class="text-field" type="text" name="country" required>
+                                    <input type="submit" data-loading-text="submiting..." class="item-submit btn-design" value="submit" onclick="color_change()">
+                                </label>
                             </fieldset>
                         </form>
                     </div>                    
@@ -131,10 +136,10 @@
                     <div class="order-step-title"><div class="checkout-section-title">3.Payment</div><div>• Required</div></div>
                     <div class="order-step-content">
                         <ul class="steps steps-vertical lg:steps-horizontal">
-                            <li class="step step-primary">Register</li>
-                            <li class="step step-primary">Choose plan</li>
-                            <li class="step">Purchase</li>
-                            <li class="step">Receive Product</li>
+                            <li class="step" id = "submitted">Register</li>
+                            <li class="step">Place Order</li>
+                            <li class="step">Ship</li>
+                            <li class="step">Delivered</li>
                         </ul>
                     </div>                    
                 </div>
@@ -158,6 +163,7 @@
         </div>
     </div>
 </body>
+
 
 <footer class="footer p-10 bg-neutral text-neutral-content">
     <aside>

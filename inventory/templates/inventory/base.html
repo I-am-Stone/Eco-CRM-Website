@@ -29,7 +29,7 @@
           <li class="nav-link"><a href="#">Home</a></li>
           <li class="nav-link"><a href="#tshirt">T-Shirt</a></li>
           <li class="nav-link"><a href="#">About us</a></li>
-          <li class="nav-link"><a href="#">Contact us</a></li>
+          <li class="nav-link"><a href="{% url "contact" %}">Contact us</a></li>
         </ul>
       </div>
       <div class="flex-none" id="open-drawer" onclick="openDrawer()">
@@ -63,37 +63,8 @@
       {% block Cart %}{% endblock %}
     </div>
   </div>
-
-  <div class="body-section">
-    <div class="container">
-      <div class="featured-text">
-        Nepali Clothing
-      </div>
-      <button class="btn-t">
-        See T-Shirt
-      </button>
-    </div>
-    <img src="{% static 'inventory/images/circle.png' %}" alt="" class="orbit-path">
-    <img src="{% static 'inventory/images/circle.png' %}" alt="" class="orbit-path-2">
-    <!-- <img src="{% static 'inventory/images/plan.png' %}" alt="" class="far-planets">
-    <img src="{% static 'inventory/images/p.png' %}" alt="" class="close-planets"> -->
-  </div>
-  <div class="section-container-hero">
-    <div class="benefits-wrapper">
-      <div class="benefits-item">
-        <svg class="benefits-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24 14.81 8.62 12 2 9.19 8.63 2 9.24 7.45 13.97 5.82 21z"/></svg>
-        <h4 class="benefits">Stylish</h4>
-      </div>
-      <div class="benefits-item">
-        <svg class="benefits-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 10l10-5v10l-10 5-10-5V7l10 5z"/></svg>
-        <h4 class="benefits">Plain</h4>
-      </div>
-      <div class="benefits-item">
-        <svg class="benefits-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 15-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>
-        <h4 class="benefits">Simple</h4>
-      </div>
-    </div>
-  </div>
+  {% block contact %}{% endblock %}
+  {% block Hero %}{% endblock %}
   {% block content %}{% endblock %}
   <footer class="footer p-10 bg-neutral text-neutral-content">
     <aside>

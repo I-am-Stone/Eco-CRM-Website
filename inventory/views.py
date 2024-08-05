@@ -1,8 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from inventory.models import *
 from django.http import JsonResponse
-import json
-import re
 from .form import CustomerForm
 
 
@@ -95,17 +93,7 @@ def buy_now(request):
     return redirect('home')
 
 
-def customerinfo(request):
-    if request.method == "POST":
-        cust_email = request.POST.get('email')
-        name = request.POST.get('customer')
-        street = request.POST.get('address')
-        state = request.POST.get('state')
-        zip = request.POST.get('zip')
-        country = request.POST.get('country')
-
-
-def customerInfo(request):
+def customer_info(request):
     if request.method == "POST":
         form = CustomerForm(request.POST)
         if form.is_valid():
@@ -119,7 +107,7 @@ def customerInfo(request):
             zip = form.cleaned_data['zip']
             country = form.cleaned_data['country']
 
-            new_customer = customer(
+            new_customer = Customer(
                 email=email,
                 name=name,
                 phone=phone,
@@ -138,3 +126,7 @@ def customerInfo(request):
             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+
+def contact(request):
+    return render(request, "inventory/contact.html")
