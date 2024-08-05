@@ -9,7 +9,7 @@ def get_cart_items(cart):
     total_price = 0
 
     product_ids = cart.keys()
-    products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
+    products = ProductInventory.objects .prefetch_related("media_product_inventory").filter(pk__in=product_ids)
 
     for product in products:
         quantity = cart[str(product.pk)]
@@ -63,8 +63,11 @@ def checkout(request):
     cart = request.session.get('cart', {})
     cart_items, total_price = get_cart_items(cart)
 
+    # If request if post, save user data and change progress
+
     context = {
         'cart_items': cart_items,
+        'progress_stage': 'place_order'
     }
     return render(request, "inventory/checkout.html", context)
 

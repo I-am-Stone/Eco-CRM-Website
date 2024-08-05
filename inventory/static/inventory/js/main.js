@@ -14,7 +14,7 @@ function closeDrawer() {
 
 
 function color_change(){
-  document.getElementById('submitted').classList.toggle("color-primary")
+  document.getElementById('submitted').classList.toggle("step-primary")
 }
 
 
