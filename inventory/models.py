@@ -405,9 +405,39 @@ class Customer(models.Model):
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
-    zip = models.CharField(max_length=20)
+    zip_code = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(
+        Customer,
+        related_name="orders",
+        on_delete=models.PROTECT,
+    )
+    image = models.ImageField(
+        unique=False,
+        null=False,
+        blank=False,
+        verbose_name=_("product image"),
+        upload_to="images/",
+        default="images/default.png",
+        help_text=_("format: required, default-default.png"),
+    )
+
+    item = models.CharField(max_length=100)
+    total_price = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Order {self.id} by {self.customer.name}"
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['customer']),
+            models.Index(fields=['created_at']),
+        ]
