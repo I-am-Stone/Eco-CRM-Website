@@ -419,14 +419,11 @@ class Order(models.Model):
         related_name="orders",
         on_delete=models.PROTECT,
     )
-    image = models.ImageField(
-        unique=False,
-        null=False,
-        blank=False,
-        verbose_name=_("product image"),
-        upload_to="images/",
-        default="images/default.png",
-        help_text=_("format: required, default-default.png"),
+
+    product_id = models.ForeignKey(
+        ProductInventory,
+        related_name="order",
+        on_delete=models.PROTECT,
     )
 
     item = models.CharField(max_length=100)

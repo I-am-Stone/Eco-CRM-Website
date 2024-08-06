@@ -8,3 +8,7 @@ def dashboard(request):
 
 def add_product(request):
     return render(request, "dashboard/add_product.html")
+
+
+def orders(request):
+    return render(request, "dashboard/add_product.html")

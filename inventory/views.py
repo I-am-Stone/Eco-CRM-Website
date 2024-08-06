@@ -1,6 +1,6 @@
+
 from django.shortcuts import render, redirect
 from inventory.models import *
-from django.http import JsonResponse
 from .form import CustomerForm
 
 
@@ -9,7 +9,7 @@ def get_cart_items(cart):
     total_price = 0
 
     product_ids = cart.keys()
-    products = ProductInventory.objects .prefetch_related("media_product_inventory").filter(pk__in=product_ids)
+    products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
 
     for product in products:
         quantity = cart[str(product.pk)]
@@ -62,12 +62,42 @@ def home(request):
 def checkout(request):
     cart = request.session.get('cart', {})
     cart_items, total_price = get_cart_items(cart)
+    form = None
+    form_data = {}
 
     # If request if post, save user data and change progress
+    if request.method == "POST":
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            # Process the valid form data
+            email = form.cleaned_data['email']
+            name = form.cleaned_data['name']
+            street = form.cleaned_data['street']
+            city = form.cleaned_data['city']
+            state = form.cleaned_data['state']
+            phone = form.cleaned_data['phone']
+            zip_code = form.cleaned_data['zip']
+            country = form.cleaned_data['country']
+
+            new_customer = Customer(
+                email=email,
+                name=name,
+                phone=phone,
+                street=street,
+                city=city,
+                state=state,
+                zip_code=zip_code,
+                country=country
+            )
+            new_customer.save()
+
+            form_data = form.cleaned_data
 
     context = {
         'cart_items': cart_items,
-        'total_price': total_price
+        'total_price': total_price,
+        'step': request.GET.get('step', 'fill_info'),
+        'form_data': form_data
     }
     return render(request, "inventory/checkout.html", context)
 
@@ -96,43 +126,45 @@ def buy_now(request):
     return redirect('home')
 
 
-def customer_info(request):
-    if request.method == "POST":
-        form = CustomerForm(request.POST)
-        if form.is_valid():
-            # Process the valid form data
-            email = form.cleaned_data['email']
-            name = form.cleaned_data['name']
-            street = form.cleaned_data['street']
-            city = form.cleaned_data['city']
-            state = form.cleaned_data['state']
-            phone = form.cleaned_data['phone']
-            zip = form.cleaned_data['zip']
-            country = form.cleaned_data['country']
-
-            new_customer = Customer(
-                email=email,
-                name=name,
-                phone=phone,
-                street=street,
-                city=city,
-                state=state,
-                zip=zip,
-                country=country
-            )
-            new_customer.save()
-
-            # Perform any necessary actions (e.g., save to the database)
-
-            return JsonResponse({'status': 'success'})
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
-
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+#
+# def customer_info(request):
+#     if request.method == "POST":
+#         form = CustomerForm(request.POST)
+#         if form.is_valid():
+#             # Process the valid form data
+#             email = form.cleaned_data['email']
+#             name = form.cleaned_data['name']
+#             street = form.cleaned_data['street']
+#             city = form.cleaned_data['city']
+#             state = form.cleaned_data['state']
+#             phone = form.cleaned_data['phone']
+#             zip = form.cleaned_data['zip']
+#             country = form.cleaned_data['country']
+#
+#             new_customer = Customer(
+#                 email=email,
+#                 name=name,
+#                 phone=phone,
+#                 street=street,
+#                 city=city,
+#                 state=state,
+#                 zip=zip,
+#                 country=country
+#             )
+#             new_customer.save()
+#
+#             # Perform any necessary actions (e.g., save to the database)
+#
+#             return JsonResponse({'status': 'success'})
+#         else:
+#             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+#
+#     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
 
 def contact(request):
     return render(request, "inventory/contact.html")
+
 
 def about(request):
     return render(request, "inventory/about.html")
