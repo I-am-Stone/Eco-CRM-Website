@@ -11,5 +11,6 @@ urlpatterns = [
                   path('buy_now/', views.buy_now, name='buy_now'),
                   path('customerInfo/', views.customer_info, name='customerInfo'),
                   path('contact/', views.contact, name='contact'),
+                  path('aboutus/', views.about, name='about'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -67,7 +67,7 @@ def checkout(request):
 
     context = {
         'cart_items': cart_items,
-        'progress_stage': 'place_order'
+        'total_price': total_price
     }
     return render(request, "inventory/checkout.html", context)
 
@@ -133,3 +133,6 @@ def customer_info(request):
 
 def contact(request):
     return render(request, "inventory/contact.html")
+
+def about(request):
+    return render(request, "inventory/about.html")
