@@ -123,7 +123,7 @@
                                     <div class="checkoutcolumn">
                                         <label class="text-field-label">ZIP/POSTAL CODE *</label>
                                         <input class="text-field size mt-2" type="text" name="zip" required
-                                               {% if step == 'buy' %}disabled value="{{ form_data.zip }}"{% endif %}>
+                                               {% if step == 'buy' %}disabled value="{{ form_data.zip_code }}"{% endif %}>
                                     </div>
                                 </div>
                                 <label class="text-field-label">COUNTRY *</label>
@@ -137,8 +137,11 @@
                 <div class="order-step-item order-step-item-last text-center">
                     <div class="order-step-title"><div class="checkout-section-title">3.Payment</div><div>• Required</div></div>
                     <div class="order-step-content">
-                        <ul class="steps steps-vertical lg:steps-horizontal">
-                            <li class="step" id = "submitted">Register</li>
+                        <ul class="steps steps-vertical lg:steps-horizontal"> s
+                            {% if step == 'buy' %}
+                                <li class="step step-primary" id = "submitted">Register</li>
+                            {% endif %}
+                                <li class="step step-primary" id = "submitted">Register</li>
                             <li class="step">Place Order</li>
                             <li class="step">Ship</li>
                             <li class="step">Delivered</li>
