@@ -178,6 +178,7 @@ section{
     display: flex;
     margin-bottom: 125px;
     justify-content: center;
+
 }
 
 .product-list-item-img-wrap{
@@ -203,13 +204,16 @@ section{
 .product-list-images{
     position: relative;
     z-index: 5;
-    box-shadow: 0 15px 60px 0 rgba(0,0,0,.35);
     width: 500px;
 } 
 
 .item-list{
     width: 1200px;
     margin-inline: auto;
+    box-shadow: 0 15px 60px 0 rgba(0,0,0,.35);
+    height: 49vh;
+    margin-top: 2cm;
+    margin-bottom: 2cm;
 
 }
 
@@ -715,3 +719,7 @@ h2 {
 
 }
 
+.swiper {
+    width: 600px;
+    height: 400px;
+  }
