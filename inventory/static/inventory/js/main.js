@@ -8,34 +8,21 @@ function closeDrawer() {
 
 
 
-// document.getElementById('buy-now').addEventListener('click', function(){
-//   var product_id = do
-// })
+const swiperWrapper = document.querySelector('.swiper-wrapper');
+const slides = document.querySelectorAll('.swiper-slide');
+let currentIndex = 0;
 
+function slideNext() {
+  currentIndex = (currentIndex + 1) % slides.length;
+  updateSlidePosition();
+}
 
+function updateSlidePosition() {
+  swiperWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
 
-const swiper = new Swiper('.swiper', {
-  // Optional parameters
-  direction: 'vertical',
-  loop: true,
-
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-  },
-
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-
-  // And if we need scrollbar
-  scrollbar: {
-    el: '.swiper-scrollbar',
-  },
-});
-
+// Auto slide every 3 seconds
+setInterval(slideNext, 4000);
 
 
 
