@@ -60,7 +60,39 @@
           </button>
         </div>
       </div>
-      {% block Cart %}{% endblock %}
+      {% if cart_items %}
+      <div>
+        {% for item in cart_items %}
+        <div class="view-cart" id="cart-item-{{ item.product.id }}">
+          <ul class="cart-list-item">
+            <li>
+              {% for media in item.media_info %}
+              <img src="{{ media.url }}" alt="{{ media.alt_text }}" class="cart-img">
+              {% endfor %}
+            </li>
+            <li class="cart-item-info">
+              <div>Quantity: {{ item.quantity }}</div>
+              <div>Total: Rs.{{ item.item_total }}</div>
+              <div>{{ item.product_name }}</div>
+              <form method="post" action="{% url 'remove_from_cart' %}">
+                {% csrf_token %}
+                <input type="hidden" name="remove_item_id" value="{{ item.product.id }}">
+                <button type="submit" class="remove-item-btn">Remove</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+        {% endfor %}
+        <div class="cart-total">
+          <strong>Total Price: Rs.{{ total_price }}</strong>
+        </div>
+        <div class="cart-footer">
+          <a href="{% url 'checkout' %}" class="checkout-btn">Checkout</a>
+        </div>
+        {% else %}
+        <p>Your cart is empty.</p>
+      </div>
+      {% endif %}
     </div>
   </div>
   {% block contact %}{% endblock %}
