@@ -1,5 +1,31 @@
 {% extends 'dashboard/index.html' %}
 
 {% block order %}
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Order List</h1>
 
+  <div class="overflow-x-auto">
+      <table class="table table-zebra w-full">
+          <thead>
+          <tr>
+              <th class="bg-primary text-primary-content">Customers Name</th>
+              <th class="bg-primary text-primary-content">Product Name</th>
+              <th class="bg-primary text-primary-content">Product Price</th>
+              <th class="bg-primary text-primary-content">Product Description</th>
+              <th class="bg-primary text-primary-content">Orders Date</th>
+              <th class="bg-primary text-primary-content">Ship/Shipped</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for item in items %}
+          <tr class="hover">
+              <td>{{ item.name }}</td>
+              <td>{{ item.artist }}</td>
+              <td>{{ item.year }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
 {% endblock %}

@@ -9,19 +9,24 @@
             <thead>
             <tr>
                 <th class="bg-primary text-primary-content">Product Name</th>
-                <th class="bg-primary text-primary-content">Product Image</th>
+                <th class="bg-primary text-primary-content">Brand</th>
                 <th class="bg-primary text-primary-content">Product Price</th>
                 <th class="bg-primary text-primary-content">Product Description</th>
                 <th class="bg-primary text-primary-content">Added Date</th>
                 <th class="bg-primary text-primary-content">Active/Inactive</th>
+                <th class="bg-primary text-primary-content">Product Type</th>
             </tr>
             </thead>
             <tbody>
             {% for item in items %}
             <tr class="hover">
-                <td>{{ item.name }}</td>
-                <td>{{ item.artist }}</td>
-                <td>{{ item.year }}</td>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.brand }}</td>
+                <td>{{ item.product_price }}</td>
+                <td>{{ item.product_description }}</td>
+                <td>{{ item.added_date }}</td>
+                <td>{{ item.active_status }}</td>
+                <td>{{ item.product_type }}</td>
             </tr>
             {% endfor %}
             </tbody>

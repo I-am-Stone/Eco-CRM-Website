@@ -10,4 +10,4 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderMeta)
 class OrderMetaAdmin(admin.ModelAdmin):
-    list_display = ('product_id', 'product_inventory','customer')
+    list_display = ('product_inventory','customer')

@@ -13,7 +13,32 @@ def dashboard(request):
 
 
 def add_product(request):
-    return render(request, "dashboard/add_product.html")
+    items = []
+    products = ProductInventory.objects.all()
+    for product in products:
+        product_name =product.product.name
+        price = product.retail_price
+        product_description = product.product.description
+        added_date = product.created_at
+        active_status = product.is_active
+        product_type = product.product_type
+        brand = product.brand
+
+        
+        items.append({
+            'product_name':product_name,
+            'product_price':price,
+            'product_description':product_description,
+            'added_date':added_date,
+            'active_status':active_status,
+            'product_type':product_type,
+            'brand':brand
+        })
+    
+    context = {
+        'items':items
+    }
+    return render(request, "dashboard/add_product.html", context)
 
 
 def orders(request):
