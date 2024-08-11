@@ -178,8 +178,8 @@
                 {% endif %}
                 
                 <div class="text-center">
-                    <form method="POST" action="{% url 'order' %}">
-
+                    <form method="POST" action="{% url 'order_info' %}">
+                        
                         <a type="submit" class="btn btn-primary rounded-none" {% if cust_id is None %}disabled{% endif %}>Place Order</a>
                     </form>
                 </div>

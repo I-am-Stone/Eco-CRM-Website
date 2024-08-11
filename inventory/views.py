@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from inventory.models import *
 from .form import CustomerForm
 
+from dashboard.models import *
 
 def get_cart_items(cart):
     cart_items = []
@@ -133,3 +134,19 @@ def contact(request):
 
 def about(request):
     return render(request, "inventory/about.html")
+
+
+def order_info(request):
+    cart = request.session.get('cart', {})
+    product_ids = cart.keys()
+
+    order_metas = OrderMeta.objects.filter(product_inventory__product_id=product_ids)
+
+    if request.method == "POST":
+        for order in order_metas:
+          product = order.product_inventory.product
+          new_order = Order(
+                item = product.name
+                
+            )
+          new_order.save()
