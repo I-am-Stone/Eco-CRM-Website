@@ -1,9 +1,15 @@
 from django.shortcuts import render
+from inventory.models import *
 
 
 # Create your views here.
 def dashboard(request):
-    return render(request, "dashboard/side.html")
+    graph_data = ProductInventory.objects.all().order_by('id')
+
+    context = {
+        'graph_data': graph_data
+    }
+    return render(request, "dashboard/side.html",context)
 
 
 def add_product(request):

@@ -126,10 +126,12 @@
                                                {% if step == 'buy' %}disabled value="{{ form_data.zip_code }}"{% endif %}>
                                     </div>
                                 </div>
-                                <label class="text-field-label">COUNTRY *</label>
+                                <label class="text-field-label">COUNTRY * {{ cust_id }}</label>
                                 <input class="text-field mt-2" type="text" name="country" required
                                        {% if step == 'buy' %}disabled value="{{ form_data.country }}"{% endif %}>
+                                {% if cust_id is None %}
                                 <input type="submit" data-loading-text="submitting..." class="item-submit btn-design" value="submit" onclick="color_change()">
+                                {% endif %}
                             </fieldset>
                         </form>
                     </div>                    
@@ -176,7 +178,10 @@
                 {% endif %}
                 
                 <div class="text-center">
-                    <button class="btn btn-primary">Place Order</button>
+                    <form method="POST" action="{% url 'order' %}">
+
+                        <a type="submit" class="btn btn-primary rounded-none" {% if cust_id is None %}disabled{% endif %}>Place Order</a>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+from datetime import datetime
 
 from django.shortcuts import render, redirect
 from inventory.models import *
@@ -10,7 +11,6 @@ def get_cart_items(cart):
 
     product_ids = cart.keys()
     products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
-
     for product in products:
         quantity = cart[str(product.pk)]
         item_total = product.retail_price * quantity
@@ -64,7 +64,7 @@ def checkout(request):
     cart_items, total_price = get_cart_items(cart)
     form = None
     form_data = {}
-
+    cust_id = None
     # If request if post, save user data and change progress
     if request.method == "POST":
         form = CustomerForm(request.POST)
@@ -90,14 +90,15 @@ def checkout(request):
                 country=country
             )
             new_customer.save()
-
+            cust_id = new_customer.pk  # Set id of just inserted customer
             form_data = form.cleaned_data
 
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
         'step': request.GET.get('step', 'fill_info'),
-        'form_data': form_data
+        'form_data': form_data,
+        'cust_id': cust_id
     }
     return render(request, "inventory/checkout.html", context)
 
@@ -126,45 +127,28 @@ def buy_now(request):
     return redirect('home')
 
 
-#
-# def customer_info(request):
-#     if request.method == "POST":
-#         form = CustomerForm(request.POST)
-#         if form.is_valid():
-#             # Process the valid form data
-#             email = form.cleaned_data['email']
-#             name = form.cleaned_data['name']
-#             street = form.cleaned_data['street']
-#             city = form.cleaned_data['city']
-#             state = form.cleaned_data['state']
-#             phone = form.cleaned_data['phone']
-#             zip = form.cleaned_data['zip']
-#             country = form.cleaned_data['country']
-#
-#             new_customer = Customer(
-#                 email=email,
-#                 name=name,
-#                 phone=phone,
-#                 street=street,
-#                 city=city,
-#                 state=state,
-#                 zip=zip,
-#                 country=country
-#             )
-#             new_customer.save()
-#
-#             # Perform any necessary actions (e.g., save to the database)
-#
-#             return JsonResponse({'status': 'success'})
-#         else:
-#             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
-#
-#     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-
-
 def contact(request):
     return render(request, "inventory/contact.html")
 
 
 def about(request):
     return render(request, "inventory/about.html")
+
+
+def order(request):
+    cart = request.session.get('cart', {})
+    product_ids = cart.keys()
+    orders_items = OrderMeta.objects.prefetch_related('product_id').filter(pk__in=product_ids)
+    item_name = None
+    price = None
+    for item in orders_items:
+        item_name = item.product.name
+        price = item.product.retail_price
+
+    print(orders_items)
+    if request.method == "POST":
+        new_order = Order(
+            customer_id=request.POST.get('customer_id'),
+            total_price=price,
+            item_name=item_name
+        )

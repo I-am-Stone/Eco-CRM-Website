@@ -1,5 +1,40 @@
 {% extends 'dashboard/index.html' %}
 
 {% block product %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Product List</h1>
 
+    <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+            <thead>
+            <tr>
+                <th class="bg-primary text-primary-content">Product Name</th>
+                <th class="bg-primary text-primary-content">Product Image</th>
+                <th class="bg-primary text-primary-content">Product Price</th>
+                <th class="bg-primary text-primary-content"></th>
+                <th class="bg-primary text-primary-content">Year</th>
+                <th class="bg-primary text-primary-content">Year</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+            <tr class="hover">
+                <td>{{ item.name }}</td>
+                <td>{{ item.artist }}</td>
+                <td>{{ item.year }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-8">
+        <a href="#" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            Add a new item
+        </a>
+    </div>
+</div>
 {% endblock %}
