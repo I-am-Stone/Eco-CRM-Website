@@ -399,6 +399,7 @@ class ProductAttributeValues(models.Model):
 
 
 class Customer(models.Model):
+    objects = None
     email = models.EmailField()
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)

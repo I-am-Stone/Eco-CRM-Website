@@ -75,8 +75,8 @@ body {
     justify-content: space-between;
     border-bottom: 1px solid gray;
     box-shadow: 0 1px 2px -2px gray;
-    
-    
+
+
 }
 
 .cart-section{
@@ -166,12 +166,12 @@ section{
     text-align: center;
     margin-top: 20px;
   }
-  
+
 .footer-text .text-link {
     color: #ffffff;
     text-decoration: underline;
   }
-  
+
 
 .product-list-item{
     position: relative;
@@ -313,93 +313,6 @@ h2 {
 
 
 /* Cart.html design */
-
-.section-hero{
-    min-height: 40vh;
-    background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
-    background-position: 0 0, 30%;
-    background-size: auto, cover;
-    padding-bottom: 10px;
-}
-
-.section.checkout_hero{
-    padding-bottom: 150px;
-}
-
-.section-container{
-    margin-right: 5%;
-    margin-left: 5%;
-}
-
-.checkout_hero{
-    height: 20vh;
-    background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
-    display: flex;
-
-}
-
-.checkout-nav-button{
-    color: white;
-}
-
-
-
-.section-container{
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.section-nav{
-    padding-top: 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
-}
-
-.section-nav-button{
-    color: #ddd;
-}
-
-.section-header{
-    font-family: 'neon',sans-serif;
-    color: whitesmoke;
-    font-size: 30px;
-}
-.section-checkout{
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.section-checkout-wrapper{
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, .11);
-    border-radius: 3px;
-    justify-content: space-between;
-}
-
-.checkout-link{
-    color: white;
-    letter-spacing: 1.25px;
-    display: flex;
-    font-size: 15px;
-    padding: 10px 15px;
-}
-.checkout-line{
-    box-sizing: border-box;
-    height: 1px;
-    background-color: white;
-    flex: 1;
-}
-
-
-
-.rmvbtn{
-    color: red;
-    padding: 2px;
-}
-
 
 .view-cart {
     background-color: #ffffff;

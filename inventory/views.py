@@ -6,6 +6,7 @@ from .form import CustomerForm
 
 from dashboard.models import *
 
+
 def get_cart_items(cart):
     cart_items = []
     total_price = 0
@@ -123,7 +124,6 @@ def buy_now(request):
 
         cart = {product_id: quantity}
         request.session['cart'] = cart
-
         return redirect('checkout')
     return redirect('home')
 
@@ -140,13 +140,27 @@ def order_info(request):
     cart = request.session.get('cart', {})
     product_ids = cart.keys()
 
-    order_metas = OrderMeta.objects.filter(product_inventory__product_id=product_ids)
+    order_data = []
+    products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
+    customer = Customer.objects.get(pk=request.GET.get('cust_id'))
+
+    for product in products:
+        product_name = product.product.name
+        price = product.retail_price
+        product_description = product.product.description
+        order_data.append({
+            product_name: product_name,
+            price: price,
+            product_description: product_description
+        })
 
     if request.method == "POST":
-        for order in order_metas:
-          product = order.product_inventory.product
-          new_order = Order(
-                item = product.name
-                
-            )
-          new_order.save()
+        new_order = Order(
+
+            order_data=order_data
+        )
+        new_order.save()
+        request.session['cart'] = {}
+        return redirect('home')
+
+

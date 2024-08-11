@@ -2,27 +2,6 @@ from django.db import models
 from inventory.models import ProductInventory, Customer
 
 
-class OrderMeta(models.Model):
-
-    product_inventory = models.ForeignKey(
-        ProductInventory,
-        related_name="order_meta_product_inventories",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-    customer = models.ForeignKey(
-        Customer,
-        related_name="order_meta_customers",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-
-    def __str__(self):
-        return f"OrderMeta(product_id={self.product.id}, customer_id={self.customer.id})"
-
-
 class Order(models.Model):
 
     item = models.CharField(max_length=100)
@@ -44,13 +23,23 @@ class Order(models.Model):
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default=STATUS_PENDING
     )
-    order_meta = models.ForeignKey(
-        OrderMeta,
-        related_name="orders",
+
+    item_count = models.IntegerField()
+    product_inventory = models.ForeignKey(
+        ProductInventory,
+        related_name="order_meta_product_inventories",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        )
+    )
+    customer = models.ForeignKey(
+        Customer,
+        related_name="order_meta_customers",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
 
-    def __str__(self):
+
+def __str__(self):
         return f"Order(id={self.id}, status={self.status})"
