@@ -133,22 +133,3 @@ def contact(request):
 
 def about(request):
     return render(request, "inventory/about.html")
-
-
-def order(request):
-    cart = request.session.get('cart', {})
-    product_ids = cart.keys()
-    orders_items = OrderMeta.objects.prefetch_related('product_id').filter(pk__in=product_ids)
-    item_name = None
-    price = None
-    for item in orders_items:
-        item_name = item.product.name
-        price = item.product.retail_price
-
-    print(orders_items)
-    if request.method == "POST":
-        new_order = Order(
-            customer_id=request.POST.get('customer_id'),
-            total_price=price,
-            item_name=item_name
-        )

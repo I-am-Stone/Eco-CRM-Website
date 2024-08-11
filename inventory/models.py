@@ -411,26 +411,3 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Order(models.Model):
-    item = models.CharField(max_length=100)
-    total_price = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    status = models.TextField(max_length=100)
-
-
-class OrderMeta(models.Model):
-    order = models.ForeignKey(
-        Order,
-        related_name="order",
-        on_delete=models.PROTECT,
-    )
-    product_id = models.ForeignKey(
-        Product, related_name="product_id", on_delete=models.PROTECT
-    )
-    Product_inv = models.ForeignKey(
-        ProductInventory,
-        related_name="product_inv",
-        on_delete=models.PROTECT,
-    )

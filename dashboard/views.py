@@ -17,4 +17,4 @@ def add_product(request):
 
 
 def orders(request):
-    return render(request, "dashboard/add_product.html")
+    return render(request, "dashboard/order.html")
