@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from inventory.models import *
 
-
 # Create your views here.
 def dashboard(request):
     graph_data = ProductInventory.objects.all().order_by('id')

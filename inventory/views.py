@@ -143,18 +143,18 @@ def order_info(request):
 
     products = ProductInventory.objects.prefetch_related("product").filter(pk__in=product_ids)
     customer_id = int(request.POST.get('cust_id'))
-    customer = get_object_or_404(Customer, pk=customer_id)
 
     for product in products:
-        order = Order(
-            item=product.product.name,
-            total_price=product.retail_price,
-            item_count=cart.get(str(product.id), 1),
-            product_inventory=product,
-            customer=customer,
-            status=Order.STATUS_PENDING,
-        )
-        order.save()
+        if request.method == "POST":
+            order = Order(
+                item=product.product.name,
+                total_price=product.retail_price,
+                item_count=len(product_ids),
+                product_inventory=product,
+                customer=customer_id,
+                status=Order.STATUS_PENDING,
+            )
+            order.save()
 
     return JsonResponse({"message": "Order(s) successfully created!"})
 
