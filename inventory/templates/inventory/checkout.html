@@ -147,8 +147,9 @@
                         <ul class="steps steps-vertical lg:steps-horizontal">
                             {% if step == 'buy' %}
                                 <li class="step step-primary" id = "submitted">Register</li>
+                            {% else %}
+                                <li class="step" id = "submitted">Register</li>
                             {% endif %}
-                                <li class="step step-primary" id = "submitted">Register</li>
                             <li class="step">Place Order</li>
                             <li class="step">Ship</li>
                             <li class="step">Delivered</li>

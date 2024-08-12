@@ -140,27 +140,28 @@ def order_info(request):
     cart = request.session.get('cart', {})
     product_ids = cart.keys()
 
-    order_data = []
     products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
-    customer = Customer.objects.get(pk=request.GET.get('cust_id'))
+    customer_id = int(request.POST.get('cust_id'))
 
     for product in products:
         product_name = product.product.name
         price = product.retail_price
         product_description = product.product.description
-        order_data.append({
-            product_name: product_name,
-            price: price,
-            product_description: product_description
-        })
+        # Insert on order table
 
-    if request.method == "POST":
-        new_order = Order(
+        if request.method == "POST":
+            new_order = Order(
+                product_name=product_name,
+                price=price,
+                product_description=product_description,
+                customer_id=customer_id
 
-            order_data=order_data
         )
-        new_order.save()
-        request.session['cart'] = {}
-        return redirect('home')
-
+            new_order.save()
+        # order_data.append({
+        #     product_name: product_name,
+        #     price: price,
+        #     product_description: product_description,
+        #     customer_id: customer_id,
+        # })
 
