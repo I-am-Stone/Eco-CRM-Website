@@ -1,10 +1,11 @@
-from datetime import datetime
 
 from django.shortcuts import render, redirect
 from inventory.models import *
 from .form import CustomerForm
 
 from dashboard.models import *
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 
 def get_cart_items(cart):
@@ -140,28 +141,21 @@ def order_info(request):
     cart = request.session.get('cart', {})
     product_ids = cart.keys()
 
-    products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
+    products = ProductInventory.objects.prefetch_related("product").filter(pk__in=product_ids)
     customer_id = int(request.POST.get('cust_id'))
+    customer = get_object_or_404(Customer, pk=customer_id)
 
     for product in products:
-        product_name = product.product.name
-        price = product.retail_price
-        product_description = product.product.description
-        # Insert on order table
-
-        if request.method == "POST":
-            new_order = Order(
-                product_name=product_name,
-                price=price,
-                product_description=product_description,
-                customer_id=customer_id
-
+        order = Order(
+            item=product.product.name,
+            total_price=product.retail_price,
+            item_count=cart.get(str(product.id), 1),
+            product_inventory=product,
+            customer=customer,
+            status=Order.STATUS_PENDING,
         )
-            new_order.save()
-        # order_data.append({
-        #     product_name: product_name,
-        #     price: price,
-        #     product_description: product_description,
-        #     customer_id: customer_id,
-        # })
+        order.save()
+
+    return JsonResponse({"message": "Order(s) successfully created!"})
+
 
