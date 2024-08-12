@@ -138,24 +138,33 @@ def about(request):
 
 
 def order_info(request):
-    cart = request.session.get('cart', {})
-    product_ids = cart.keys()
+    if request.method == "POST":
+        cart = request.session.get('cart', {})
+        product_ids = cart.keys()
 
-    products = ProductInventory.objects.prefetch_related("product").filter(pk__in=product_ids)
-    customer_id = int(request.POST.get('cust_id'))
+        products = ProductInventory.objects.prefetch_related("product").filter(pk__in=product_ids)
+        customer_id = request.POST.get('cust_id')
 
-    for product in products:
-        if request.method == "POST":
+        if not customer_id:
+            return JsonResponse({'status': 'error', 'message': 'Customer ID is required'}, status=400)
+
+        try:
+            customer_id = int(customer_id)
+        except ValueError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid customer ID'}, status=400)
+
+        for product in products:
             order = Order(
                 item=product.product.name,
                 total_price=product.retail_price,
                 item_count=len(product_ids),
                 product_inventory=product,
-                customer=customer_id,
+                customer_id=customer_id,
                 status=Order.STATUS_PENDING,
             )
             order.save()
 
-    return JsonResponse({"message": "Order(s) successfully created!"})
+        return JsonResponse({'status': 'success'})
 
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 
