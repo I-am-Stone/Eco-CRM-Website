@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from inventory.models import *
-
+from .models import *
 # Create your views here.
 def dashboard(request):
     graph_data = ProductInventory.objects.all().order_by('id')
@@ -40,4 +40,28 @@ def add_product(request):
 
 
 def orders(request):
-    return render(request, "dashboard/order.html")
+    orders_data = []
+    orders = Order.objects.all()
+
+    for order in orders:
+        custome_name = order.customer
+        count = order.item_count
+        item = order.item
+        status = order.status
+        date = order.created_at
+        price = order.total_price
+        cust_id = order.customer.pk
+
+        orders_data.append({
+            'pk':cust_id,
+            'customer':custome_name,
+            'count':count,
+            'product':item,
+            'status':status,
+            'order_date':date,
+            'cost':price
+        })
+    context = {
+        'orders': orders_data
+    }
+    return render(request, "dashboard/order.html",context)
