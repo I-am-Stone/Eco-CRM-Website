@@ -1,0 +1,38 @@
+{% extends 'dashboard/index.html' %}
+
+{% block order %}
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Order List</h1>
+
+  <div class="overflow-x-auto">
+      <table class="table table-zebra w-full">
+          <thead>
+          <tr>
+              <th class="bg-primary text-primary-content">Customers ID</th>
+              <th class="bg-primary text-primary-content">Customers Name</th>
+              <th class="bg-primary text-primary-content">Product Name</th>
+              <th class="bg-primary text-primary-content">Product Price</th>
+              <th class="bg-primary text-primary-content">Orders Date</th>
+              <th class="bg-primary text-primary-content">Address</th>
+              <th class="bg-primary text-primary-content">Quntity</th>
+              <th class="bg-primary text-primary-content">Ship/Shipped</th>
+          </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr class="hover">
+                <td>{{ order.pk }}</td>
+                <td>{{ order.customer }}</td>
+                <td>{{ order.product }}</td>
+                <td>{{ order.cost }}</td>
+                <td>{{ order.order_date }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.count }}</td>
+                <td>{{ order.status }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+{% endblock %}

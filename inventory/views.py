@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+
+from django.shortcuts import render, redirect
 from inventory.models import *
-from django.http import JsonResponse
-import json
-import re
 from .form import CustomerForm
+
+from dashboard.models import *
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+
 
 def get_cart_items(cart):
     cart_items = []
@@ -11,12 +14,12 @@ def get_cart_items(cart):
 
     product_ids = cart.keys()
     products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
-
     for product in products:
         quantity = cart[str(product.pk)]
         item_total = product.retail_price * quantity
         product_name = product.product.name
-        media_info = [{'url': media.image, 'alt_text': media.alt_text} for media in product.media_product_inventory.all()]
+        media_info = [{'url': media.image, 'alt_text': media.alt_text} for media in
+                      product.media_product_inventory.all()]
 
         cart_items.append({
             'product': product,
@@ -58,53 +61,14 @@ def home(request):
     }
     return render(request, "inventory/cart.html", context)
 
+
 def checkout(request):
     cart = request.session.get('cart', {})
     cart_items, total_price = get_cart_items(cart)
-
-    context = {
-        'cart_items': cart_items,
-    }
-    return render(request, "inventory/checkout.html", context)
-
-
-def remove_from_cart(request):
-    if request.method == "POST":
-        remove_item_id = request.POST.get('remove_item_id')
-        cart = request.session.get('cart', {})
-        
-        if remove_item_id in cart:
-            del cart[remove_item_id]
-            request.session['cart'] = cart
-    
-    return redirect('home')
-
-
-def buy_now(request):
-    if request.method == "POST":
-        product_id = request.POST.get('product_id')
-        quantity = int(request.POST.get('quantity', 1))
-
-        cart = {product_id: quantity}
-        request.session['cart'] = cart
-
-        return redirect('checkout')
-    return redirect('home')
-
-
-
-
-
-def customerinfo(request):
-    if request.method == "POST":
-        cust_email = request.POST.get('email')
-        name = request.POST.get('customer')
-        street = request.POST.get('address')
-        state = request.POST.get('state')
-        zip = request.POST.get('zip')
-        country = request.POST.get('country')
-
-def customerInfo(request):
+    form = None
+    form_data = {}
+    cust_id = None
+    # If request if post, save user data and change progress
     if request.method == "POST":
         form = CustomerForm(request.POST)
         if form.is_valid():
@@ -115,36 +79,100 @@ def customerInfo(request):
             city = form.cleaned_data['city']
             state = form.cleaned_data['state']
             phone = form.cleaned_data['phone']
-            zip = form.cleaned_data['zip']
+            zip_code = form.cleaned_data['zip']
             country = form.cleaned_data['country']
 
-            new_customer = customer(
+            new_customer = Customer(
                 email=email,
                 name=name,
                 phone=phone,
                 street=street,
                 city=city,
                 state=state,
-                zip=zip,
+                zip_code=zip_code,
                 country=country
             )
             new_customer.save()
+            cust_id = new_customer.pk  # Set id of just inserted customer
+            form_data = form.cleaned_data
 
-            # Perform any necessary actions (e.g., save to the database)
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'step': request.GET.get('step', 'fill_info'),
+        'form_data': form_data,
+        'cust_id': cust_id
+    }
+    return render(request, "inventory/checkout.html", context)
 
-            return JsonResponse({'status': 'success'})
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+
+def remove_from_cart(request):
+    if request.method == "POST":
+        remove_item_id = request.POST.get('remove_item_id')
+        cart = request.session.get('cart', {})
+
+        if remove_item_id in cart:
+            del cart[remove_item_id]
+            request.session['cart'] = cart
+
+    return redirect('home')
+
+
+def buy_now(request):
+    if request.method == "POST":
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 1))
+
+        cart = {product_id: quantity}
+        request.session['cart'] = cart
+        return redirect('checkout')
+    return redirect('home')
+
+
+def contact(request):
+    return render(request, "inventory/contact.html")
+
+
+def about(request):
+    return render(request, "inventory/about.html")
+
+
+def order_info(request):
+    if request.method == "POST":
+        cart = request.session.get('cart', {})
+        product_ids = cart.keys()
+
+
+        products = ProductInventory.objects.prefetch_related("product").filter(pk__in=product_ids)
+        customer_id = request.POST.get('cust_id')
+
+        if not customer_id:
+            return JsonResponse({'status': 'error', 'message': 'Customer ID is required'}, status=400)
+
+        try:
+            customer_id = int(customer_id)
+        except ValueError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid customer ID'}, status=400)
+
+        for product in products:
+            quantity = 1
+            product_id = cart
+
+            if product_id in cart:
+                cart[product_id] += quantity
+            else:
+                cart[product_id] = quantity
+            order = Order(
+                item=product.product.name,
+                total_price=product.retail_price,
+                item_count=quantity,
+                product_inventory=product,
+                customer_id=customer_id,
+                status=Order.status,
+            )
+            order.save()
+
+        return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-
-
-
-
-
-
-
-
-
-
 

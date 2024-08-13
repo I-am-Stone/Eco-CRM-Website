@@ -1,3 +1,13 @@
-.items{
-    padding-top: 80px;
+
+@font-face {
+    font-family: 'neon';
+    src: url('images/Neoneon.otf') format('opentype');
+  }
+
+.side-brand{
+  font-family: 'neon',sans-serif;
+}
+
+body{
+  overflow-x: hidden;
 }

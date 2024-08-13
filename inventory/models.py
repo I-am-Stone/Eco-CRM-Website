@@ -90,7 +90,7 @@ class Product(models.Model):
         verbose_name=_("product description"),
         help_text=_("format: required"),
     )
-    
+
     category = TreeManyToManyField(Category)
     is_active = models.BooleanField(
         unique=False,
@@ -398,15 +398,17 @@ class ProductAttributeValues(models.Model):
         unique_together = (("attributevalues", "productinventory"),)
 
 
-class customer(models.Model):
+class Customer(models.Model):
+    objects = None
     email = models.EmailField()
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
-    zip = models.CharField(max_length=20)
+    zip_code = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.name

@@ -57,10 +57,7 @@ body {
     right: 0;
 }
 
-.body-section{
-    height:80vh;
-    background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
-}
+
 
 
 .container{
@@ -78,8 +75,8 @@ body {
     justify-content: space-between;
     border-bottom: 1px solid gray;
     box-shadow: 0 1px 2px -2px gray;
-    
-    
+
+
 }
 
 .cart-section{
@@ -163,68 +160,25 @@ section{
     font-weight: 400;
     text-align: center;
 }
-
-/* Container for the whole section */
-.section-container-hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: linear-gradient(90deg, rgba(9, 31, 25, 0.8519782913165266) 0%, rgba(15, 5, 36, 1) 100%);
-    padding: 20px;
-  }
-  
-  /* Wrapper for the benefits items */
-.benefits-wrapper {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ffffff;
-    padding: 10px;
-  }
-  
-  /* Individual benefit items */
-.benefits-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid #ffffff;
-    padding: 20px;
-  }
-  
-.benefits-item:first-child {
-    border-left: none;
-  }
-  
-.benefits-icon {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-  }
-  
-.benefits {
-    color: #ffffff;
-    font-size: 16px;
-    text-align: center;
-  }
-  
   /* Footer text styling */
 .footer-text {
     color: #ffffff;
     text-align: center;
     margin-top: 20px;
   }
-  
+
 .footer-text .text-link {
     color: #ffffff;
     text-decoration: underline;
   }
-  
+
 
 .product-list-item{
     position: relative;
     display: flex;
     margin-bottom: 125px;
     justify-content: center;
+
 }
 
 .product-list-item-img-wrap{
@@ -250,13 +204,16 @@ section{
 .product-list-images{
     position: relative;
     z-index: 5;
-    box-shadow: 0 15px 60px 0 rgba(0,0,0,.35);
     width: 500px;
 } 
 
 .item-list{
     width: 1200px;
     margin-inline: auto;
+    box-shadow: 0 15px 60px 0 rgba(0,0,0,.35);
+    height: 49vh;
+    margin-top: 2cm;
+    margin-bottom: 2cm;
 
 }
 
@@ -356,93 +313,6 @@ h2 {
 
 
 /* Cart.html design */
-
-.section-hero{
-    min-height: 40vh;
-    background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
-    background-position: 0 0, 30%;
-    background-size: auto, cover;
-    padding-bottom: 10px;
-}
-
-.section.checkout_hero{
-    padding-bottom: 150px;
-}
-
-.section-container{
-    margin-right: 5%;
-    margin-left: 5%;
-}
-
-.checkout_hero{
-    height: 20vh;
-    background-image:linear-gradient(90deg, rgba(9,31,25,0.8519782913165266) 0%, rgba(15,5,36,1) 100%);
-    display: flex;
-
-}
-
-.checkout-nav-button{
-    color: white;
-}
-
-
-
-.section-container{
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.section-nav{
-    padding-top: 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
-}
-
-.section-nav-button{
-    color: #ddd;
-}
-
-.section-header{
-    font-family: 'neon',sans-serif;
-    color: whitesmoke;
-    font-size: 30px;
-}
-.section-checkout{
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.section-checkout-wrapper{
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, .11);
-    border-radius: 3px;
-    justify-content: space-between;
-}
-
-.checkout-link{
-    color: white;
-    letter-spacing: 1.25px;
-    display: flex;
-    font-size: 15px;
-    padding: 10px 15px;
-}
-.checkout-line{
-    box-sizing: border-box;
-    height: 1px;
-    background-color: white;
-    flex: 1;
-}
-
-
-
-.rmvbtn{
-    color: red;
-    padding: 2px;
-}
-
 
 .view-cart {
     background-color: #ffffff;
@@ -762,3 +632,29 @@ h2 {
 
 }
 
+.swiper-container {
+    width: 100%;
+    height: 500px; /* Adjust the height as needed */
+    overflow: hidden;
+  }
+  
+.swiper-wrapper {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+  }
+  
+.swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.swiper-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }

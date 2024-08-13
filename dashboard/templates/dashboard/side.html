@@ -1,23 +1,238 @@
 {% extends 'dashboard/index.html' %}
 
-{% block content %}
-<div class="drawer-side">
-  <label class="drawer-overlay"></label>
-  <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4 border-r border-gray-200">
-    <ul class="space-y-4 pt-20 items"> <!-- Adjusted spacing between items -->
-      <li>
-        <a href="#">Dashboard</a>
-      </li>
-      <li>
-        <a href="#">Products</a>
-      </li>
-      <li>
-        <a href="#">Inbox</a>
-      </li>
-      <li>
-        <a href="#">Orders</a>
-      </li>
-    </ul>
-  </div>
+{% block product %}
+<div class="container mx-auto p-6">
+    <h2 class="text-2xl font-semibold text-gray-700 my-6">
+      Dashboard
+    </h2>
+    <!-- Cards -->
+    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+      <!-- Card -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <div class="flex items-center">
+            <div class="avatar placeholder mr-4">
+              <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+                <span class="text-xl">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-base-content opacity-70">Total clients</p>
+              <p class="text-lg font-semibold text-base-content">6389</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <div class="flex items-center">
+            <div class="avatar placeholder mr-4">
+              <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+                <span class="text-xl">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-base-content opacity-70">Account balance</p>
+              <p class="text-lg font-semibold text-base-content">$ 46,760.89</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <div class="flex items-center">
+            <div class="avatar placeholder mr-4">
+              <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+                <span class="text-xl">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-base-content opacity-70">New sales</p>
+              <p class="text-lg font-semibold text-base-content">376</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- Close grid container -->
+</div> <!-- Close main container -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <canvas id="PieChart"></canvas>
+        </div>
+    </div>
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <canvas id="SalesChart"></canvas>
+        </div>
+    </div>
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <canvas id="EcommerceChart"></canvas>
+        </div>
+    </div>
 </div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Pie Chart Details</h2>
+            <progress class="progress progress-primary w-full mb-2" value="0" max="100"></progress>
+            <progress class="progress progress-primary w-full mb-2" value="10" max="100"></progress>
+            <progress class="progress progress-primary w-full mb-2" value="40" max="100"></progress>
+            <progress class="progress progress-primary w-full mb-2" value="70" max="100"></progress>
+            <progress class="progress progress-primary w-full mb-2" value="100" max="100"></progress>
+        </div>
+    </div>
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Sales Chart Details</h2>
+            <p class="text-base-content opacity-70">
+                The sales chart displays the sales data over a period of seven months. The line chart format highlights trends and patterns in the sales data, making it easy to observe fluctuations and overall performance. Each point on the chart represents the sales value for a particular month, with the line connecting these points to show the progression over time.
+            </p>
+        </div>
+    </div>
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">E-commerce Chart Details</h2>
+            <p class="text-base-content opacity-70">
+                The e-commerce chart illustrates the performance of different e-commerce metrics such as revenue, orders, and customers over the last six months. This helps in understanding the growth and identifying key areas for improvement.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function createChart(ctx, type, data, options) {
+            return new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+
+        const salesCtx = document.getElementById('SalesChart').getContext('2d');
+        const pieCtx = document.getElementById('PieChart').getContext('2d');
+        const ecommerceCtx = document.getElementById('EcommerceChart').getContext('2d');
+
+        const salesData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Sales',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                tension: 0.4,
+                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
+            }]
+        };
+
+        const salesOptions = {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'Sales Chart' }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Month' } },
+                y: { title: { display: true, text: 'Value' } }
+            }
+        };
+
+        const pieData = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                data: [300, 50, 100, 75, 150, 200],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const pieOptions = {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'Pie Chart' }
+            }
+        };
+
+        const ecommerceData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'Revenue',
+                data: [5000, 7000, 8000, 6000, 9000, 11000],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.4
+            }, {
+                label: 'Orders',
+                data: [50, 60, 70, 65, 80, 90],
+                borderColor: 'rgba(255, 206, 86, 1)',
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                tension: 0.4
+            }, {
+                label: 'Customers',
+                data: [20, 30, 40, 35, 50, 60],
+                borderColor: 'rgba(153, 102, 255, 1)',
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                tension: 0.4
+            }]
+        };
+
+        const ecommerceOptions = {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'E-commerce Performance' }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Month' } },
+                y: { title: { display: true, text: 'Value' } }
+            }
+        };
+
+        createChart(salesCtx, 'line', salesData, salesOptions);
+        createChart(pieCtx, 'pie', pieData, pieOptions);
+        createChart(ecommerceCtx, 'line', ecommerceData, ecommerceOptions);
+    });
+</script>
+
 {% endblock %}
