@@ -1,7 +1,7 @@
 {% extends 'dashboard/index.html' %}
 
 {% block product %}
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 shadow-2xl">
     <h1 class="text-3xl font-bold mb-6">Product List</h1>
 
     <div class="overflow-x-auto">
@@ -33,13 +33,55 @@
         </table>
     </div>
 
-    <div class="mt-8">
-        <a href="#" class="btn btn-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            Add a new item
-        </a>
-    </div>
+    <div class="mt-12">
+        <h2 class="text-2xl font-semibold mb-4">Add New Order</h2>
+        <form class="bg-base-200 p-6 rounded-lg shadow-md">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Product Name</span>
+              </label>
+              <input type="text" placeholder="Enter customer name" class="input input-bordered" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Brand</span>
+              </label>
+              <input type="text" placeholder="Enter Brand name" class="input input-bordered" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Prodct Pruice</span>
+              </label>
+              <input type="number" placeholder="Enter price" class="input input-bordered" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Quantity</span>
+              </label>
+              <input type="number" placeholder="Enter quantity" class="input input-bordered" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Product Description</span>
+              </label>
+              <textarea class="textarea textarea-bordered" placeholder="Description"></textarea>
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Active/Inactive</span>
+              </label>
+              <select class="select select-bordered">
+                <option disabled selected>Select status</option>
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-6">
+            <button class="btn btn-primary">Add Product</button>
+          </div>
+        </form>
+      </div>
 </div>
 {% endblock %}
