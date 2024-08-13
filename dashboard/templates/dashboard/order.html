@@ -13,6 +13,8 @@
               <th class="bg-primary text-primary-content">Product Name</th>
               <th class="bg-primary text-primary-content">Product Price</th>
               <th class="bg-primary text-primary-content">Orders Date</th>
+              <th class="bg-primary text-primary-content">Address</th>
+              <th class="bg-primary text-primary-content">Quntity</th>
               <th class="bg-primary text-primary-content">Ship/Shipped</th>
           </tr>
           </thead>
@@ -24,6 +26,8 @@
                 <td>{{ order.product }}</td>
                 <td>{{ order.cost }}</td>
                 <td>{{ order.order_date }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.count }}</td>
                 <td>{{ order.status }}</td>
             </tr>
             {% endfor %}

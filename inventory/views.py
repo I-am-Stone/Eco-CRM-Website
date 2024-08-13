@@ -142,6 +142,7 @@ def order_info(request):
         cart = request.session.get('cart', {})
         product_ids = cart.keys()
 
+
         products = ProductInventory.objects.prefetch_related("product").filter(pk__in=product_ids)
         customer_id = request.POST.get('cust_id')
 
@@ -154,13 +155,20 @@ def order_info(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid customer ID'}, status=400)
 
         for product in products:
+            quantity = 1
+            product_id = cart
+
+            if product_id in cart:
+                cart[product_id] += quantity
+            else:
+                cart[product_id] = quantity
             order = Order(
                 item=product.product.name,
                 total_price=product.retail_price,
-                item_count=len(product_ids),
+                item_count=quantity,
                 product_inventory=product,
                 customer_id=customer_id,
-                status=Order.STATUS_PENDING,
+                status=Order.status,
             )
             order.save()
 

@@ -41,27 +41,35 @@ def add_product(request):
 
 def orders(request):
     orders_data = []
-    orders = Order.objects.all()
+    orders = Order.objects.select_related('customer').all()
 
     for order in orders:
-        custome_name = order.customer
+        customer_name = order.customer.name  # Assuming there's a name field in the Customer model
         count = order.item_count
         item = order.item
-        status = order.status
+        status = order.STATUS_PENDING
         date = order.created_at
         price = order.total_price
         cust_id = order.customer.pk
+        address = f"{order.customer.street}, {order.customer.city}, {order.customer.state}, {order.customer.zip_code}"
+        
 
         orders_data.append({
-            'pk':cust_id,
-            'customer':custome_name,
-            'count':count,
-            'product':item,
-            'status':status,
-            'order_date':date,
-            'cost':price
+            'pk': cust_id,
+            'customer': customer_name,
+            'count': count,
+            'product': item,
+            'status': status,  # Use the actual status from the order
+            'order_date': date,
+            'cost': price,
+            'address': address,
         })
+
     context = {
         'orders': orders_data
     }
-    return render(request, "dashboard/order.html",context)
+    return render(request, "dashboard/order.html", context)
+
+
+def signin(request):
+    return render(request, "dashboard/sign_in.html")
