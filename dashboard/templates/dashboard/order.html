@@ -2,10 +2,10 @@
 
 {% block order %}
 <div class="container mx-auto px-4 py-8 shadow-2xl my-20">
-  <h1 class="text-3xl font-bold mb-6">Order List</h1>
-<div class="overflow-x-auto">
-    <table class="table table-zebra w-full">
-        <thead>
+    <h1 class="text-3xl font-bold mb-6">Order List</h1>
+    <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+            <thead>
             <tr>
                 <th class="bg-primary text-primary-content">Customers ID</th>
                 <th class="bg-primary text-primary-content">Customers Name</th>
@@ -16,56 +16,63 @@
                 <th class="bg-primary text-primary-content">Quantity</th>
                 <th class="bg-primary text-primary-content">Ship/Shipped</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
-        <tr class="hover">
-            <td>{{ order.customer.pk}}</td>
-            <td>{{ order.customer }}</td>
-            <td>{{ order.item }}</td>
-            <td>{{ order.total_price }}</td>
-            <td>{{ order.created_at }}</td>
-            <td>{{ order.customer.street }},{{ order.customer.city }}, {{ order.customer.state }}</td>
-            <td>{{ order.item_count }}</td>
-            <td>
-                <form class="status" method="POST" action="{% url 'order_status' order.pk %}">
-                    {% csrf_token %}
-                    <select name="status" id="status" onchange="this.form.submit()">
-                        <option value="">{{ order.status }}</option>
-                        <option value="PROCESSING" {% if order.status|upper == "PROCESSING" %}selected{% endif %}>Processing</option>
-                        <option value="COMPLETED" {% if order.status|upper == "COMPLETED" %}selected{% endif %}>Completed</option>
-                        <option value="CANCELLED" {% if order.status|upper == "CANCELLED" %}selected{% endif %}>Cancelled</option>
-                    </select>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for order in page_obj %}
+            <tr class="hover">
+                <td>{{ order.customer.pk }}</td>
+                <td>{{ order.customer }}</td>
+                <td>{{ order.item }}</td>
+                <td>{{ order.total_price }}</td>
+                <td>{{ order.created_at }}</td>
+                <td>{{ order.customer.street }},{{ order.customer.city }}, {{ order.customer.state }}</td>
+                <td>{{ order.item_count }}</td>
+                <td>
+                    <form class="status" method="POST" action="{% url 'order_status' order.pk %}">
+                        {% csrf_token %}
+                        <select name="status" id="status" onchange="this.form.submit()">
+                            <option value="">{{ order.status }}</option>
+                            <option value="PROCESSING" {% if order.status|upper == "PROCESSING" %}selected{% endif %}>Processing</option>
+                            <option value="COMPLETED" {% if order.status|upper == "COMPLETED" %}selected{% endif %}>Completed</option>
+                            <option value="CANCELLED" {% if order.status|upper == "CANCELLED" %}selected{% endif %}>Cancelled</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="flex justify-center mt-6">
+        <nav aria-label="Pagination">
+            <ul class="flex space-x-2">
+                {% if page_obj.has_previous %}
+                <li>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary">Previous</a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li>
+                    <a href="?page={{ num }}" class="btn btn-active">{{ num }}</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="?page={{ num }}" class="btn">{{ num }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 </div>
-<div class="flex justify-center mt-6">
-    <nav aria-label="Pagination">
-        <ul class="flex space-x-2">
-            <li>
-                <a href="#" class="btn btn-primary">Previous</a>
-            </li>
-            <li>
-                <a href="#" class="btn">1</a>
-            </li>
-            <li>
-                <a href="#" class="btn btn-active">2</a>
-            </li>
-            <li>
-                <a href="#" class="btn">3</a>
-            </li>
-            <li>
-                <a href="#" class="btn">4</a>
-            </li>
-            <li>
-                <a href="#" class="btn btn-primary">Next</a>
-            </li>
-        </ul>
-    </nav>
-</div>
-</div>
+
 {% endblock %}

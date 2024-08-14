@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 def dashboard(request):
@@ -46,10 +48,14 @@ def add_product(request):
 
 def orders(request):
     orders_collection = Order.objects.select_related('customer').all()
+    paginator = Paginator(orders_collection, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'orders': orders_collection
+        'orders': orders_collection,
+        'page_obj': page_obj
     }
-    print(orders_collection)
     return render(request, "dashboard/order.html", context)
 
 
@@ -64,12 +70,12 @@ def signin(request):
         user = authenticate(username=username, password=password)
 
         if user is None:
-            messages.error(request,"Invalid Password")
+            messages.error(request, "Invalid Password")
             return redirect('signin')
         else:
             login(request, user)
             return redirect('dashbord')
-        
+
     return render(request, "dashboard/sign_in.html")
 
 
