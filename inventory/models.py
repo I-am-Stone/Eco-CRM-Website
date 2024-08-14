@@ -235,6 +235,7 @@ class ProductInventory(models.Model):
     )
     is_active = models.BooleanField(
         default=True,
+
         verbose_name=_("product visibility"),
         help_text=_("format: true=product visible"),
     )

@@ -42,34 +42,9 @@ def add_product(request):
 
 
 def orders(request):
-    orders_data = []
     orders_collection = Order.objects.select_related('customer').all()
-
-    for order in orders_collection:
-        customer_name = order.customer.name  # Assuming there's a name field in the Customer model
-        count = order.item_count
-        item = order.item
-        status = order.STATUS_PENDING
-        date = order.created_at
-        price = order.total_price
-        cust_id = order.customer.pk
-        address = f"{order.customer.street}, {order.customer.city}, {order.customer.state}, {order.customer.zip_code}"
-        order_key = Order.pk
-
-        orders_data.append({
-            'key': order_key,
-            'pk': cust_id,
-            'customer': customer_name,
-            'count': count,
-            'product': item,
-            'status': status,  # Use the actual status from the order
-            'order_date': date,
-            'cost': price,
-            'address': address,
-        })
-
     context = {
-        'orders': orders_data
+        'orders': orders_collection
     }
     print(orders_collection)
     return render(request, "dashboard/order.html", context)
@@ -79,7 +54,7 @@ def signin(request):
     return render(request, "dashboard/sign_in.html")
 
 
-def update_order_status(request, order_id):
+def order_status(request, order_id):
     if request.method == 'POST':
         print(f"Attempting to update order with id: {order_id}")
         order = get_object_or_404(Order, id=order_id)

@@ -21,21 +21,21 @@
           <tbody>
             {% for order in orders %}
             <tr class="hover">
-                <td>{{ order.pk }} {{ order.id }}</td>
+                <td>{{ order.customer.pk}}</td>
                 <td>{{ order.customer }}</td>
-                <td>{{ order.product }}</td>
-                <td>{{ order.cost }}</td>
-                <td>{{ order.order_date }}</td>
-                <td>{{ order.address }}</td>
-                <td>{{ order.count }}</td>
+                <td>{{ order.item }}</td>
+                <td>{{ order.total_price }}</td>
+                <td>{{ order.created_at }}</td>
+                <td>{{ order.customer.street }},{{ order.customer.city }}, {{ order.customer.state }}</td>
+                <td>{{ order.item_count }}</td>
                 <td>
-                    <form method="POST" action="{% url 'update_order_status' order.key %}">
+                    <form class="status" method="POST" action="{% url 'order_status' order.pk %}">
                         {% csrf_token %}
                         <select name="status" id="status" onchange="this.form.submit()">
                             <option value="">{{ order.status }}</option>
-                            <option value="PROCESSING" {% if order.status == "Processing" %}selected{% endif %}>Processing</option>
-                            <option value="COMPLETED" {% if order.status == "Completed" %}selected{% endif %}>Completed</option>
-                            <option value="CANCELLED" {% if order.status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+                            <option value="PROCESSING" {% if order.status|upper == "PROCESSING" %}selected{% endif %}>Processing</option>
+                            <option value="COMPLETED" {% if order.status|upper == "COMPLETED" %}selected{% endif %}>Completed</option>
+                            <option value="CANCELLED" {% if order.status|upper == "CANCELLED" %}selected{% endif %}>Cancelled</option>
                         </select>
                     </form>
                 </td>
