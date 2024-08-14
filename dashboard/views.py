@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from inventory.models import *
 from .models import *
+
+
 # Create your views here.
 def dashboard(request):
     graph_data = ProductInventory.objects.all().order_by('id')
@@ -41,9 +43,9 @@ def add_product(request):
 
 def orders(request):
     orders_data = []
-    orders = Order.objects.select_related('customer').all()
+    orders_collection = Order.objects.select_related('customer').all()
 
-    for order in orders:
+    for order in orders_collection:
         customer_name = order.customer.name  # Assuming there's a name field in the Customer model
         count = order.item_count
         item = order.item
@@ -52,9 +54,10 @@ def orders(request):
         price = order.total_price
         cust_id = order.customer.pk
         address = f"{order.customer.street}, {order.customer.city}, {order.customer.state}, {order.customer.zip_code}"
-        
+        order_key = Order.pk
 
         orders_data.append({
+            'key': order_key,
             'pk': cust_id,
             'customer': customer_name,
             'count': count,
@@ -68,8 +71,21 @@ def orders(request):
     context = {
         'orders': orders_data
     }
+    print(orders_collection)
     return render(request, "dashboard/order.html", context)
 
 
 def signin(request):
     return render(request, "dashboard/sign_in.html")
+
+
+def update_order_status(request, order_id):
+    if request.method == 'POST':
+        print(f"Attempting to update order with id: {order_id}")
+        order = get_object_or_404(Order, id=order_id)
+        new_status = request.POST.get('status')
+        if new_status:
+            order.status = new_status
+            order.save()
+
+        return redirect('orders')
