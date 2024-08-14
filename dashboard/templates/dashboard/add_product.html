@@ -8,81 +8,57 @@
     <div class="overflow-x-auto">
         <table class="table table-zebra w-full">
             <thead>
-            <tr>
-                <th class="bg-primary text-primary-content">Product Name</th>
-                <th class="bg-primary text-primary-content">Brand</th>
-                <th class="bg-primary text-primary-content">Product Price</th>
-                <th class="bg-primary text-primary-content">Product Description</th>
-                <th class="bg-primary text-primary-content">Added Date</th>
-                <th class="bg-primary text-primary-content">Active/Inactive</th>
-                <th class="bg-primary text-primary-content">Product Type</th>
-            </tr>
+                <tr>
+                    <th class="bg-primary text-primary-content">Product Name</th>
+                    <th class="bg-primary text-primary-content">Brand</th>
+                    <th class="bg-primary text-primary-content">Product Price</th>
+                    <th class="bg-primary text-primary-content">Product Description</th>
+                    <th class="bg-primary text-primary-content">Added Date</th>
+                    <th class="bg-primary text-primary-content">Active/Inactive</th>
+                    <th class="bg-primary text-primary-content">Product Type</th>
+                </tr>
             </thead>
             <tbody>
-            {% for item in items %}
-            <tr class="hover">
-                <td>{{ item.product_name }}</td>
-                <td>{{ item.brand }}</td>
-                <td>{{ item.product_price }}</td>
-                <td>{{ item.product_description }}</td>
-                <td>{{ item.added_date }}</td>
-                <td>{{ item.active_status }}</td>
-                <td>{{ item.product_type }}</td>
-            </tr>
-            {% endfor %}
+                {% for item in items %}
+                <tr class="hover:bg-gray-100">
+                    <td>{{ item.product_name }}</td>
+                    <td>{{ item.brand }}</td>
+                    <td>{{ item.product_price }}</td>
+                    <td>{{ item.product_description }}</td>
+                    <td>{{ item.added_date }}</td>
+                    <td>{{ item.active_status }}</td>
+                    <td>{{ item.product_type }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <div class="mt-12">
-        <h2 class="text-2xl font-semibold mb-4">Add New Order</h2>
-        <form class="bg-base-200 p-6 rounded-lg shadow-md">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Product Name</span>
-              </label>
-              <input type="text" placeholder="Enter customer name" class="input input-bordered" />
-            </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Brand</span>
-              </label>
-              <input type="text" placeholder="Enter Brand name" class="input input-bordered" />
-            </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Prodct Pruice</span>
-              </label>
-              <input type="number" placeholder="Enter price" class="input input-bordered" />
-            </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Quantity</span>
-              </label>
-              <input type="number" placeholder="Enter quantity" class="input input-bordered" />
-            </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Product Description</span>
-              </label>
-              <textarea class="textarea textarea-bordered" placeholder="Description"></textarea>
-            </div>
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">Active/Inactive</span>
-              </label>
-              <select class="select select-bordered">
-                <option disabled selected>Select status</option>
-                <option>Active</option>
-                <option>Inactive</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-6">
-            <button class="btn btn-primary">Add Product</button>
-          </div>
-        </form>
-      </div>
+    <div class="flex justify-center mt-6">
+        <nav aria-label="Pagination">
+            <ul class="flex space-x-2">
+                <li>
+                    <a href="#" class="btn btn-primary">Previous</a>
+                </li>
+                <li>
+                    <a href="#" class="btn">1</a>
+                </li>
+                <li>
+                    <a href="#" class="btn btn-active">2</a>
+                </li>
+                <li>
+                    <a href="#" class="btn">3</a>
+                </li>
+                <li>
+                    <a href="#" class="btn">4</a>
+                </li>
+                <li>
+                    <a href="#" class="btn btn-primary">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
 </div>
+
 {% endblock %}
