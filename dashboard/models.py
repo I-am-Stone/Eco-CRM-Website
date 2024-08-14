@@ -42,3 +42,8 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order(id={self.id}, status={self.status})"
+
+
+class User(models.Model):
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
