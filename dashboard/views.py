@@ -21,6 +21,10 @@ def dashboard(request):
 def add_product(request):
     items = []
     products = ProductInventory.objects.all()
+    paginator = Paginator(products, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     for product in products:
         product_name = product.product.name
         price = product.retail_price
@@ -41,7 +45,8 @@ def add_product(request):
         })
 
     context = {
-        'items': items
+        'items': items,
+        'page_obj':page_obj
     }
     return render(request, "dashboard/add_product.html", context)
 

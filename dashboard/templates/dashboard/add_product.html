@@ -37,28 +37,30 @@
     <div class="flex justify-center mt-6">
         <nav aria-label="Pagination">
             <ul class="flex space-x-2">
+                {% if page_obj.has_previous%}
                 <li>
                     <a href="#" class="btn btn-primary">Previous</a>
                 </li>
-                <li>
-                    <a href="#" class="btn">1</a>
-                </li>
-                <li>
-                    <a href="#" class="btn btn-active">2</a>
-                </li>
-                <li>
-                    <a href="#" class="btn">3</a>
-                </li>
-                <li>
-                    <a href="#" class="btn">4</a>
-                </li>
-                <li>
-                    <a href="#" class="btn btn-primary">Next</a>
-                </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li>
+                            <a href="#" class="btn">1</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="#" class="btn btn-active">2</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li>
+                        <a href="#" class="btn btn-primary">Next</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
-    </div>
-    
+    </div> 
 </div>
 
 {% endblock %}
