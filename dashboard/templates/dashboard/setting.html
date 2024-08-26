@@ -1,0 +1,83 @@
+{% extends 'dashboard/index.html' %}
+
+{% block setting %}
+
+<div id="content" class="colM p-8 flex justify-center">
+    <div class="max-w-2xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="p-8">
+            <h1 class="text-3xl font-semibold mb-6 text-center">Add User</h1>
+
+            <div id="content-main">
+                <form method="post" id="user_form" class="space-y-8" novalidate="">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="mbEM5FJFpQrX5MzBuGrfIUKhmh5a9u7k5g88kZ6NKsdie9o8Uk0tSRCHfsIblfTU">
+
+                    <p class="text-sm text-gray-600 mb-6">First, enter a username and password. Then, you'll be able to edit more user options.</p>
+
+                    <fieldset class="space-y-6">
+                        <div class="form-row field-username">
+                            <div class="form-control">
+                                <label for="id_username" class="label required font-semibold">Username:</label>
+                                <input type="text" name="username" id="id_username" class="input input-bordered w-full" maxlength="150" autocapitalize="none" autocomplete="username" required aria-describedby="id_username_helptext">
+                                <div id="id_username_helptext" class="text-sm text-gray-500 mt-1">
+                                    Required. 150 characters or fewer. Letters, digits, and @/./+/-/_ only.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row field-usable_password">
+                            <div class="form-control">
+                                <label class="label font-semibold">Password-based authentication:</label>
+                                <div id="id_usable_password" class="flex space-x-4">
+                                    <label for="id_usable_password_0" class="label cursor-pointer">
+                                        <input type="radio" name="usable_password" value="true" class="radio" id="id_usable_password_0" checked>
+                                        <span class="ml-2">Enabled</span>
+                                    </label>
+                                    <label for="id_usable_password_1" class="label cursor-pointer">
+                                        <input type="radio" name="usable_password" value="false" class="radio" id="id_usable_password_1">
+                                        <span class="ml-2">Disabled</span>
+                                    </label>
+                                </div>
+                                <div class="text-sm text-gray-500 mt-1">
+                                    Whether the user will be able to authenticate using a password or not. If disabled, they may still be able to authenticate using other backends, such as Single Sign-On or LDAP.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row field-password1">
+                            <div class="form-control">
+                                <label for="id_password1" class="label font-semibold">Password:</label>
+                                <input type="password" name="password1" id="id_password1" class="input input-bordered w-full" autocomplete="new-password" aria-describedby="id_password1_helptext">
+                                <div id="id_password1_helptext" class="text-sm text-gray-500 mt-1">
+                                    <ul class="list-disc pl-5">
+                                        <li>Your password can't be too similar to your other personal information.</li>
+                                        <li>Your password must contain at least 8 characters.</li>
+                                        <li>Your password can't be a commonly used password.</li>
+                                        <li>Your password can't be entirely numeric.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row field-password2">
+                            <div class="form-control">
+                                <label for="id_password2" class="label font-semibold">Password confirmation:</label>
+                                <input type="password" name="password2" id="id_password2" class="input input-bordered w-full" autocomplete="new-password" aria-describedby="id_password2_helptext">
+                                <div id="id_password2_helptext" class="text-sm text-gray-500 mt-1">
+                                    Enter the same password as before, for verification.
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="submit-row flex justify-center space-x-4 mt-8">
+                        <input type="submit" value="Save" class="btn btn-primary" name="_save">
+                        <input type="submit" value="Save and add another" class="btn btn-secondary" name="_addanother">
+                        <input type="submit" value="Save and continue editing" class="btn btn-accent" name="_continue">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

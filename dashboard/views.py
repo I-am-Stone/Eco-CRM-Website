@@ -46,7 +46,7 @@ def add_product(request):
 
     context = {
         'items': items,
-        'page_obj':page_obj
+        'page_obj': page_obj
     }
     return render(request, "dashboard/add_product.html", context)
 
@@ -94,3 +94,7 @@ def order_status(request, order_id):
             order.save()
 
         return redirect('orders')
+
+    return render(request, "dashboard/order_status.html", {'order': order_id})
+def setting(request):
+    return render(request, "dashboard/setting.html")
