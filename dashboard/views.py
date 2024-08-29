@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from inventory.models import *
 from .models import *
@@ -96,5 +97,9 @@ def order_status(request, order_id):
         return redirect('orders')
 
     return render(request, "dashboard/order_status.html", {'order': order_id})
+
+
 def setting(request):
     return render(request, "dashboard/setting.html")
+
+
