@@ -80,7 +80,7 @@ def signin(request):
             return redirect('signin')
         else:
             login(request, user)
-            return redirect('dashbord')
+            return redirect('dashboard')
 
     return render(request, "dashboard/sign_in.html")
 
