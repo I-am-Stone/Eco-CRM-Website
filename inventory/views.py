@@ -130,6 +130,20 @@ def buy_now(request):
 
 
 def contact(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        contect = ContactForm(
+            email=email,
+            name=name,
+            subject=subject,
+            message=message,
+        )
+        contect.save()
+
     return render(request, "inventory/contact.html")
 
 
