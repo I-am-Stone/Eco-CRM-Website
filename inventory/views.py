@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from inventory.models import *
 from .form import CustomerForm
@@ -136,13 +135,13 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        contect = ContactForm(
+        contest = ContactForm(
             email=email,
             name=name,
             subject=subject,
             message=message,
         )
-        contect.save()
+        contest.save()
 
     return render(request, "inventory/contact.html")
 
@@ -153,11 +152,11 @@ def about(request):
 
 def order_info(request):
     if request.method == "POST":
-        cart:dict = request.session.get('cart', {})
+        cart: dict = request.session.get('cart', {})
         print(cart)
         customer_id = request.POST.get('cust_id')
-        
-        for key,value in cart.items():
+
+        for key, value in cart.items():
             product = ProductInventory.objects.prefetch_related("product").get(pk=key)
             order = Order(
                 item=product.product.name,
@@ -169,8 +168,8 @@ def order_info(request):
             )
             order.save()
 
-
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
 

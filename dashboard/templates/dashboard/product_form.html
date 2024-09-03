@@ -1,0 +1,95 @@
+{% extends 'dashboard/index.html' %}
+
+{% block new_item %}
+<div id="content" class="p-8">
+    <div class="container mx-auto">
+        <div class="bg-gray-100 shadow-xl rounded-lg p-6">
+            <h1 class="text-4xl font-bold mb-8 text-center text-blue-600">Add Product to Inventory</h1>
+
+            <form method="post" id="product_form" class="space-y-10" novalidate>
+                <input type="hidden" name="csrfmiddlewaretoken" value="your_csrf_token_here">
+
+                <!-- Product Information -->
+                <fieldset class="bg-white p-6 rounded-lg shadow-sm">
+                    <legend class="text-2xl font-semibold mb-4 text-gray-700">Product Information</legend>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Web ID -->
+                        <div class="form-control">
+                            <label for="id_web_id" class="label">
+                                <span class="label-text">Web ID:</span>
+                            </label>
+                            <input type="text" name="web_id" id="id_web_id" class="input input-bordered w-full" maxlength="50" required>
+                            <label class="label">
+                                <span class="label-text-alt">Required. Unique identifier for the product.</span>
+                            </label>
+                        </div>
+
+                        <!-- Slug -->
+                        <div class="form-control">
+                            <label for="id_slug" class="label">
+                                <span class="label-text">Slug:</span>
+                            </label>
+                            <input type="text" name="slug" id="id_slug" class="input input-bordered w-full" maxlength="255" required>
+                            <label class="label">
+                                <span class="label-text-alt">Required. URL-friendly name.</span>
+                            </label>
+                        </div>
+
+                        <!-- Name -->
+                        <div class="form-control">
+                            <label for="id_name" class="label">
+                                <span class="label-text">Product Name:</span>
+                            </label>
+                            <input type="text" name="name" id="id_name" class="input input-bordered w-full" maxlength="255" required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-control">
+                            <label for="id_description" class="label">
+                                <span class="label-text">Description:</span>
+                            </label>
+                            <textarea name="description" id="id_description" class="textarea textarea-bordered h-24" required></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Category and Visibility -->
+                <fieldset class="bg-white p-6 rounded-lg shadow-sm">
+                    <legend class="text-2xl font-semibold mb-4 text-gray-700">Category and Visibility</legend>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Category -->
+                        <div class="form-control">
+                            <label for="id_category" class="label">
+                                <span class="label-text">Category:</span>
+                            </label>
+                            <select name="category" id="id_category" class="select select-bordered w-full" multiple>
+                                <option value="">Select categories</option>
+                                <!-- Add category options dynamically -->
+                            </select>
+                        </div>
+
+                        <!-- Is Active -->
+                        <div class="form-control">
+                            <label class="label cursor-pointer">
+                                <span class="label-text">Product Visibility</span>
+                                <input type="checkbox" name="is_active" id="id_is_active" class="toggle toggle-primary" checked />
+                            </label>
+                            <label class="label">
+                                <span class="label-text-alt">Toggle to make the product visible or hidden.</span>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center mt-10">
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

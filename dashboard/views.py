@@ -49,7 +49,7 @@ def add_product(request):
         'items': items,
         'page_obj': page_obj
     }
-    return render(request, "dashboard/add_product.html", context)
+    return render(request, "dashboard/products.html", context)
 
 
 def orders(request):
@@ -103,3 +103,13 @@ def setting(request):
     return render(request, "dashboard/setting.html")
 
 
+def inbox(request):
+    msgs = ContactForm.objects.all()
+    context = {
+        'info': msgs
+    }
+    return render(request, "dashboard/inbox.html", context)
+
+
+def product_form(request):
+    return render(request, "dashboard/product_form.html")

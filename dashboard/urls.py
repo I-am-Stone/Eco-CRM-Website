@@ -6,9 +6,12 @@ from . import views
 urlpatterns = [
     path('', views.signin, name='signin'),
     path('dashboard', views.dashboard, name='dashboard'),
-    path('add_product', views.add_product, name='add_product'),
+    path('products', views.add_product, name='add_product'),
+    path('add_product', views.product_form, name='product_form'),
     path('setting', views.setting, name='setting'),
     path('orders', views.orders, name='orders'),
     path('order_status/<int:order_id>/', views.order_status, name='order_status'),
+    path('aboutus/', views.inbox, name='inbox'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
