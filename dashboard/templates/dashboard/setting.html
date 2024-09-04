@@ -30,7 +30,22 @@
                         </div>
                     </div>
                 </fieldset>
-            
+                <div class="space-y-6">
+                    <!-- Usable Password -->
+                    <div class="form-control">
+                        <label class="block text-gray-700 font-medium mb-2">Password-based authentication:</label>
+                        <div id="id_usable_password" class="flex space-x-6">
+                            <label for="id_usable_password_0" class="flex items-center cursor-pointer">
+                                <input type="radio" name="usable_password" value="true" class="radio" id="id_usable_password_0" checked>
+                                <span class="ml-2 text-gray-600">Enabled</span>
+                            </label>
+                            <label for="id_usable_password_1" class="flex items-center cursor-pointer">
+                                <input type="radio" name="usable_password" value="false" class="radio" id="id_usable_password_1">
+                                <span class="ml-2 text-gray-600">Disabled</span>
+                            </label>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">Whether the user can authenticate using a password.</p>
+                    </div>
                 <!-- Authentication Settings -->
                 <fieldset class="bg-white p-6 rounded-lg shadow-sm">
                     <legend class="text-2xl font-semibold mb-4 text-gray-700">Authentication</legend>
@@ -77,7 +92,7 @@
             <tbody>
             {% for usr in user %}
             <tr class="hover:bg-gray-100">
-                <td>{{ usr.name }}</td>
+                <td>{{ usr.username }}</td>
                 <td>{{ usr.email }}</td>
                 <td>{{ usr.date }}</td>
             </tr>
