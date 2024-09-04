@@ -64,5 +64,26 @@
         </div>
     </div>
 </div>
-
+<div class="container mx-auto px-4 py-8 shadow-2xl my-40">
+    <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+            <thead>
+            <tr>
+                <th class="bg-primary text-primary-content">User Name</th>
+                <th class="bg-primary text-primary-content">Email</th>
+                <th class="bg-primary text-primary-content">Added Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for usr in user %}
+            <tr class="hover:bg-gray-100">
+                <td>{{ usr.name }}</td>
+                <td>{{ usr.email }}</td>
+                <td>{{ usr.date }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

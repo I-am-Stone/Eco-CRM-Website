@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.hashers import make_password
 
+
 # Create your views here.
 def dashboard(request):
     graph_data = ProductInventory.objects.all().order_by('id')
@@ -83,7 +84,6 @@ def signin(request):
     return render(request, "dashboard/sign_in.html")
 
 
-
 def order_status(request, order_id):
     if request.method == 'POST':
         print(f"Attempting to update order with id: {order_id}")
@@ -105,30 +105,16 @@ def setting(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        try:
-            user_instance = User.objects.get(username=username)
-            user_instance.email = email
+        if password1 == password2:
+            user = User.objects.create_user(username=username, email=email, password=password1)
+            user.save()
+            return redirect('setting')
 
-            if password1 and password2:
-                if password1 == password2:
-                    user_instance.password = make_password(password1)
-                else:
-                    messages.error(request, "Passwords do not match.")
-                    return render(request, "dashboard/setting.html")
-            else:
-                messages.error(request, "Password fields cannot be empty.")
-                return render(request, "dashboard/setting.html")
-
-            user_instance.save()
-
-            messages.success(request, "Settings updated successfully.")
-            return redirect('dashboard')  # Redirect to a dashboard or relevant page
-
-        except User.DoesNotExist:
-            messages.error(request, "User not found.")
-            return render(request, "dashboard/setting.html")
-
-    return render(request, "dashboard/setting.html")
+    user_details = User.objects.all()
+    context = {
+        'user': user_details
+    }
+    return render(request, "dashboard/setting.html", context)
 
 
 def inbox(request):
