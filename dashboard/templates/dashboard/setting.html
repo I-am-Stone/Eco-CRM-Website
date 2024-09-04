@@ -5,9 +5,10 @@
 <div id="content" class="p-8">
     <div class="container mx-auto">
         <div class="bg-gray-100 shadow-xl rounded-lg p-6">
-            <h1 class="text-4xl font-bold mb-8 text-center text-blue-600">CRM Settings</h1>
+            <h1 class="text-4xl font-bold mb-8 text-center text-black-600">CRM Settings</h1>
 
-            <form method="post" id="crm_form" class="space-y-10" novalidate>
+            <form method="POST" id="crm_form" class="space-y-10" novalidate action="{% url 'setting' %}">
+                {% csrf_token %}
                 <input type="hidden" name="csrfmiddlewaretoken" value="mbEM5FJFpQrX5MzBuGrfIUKhmh5a9u7k5g88kZ6NKsdie9o8Uk0tSRCHfsIblfTU">
 
                 <!-- User Information -->
@@ -36,22 +37,6 @@
                     <legend class="text-2xl font-semibold mb-4 text-gray-700">Authentication</legend>
                     
                     <div class="space-y-6">
-                        <!-- Usable Password -->
-                        <div class="form-control">
-                            <label class="block text-gray-700 font-medium mb-2">Password-based authentication:</label>
-                            <div id="id_usable_password" class="flex space-x-6">
-                                <label for="id_usable_password_0" class="flex items-center cursor-pointer">
-                                    <input type="radio" name="usable_password" value="true" class="radio" id="id_usable_password_0" checked>
-                                    <span class="ml-2 text-gray-600">Enabled</span>
-                                </label>
-                                <label for="id_usable_password_1" class="flex items-center cursor-pointer">
-                                    <input type="radio" name="usable_password" value="false" class="radio" id="id_usable_password_1">
-                                    <span class="ml-2 text-gray-600">Disabled</span>
-                                </label>
-                            </div>
-                            <p class="text-sm text-gray-500 mt-1">Whether the user can authenticate using a password.</p>
-                        </div>
-
                         <!-- Password -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Password -->

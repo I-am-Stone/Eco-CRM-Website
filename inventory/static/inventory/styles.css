@@ -211,10 +211,9 @@ section{
     width: 1200px;
     margin-inline: auto;
     box-shadow: 0 15px 60px 0 rgba(0,0,0,.35);
-    height: 49vh;
+    height: 500px;
     margin-top: 2cm;
     margin-bottom: 2cm;
-
 }
 
 .item-list-content-warp{

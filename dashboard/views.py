@@ -100,6 +100,12 @@ def order_status(request, order_id):
 
 
 def setting(request):
+    if request.method == 'POST':
+        user = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
     return render(request, "dashboard/setting.html")
 
 
