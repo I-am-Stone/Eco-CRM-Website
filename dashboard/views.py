@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.hashers import make_password
 
-
 # Create your views here.
 def dashboard(request):
     graph_data = ProductInventory.objects.all().order_by('id')
