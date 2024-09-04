@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.contrib.auth.hashers import make_password
 
 
 # Create your views here.
@@ -70,19 +71,18 @@ def signin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        if not User.objects.filter(username=username).exists():
-            messages.error(request, 'Invalid Username')
-            return redirect('signin')
         user = authenticate(username=username, password=password)
 
-        if user is None:
-            messages.error(request, "Invalid Password")
-            return redirect('signin')
-        else:
+        if user is not None:
             login(request, user)
             return redirect('dashboard')
+        else:
+            # Generic error message for invalid credentials
+            messages.error(request, "Invalid username or password")
+            return redirect('signin')
 
     return render(request, "dashboard/sign_in.html")
+
 
 
 def order_status(request, order_id):
@@ -101,10 +101,33 @@ def order_status(request, order_id):
 
 def setting(request):
     if request.method == 'POST':
-        user = request.POST.get('username')
+        username = request.POST.get('username')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
+
+        try:
+            user_instance = User.objects.get(username=username)
+            user_instance.email = email
+
+            if password1 and password2:
+                if password1 == password2:
+                    user_instance.password = make_password(password1)
+                else:
+                    messages.error(request, "Passwords do not match.")
+                    return render(request, "dashboard/setting.html")
+            else:
+                messages.error(request, "Password fields cannot be empty.")
+                return render(request, "dashboard/setting.html")
+
+            user_instance.save()
+
+            messages.success(request, "Settings updated successfully.")
+            return redirect('dashboard')  # Redirect to a dashboard or relevant page
+
+        except User.DoesNotExist:
+            messages.error(request, "User not found.")
+            return render(request, "dashboard/setting.html")
 
     return render(request, "dashboard/setting.html")
 
