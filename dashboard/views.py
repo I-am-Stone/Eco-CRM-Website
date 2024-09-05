@@ -127,3 +127,7 @@ def inbox(request):
 
 def product_form(request):
     return render(request, "dashboard/product_form.html")
+
+
+def notification(request):
+    return render(request, "dashboard/notification.html")

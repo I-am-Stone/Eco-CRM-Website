@@ -426,8 +426,17 @@ class ContactForm(models.Model):
         return self.name
 
 
-class NotificationType(models.Model):
-    name = models.CharField(max_length=100)
+class Notification(models.Model):
+    NOTIFICATION_TYPES = (
+        ('order', 'Order'),
+        ('message', 'Message'),
+    )
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES, default='message')
+    link = models.URLField(null=True, blank=True)
 
-    def __str_(self):
-        return self.name
+    def __str__(self):
+        return self.message
+
