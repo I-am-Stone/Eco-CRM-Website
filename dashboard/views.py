@@ -108,11 +108,9 @@ def setting(request):
 
         # Check if passwords match
         if password1 == password2:
-            # Check if the username already exists
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists.')
             else:
-                # Convert status to boolean for is_staff field
                 is_staff = True if status == 'on' else False  # Change 'on' based on the value sent from the form
                 user = User.objects.create_user(username=username, email=email, password=password1, is_staff=is_staff)
                 user.save()
