@@ -102,20 +102,31 @@ def setting(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
-        status = request.POST.get('usable_password')
+        status = request.POST.get('status')  # Assuming 'status' refers to whether the user is a staff member or not.
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
+        # Check if passwords match
         if password1 == password2:
-            user = User.objects.create_user(username=username, email=email, password=password1, is_staff=status)
-            user.save()
-            return redirect('setting')
+            # Check if the username already exists
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists.')
+            else:
+                # Convert status to boolean for is_staff field
+                is_staff = True if status == 'on' else False  # Change 'on' based on the value sent from the form
+                user = User.objects.create_user(username=username, email=email, password=password1, is_staff=is_staff)
+                user.save()
+                messages.success(request, 'User created successfully.')
+                return redirect('setting')
+        else:
+            messages.error(request, 'Passwords do not match.')
 
     user_details = User.objects.all()
     context = {
         'user': user_details
     }
     return render(request, "dashboard/setting.html", context)
+
 
 
 def inbox(request):
