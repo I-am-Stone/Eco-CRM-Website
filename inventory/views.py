@@ -5,6 +5,7 @@ from .form import CustomerForm
 from dashboard.models import *
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from .utils import create_notification
 
 
 def get_cart_items(cart):
@@ -167,9 +168,12 @@ def order_info(request):
                 status=Order.status,
             )
             order.save()
+            create_notification(
+                f"New order placed for {order.item}",
+                notification_type='order',
+                link=f'/dashboard/orders/{order.pk}/'  # Adjust this URL as needed
+            )
 
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-
-

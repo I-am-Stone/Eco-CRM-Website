@@ -66,7 +66,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "ecommerce.wsgi.application"
-
 # Tailwind settings
 TAILWIND_APP_NAME = 'theme'
 
