@@ -134,10 +134,11 @@ def inbox(request):
     }
     return render(request, "dashboard/inbox.html", context)
 
+def categories(request):
+    return render(request, "dashboard/categories.html")
 
-def product_form(request):
-    return render(request, "dashboard/product_form.html")
-
+def stocks(request):
+    return render(request, "dashboard/stocks.html")
 
 def notification(request):
     return render(request, "dashboard/notification.html")
