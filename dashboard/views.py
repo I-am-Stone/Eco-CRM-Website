@@ -141,4 +141,9 @@ def stocks(request):
     return render(request, "dashboard/stocks.html")
 
 def notification(request):
-    return render(request, "dashboard/notification.html")
+    notification = Notification.objects.all()
+
+    context={
+        'noti':notification
+    }
+    return render(request, "dashboard/notification.html", context)

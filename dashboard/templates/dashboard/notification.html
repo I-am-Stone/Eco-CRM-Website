@@ -28,8 +28,6 @@
                                 <input type="checkbox" class="checkbox" />
                             </label>
                         </th>
-                        <th>Name</th>
-                        <th>Email</th>
                         <th>Subject</th>
                         <th>Message</th>
                         <th>Created</th>
@@ -37,18 +35,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for msg in info %}
+                    {% for msg in noti %}
                     <tr>
                         <td>
                             <label>
                                 <input type="checkbox" class="checkbox" />
                             </label>
                         </td>
-                        <td>{{msg.name}}</td>
-                        <td>{{msg.email}}</td>
-                        <td>{{msg.subject}}</td>
+                        <td>{{msg.is_read}}</td>
+                        <td>{{msg.notification_type}}</td>
                         <td>{{msg.message}}</td>
                         <td>{{msg.created_at}}</td>
+                        <td><a href="{{msg.link}}">order</a></td>
                         <td>
                             <div class="dropdown dropdown-end">
                                 <label tabindex="0" class="btn btn-xs bg-blue-500">

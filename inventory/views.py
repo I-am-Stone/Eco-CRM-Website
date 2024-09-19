@@ -169,7 +169,7 @@ def order_info(request):
             )
             order.save()
             create_notification(
-                f"New order placed for {order.item}",
+                f"New order placed for {order.item} by {order.customer}",
                 notification_type='order',
                 link=f'/dashboard/orders/{order.pk}/'  # Adjust this URL as needed
             )
