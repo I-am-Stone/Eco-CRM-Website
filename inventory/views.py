@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from inventory.models import *
 from .form import CustomerForm
-
+from django.urls import reverse
 from dashboard.models import *
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .utils import create_notification
-
+from django.urls import path
 
 def get_cart_items(cart):
     cart_items = []
@@ -143,6 +143,11 @@ def contact(request):
             message=message,
         )
         contest.save()
+        create_notification(
+                f"New order placed for {contest.email} by {contest.email}",
+                notification_type='message',
+                link=f'/dashboard/orders/{contest.pk}/'  # Adjust this URL as needed
+            )
 
     return render(request, "inventory/contact.html")
 
@@ -171,7 +176,7 @@ def order_info(request):
             create_notification(
                 f"New order placed for {order.item} by {order.customer}",
                 notification_type='order',
-                link=f'/dashboard/orders/{order.pk}/'  # Adjust this URL as needed
+                link=reverse('orders')    # Adjust this URL as needed
             )
 
         return JsonResponse({'status': 'success'})

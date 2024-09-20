@@ -29,9 +29,10 @@
                             </label>
                         </th>
                         <th>Subject</th>
+                        <th>Type</th>
                         <th>Message</th>
                         <th>Created</th>
-                        <th>Action</th>
+                        <th>Edit</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,7 +47,8 @@
                         <td>{{msg.notification_type}}</td>
                         <td>{{msg.message}}</td>
                         <td>{{msg.created_at}}</td>
-                        <td><a href="{% url 'orders' %}">order</a></td>
+                        <td>{{msg.link}}</td>
+                        <td><a href="{{msg.link}}">order</a></td>
                         <td>
                             <div class="dropdown dropdown-end">
                                 <label tabindex="0" class="btn btn-xs bg-blue-500">

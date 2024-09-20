@@ -54,7 +54,7 @@ def add_product(request):
 
 
 def orders(request):
-    orders_collection = Order.objects.select_related('customer').all()
+    orders_collection = Order.objects.select_related('customer').all().order_by('-created_at')
     paginator = Paginator(orders_collection, 10)
 
     page_number = request.GET.get('page')
@@ -137,8 +137,10 @@ def inbox(request):
 def categories(request):
     return render(request, "dashboard/categories.html")
 
+
 def stocks(request):
     return render(request, "dashboard/stocks.html")
+
 
 def notification(request):
     notification = Notification.objects.all()
