@@ -164,6 +164,8 @@ def order_info(request):
 
         for key, value in cart.items():
             product = ProductInventory.objects.prefetch_related("product").get(pk=key)
+            stock = Stock.objects.select_for_update().get(product_inventory=product)
+
             order = Order(
                 item=product.product.name,
                 total_price=product.retail_price,
@@ -173,6 +175,9 @@ def order_info(request):
                 status=Order.status,
             )
             order.save()
+
+            stock.units -= int(value)
+            stock.save()
             create_notification(
                 f"New order placed for {order.item} by {order.customer}",
                 notification_type='order',
