@@ -135,10 +135,18 @@ def inbox(request):
     return render(request, "dashboard/inbox.html", context)
 
 def categories(request):
-    return render(request, "dashboard/categories.html")
+    cate = Category.objects.all()
+    context = {
+        'items':cate
+    }
+    return render(request, "dashboard/categories.html", context)
 
 
 def stocks(request):
+    cate = Stock.objects.all()
+    context = {
+        'items':cate
+    }
     return render(request, "dashboard/stocks.html")
 
 
