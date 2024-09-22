@@ -2,9 +2,7 @@
 {% extends 'dashboard/index.html' %}
 
 {% block stock %}
-<div class="flex justify-center space-x-4 mt-10"></div>
-    <button class="btn btn-primary">Add Product</button>
-</div>
+
 <div class="container mx-auto px-4 py-8 shadow-2xl my-40">
     <h1 class="text-3xl font-bold mb-6">Stocks</h1>
 
@@ -13,18 +11,18 @@
             <thead>
                 <tr>
                     <th class="bg-primary text-primary-content">Product Name</th>
-                    <th class="bg-primary text-primary-content">Category Safe Url</th>
-                    <th class="bg-primary text-primary-content">Parent of Category</th>
-                    <th class="bg-primary text-primary-content">Category status</th>
+                    <th class="bg-primary text-primary-content">Last Checked</th>
+                    <th class="bg-primary text-primary-content">Units in stock</th>
+                    <th class="bg-primary text-primary-content">Units Sold</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in items %}
                 <tr class="hover:bg-gray-100">
-                    <td>{{ item.product_name.name }}</td>
-                    <td>{{ item.slug }}</td>
-                    <td>{{ item.parent }}</td>
-                    <td>{{ item.is_active }}</td>
+                    <td>{{ item.product_inventory }}</td>
+                    <td>{{ item.last_checked }}</td>
+                    <td>{{ item.units }}</td>
+                    <td>{{ item.units_sold }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

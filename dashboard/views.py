@@ -147,11 +147,11 @@ def stocks(request):
     context = {
         'items':cate
     }
-    return render(request, "dashboard/stocks.html")
+    return render(request, "dashboard/stocks.html", context)
 
 
 def notification(request):
-    notification = Notification.objects.all()
+    notification = Notification.objects.prefetch_related("product_inventory").all()
 
     context={
         'noti':notification
