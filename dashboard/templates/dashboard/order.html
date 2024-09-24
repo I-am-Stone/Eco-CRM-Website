@@ -50,7 +50,7 @@
                     <form class="status" method="POST" action="{% url 'order_status' order.pk %}">
                         {% csrf_token %}
                         <select name="status" id="status" onchange="this.form.submit()">
-                            <option value="">{{ order.status }}</option>
+                            <option value="">{{ order.STATUS_PENDING }}</option>
                             <option value="PROCESSING" {% if order.status|upper == "PROCESSING" %}selected{% endif %}>Processing</option>
                             <option value="COMPLETED" {% if order.status|upper == "COMPLETED" %}selected{% endif %}>Completed</option>
                             <option value="CANCELLED" {% if order.status|upper == "CANCELLED" %}selected{% endif %}>Cancelled</option>

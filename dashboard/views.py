@@ -126,13 +126,13 @@ def setting(request):
     return render(request, "dashboard/setting.html", context)
 
 
-
 def inbox(request):
     msgs = ContactForm.objects.all()
     context = {
         'info': msgs
     }
     return render(request, "dashboard/inbox.html", context)
+
 
 def categories(request):
     cate = Category.objects.all()
@@ -151,9 +151,9 @@ def stocks(request):
 
 
 def notification(request):
-    notification = Notification.objects.prefetch_related("product_inventory").all()
+    notification = Notification.objects.all()
 
     context={
-        'noti':notification
+        'notify':notification
     }
     return render(request, "dashboard/notification.html", context)

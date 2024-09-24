@@ -187,3 +187,6 @@ def order_info(request):
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+
+
