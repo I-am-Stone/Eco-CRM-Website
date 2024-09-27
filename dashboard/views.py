@@ -157,3 +157,6 @@ def notification(request):
         'notify':notification
     }
     return render(request, "dashboard/notification.html", context)
+
+def invoice(request):
+    return render(request, "dashboard/invoice.html")

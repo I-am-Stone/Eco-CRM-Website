@@ -1,0 +1,128 @@
+{% extends 'dashboard/index.html' %}
+
+{% block invoice %}
+<section class="py-8 bg-base-200">
+    <div class="max-w-5xl mx-auto bg-base-100 shadow-xl rounded-box">
+     <article class="overflow-hidden">
+      <div class="rounded-b-box">
+       <div class="p-6">
+        <div class="space-y-6 text-base-content">
+         <img class="object-cover h-12" src="https://pbs.twimg.com/profile_images/1513243060834123776/dL8-d7zI_400x400.png" alt="Company logo" />
+   
+         <h1 class="text-2xl font-bold tracking-tight uppercase">
+          Unwrapped.design
+         </h1>
+        </div>
+       </div>
+       <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="text-sm">
+           <p class="font-semibold">Invoice Detail:</p>
+           <p>Unwrapped</p>
+           <p>Fake Street 123</p>
+           <p>San Javier</p>
+           <p>CA 1234</p>
+          </div>
+          <div class="text-sm">
+           <p class="font-semibold">Billed To:</p>
+           <p>The Boring Company</p>
+           <p>Tesla Street 007</p>
+           <p>Frisco</p>
+           <p>CA 0000</p>
+          </div>
+          <div class="text-sm">
+           <p class="font-semibold">Invoice Number:</p>
+           <p>000000</p>
+   
+           <p class="mt-2 font-semibold">Date of Issue:</p>
+           <p>00.00.00</p>
+          </div>
+          <div class="text-sm">
+           <p class="font-semibold">Terms:</p>
+           <p>0 Days</p>
+   
+           <p class="mt-2 font-semibold">Due:</p>
+           <p>00.00.00</p>
+          </div>
+        </div>
+       </div>
+   
+       <div class="p-6">
+        <div class="overflow-x-auto">
+         <table class="table w-full">
+          <thead>
+           <tr>
+            <th>Description</th>
+            <th class="text-right">Quantity</th>
+            <th class="text-right">Rate</th>
+            <th class="text-right">Amount</th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr>
+            <td>
+             <div class="font-medium">Tesla Truck</div>
+             <div class="text-sm opacity-50 md:hidden">
+              1 unit at $0.00
+             </div>
+            </td>
+            <td class="text-right">48</td>
+            <td class="text-right">$0.00</td>
+            <td class="text-right">$0.00</td>
+           </tr>
+           <tr>
+            <td>
+             <div class="font-medium">Tesla Charging Station</div>
+             <div class="text-sm opacity-50 md:hidden">
+              1 unit at $75.00
+             </div>
+            </td>
+            <td class="text-right">4</td>
+            <td class="text-right">$0.00</td>
+            <td class="text-right">$0.00</td>
+           </tr>
+          </tbody>
+          <tfoot>
+           <tr>
+            <th colspan="3" class="text-right">Subtotal</th>
+            <td class="text-right">$0.00</td>
+           </tr>
+           <tr>
+            <th colspan="3" class="text-right">Discount</th>
+            <td class="text-right">$0.00</td>
+           </tr>
+           <tr>
+            <th colspan="3" class="text-right">Tax</th>
+            <td class="text-right">$0.00</td>
+           </tr>
+           <tr>
+            <th colspan="3" class="text-right font-bold">Total</th>
+            <td class="text-right font-bold">$0.00</td>
+           </tr>
+          </tfoot>
+         </table>
+        </div>
+       </div>
+   
+       <div class="mt-12 p-6">
+        <div class="border-t pt-6 border-base-300">
+         <div class="text-sm">
+          <p>
+           Payment terms are 14 days. Please be aware that according to the
+           Late Payment of Unwrapped Debts Act 0000, freelancers are
+           entitled to claim a 00.00 late fee upon non-payment of debts
+           after this time, at which point a new invoice will be submitted
+           with the addition of this fee. If payment of the revised invoice
+           is not received within a further 14 days, additional interest
+           will be charged to the overdue account and a statutory rate of
+           8% plus Bank of England base of 0.5%, totalling 8.5%. Parties
+           cannot contract out of the Act's provisions.
+          </p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </article>
+    </div>
+</section>
+{% endblock %}

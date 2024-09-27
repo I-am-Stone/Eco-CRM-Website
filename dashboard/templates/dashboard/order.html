@@ -34,6 +34,7 @@
                 <th class="bg-primary text-primary-content">Address</th>
                 <th class="bg-primary text-primary-content">Quantity</th>
                 <th class="bg-primary text-primary-content">Ship/Shipped</th>
+                <th class="bg-primary text-primary-content">Invoice</th>
             </tr>
             </thead>
             <tbody>
@@ -57,12 +58,12 @@
                         </select>
                     </form>
                 </td>
+                <td><a href="{% url 'invoice'%}">Clicked</a></td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-
     <!-- Pagination Controls -->
     <div class="flex justify-center mt-6">
         <nav aria-label="Pagination">

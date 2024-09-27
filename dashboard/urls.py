@@ -14,6 +14,7 @@ urlpatterns = [
     path('order_status/<int:order_id>/', views.order_status, name='order_status'),
     path('notification', views.notification, name='notification'),
     path('aboutus/', views.inbox, name='inbox'),
+    path('invoice/', views.invoice, name='invoice'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
