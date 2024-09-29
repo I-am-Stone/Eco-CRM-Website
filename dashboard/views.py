@@ -160,4 +160,6 @@ def notification(request):
 
 
 def invoice(request):
+    invoide_data = Invoice.objects.all()
+
     return render(request, "dashboard/invoice.html")
