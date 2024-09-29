@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from .utils import create_notification
 from django.urls import path
 
+
 def get_cart_items(cart):
     cart_items = []
     total_price = 0
@@ -144,10 +145,10 @@ def contact(request):
         )
         contest.save()
         create_notification(
-                f"New order placed for {contest.email} by {contest.email}",
-                notification_type='message',
-                link=f'/dashboard/orders/{contest.pk}/'  # Adjust this URL as needed
-            )
+            f"New order placed for {contest.email} by {contest.email}",
+            notification_type='message',
+            link=f'/dashboard/orders/{contest.pk}/'  # Adjust this URL as needed
+        )
 
     return render(request, "inventory/contact.html")
 
@@ -181,12 +182,9 @@ def order_info(request):
             create_notification(
                 f"New order placed for {order.item} by {order.customer}",
                 notification_type='order',
-                link=reverse('orders')    # Adjust this URL as needed
+                link=reverse('orders')  # Adjust this URL as needed
             )
 
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-
-
-

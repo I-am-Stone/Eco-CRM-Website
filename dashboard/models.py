@@ -44,3 +44,11 @@ class Order(models.Model):
         return f"Order(id={self.id}, status={self.status})"
 
 
+class Invoice(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    invoice_number = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.invoice_number

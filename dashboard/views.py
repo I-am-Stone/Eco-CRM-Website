@@ -137,7 +137,7 @@ def inbox(request):
 def categories(request):
     cate = Category.objects.all()
     context = {
-        'items':cate
+        'items': cate
     }
     return render(request, "dashboard/categories.html", context)
 
@@ -145,7 +145,7 @@ def categories(request):
 def stocks(request):
     cate = Stock.objects.all()
     context = {
-        'items':cate
+        'items': cate
     }
     return render(request, "dashboard/stocks.html", context)
 
@@ -153,10 +153,11 @@ def stocks(request):
 def notification(request):
     notification = Notification.objects.all()
 
-    context={
-        'notify':notification
+    context = {
+        'notify': notification
     }
     return render(request, "dashboard/notification.html", context)
+
 
 def invoice(request):
     return render(request, "dashboard/invoice.html")
