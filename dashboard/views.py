@@ -151,15 +151,15 @@ def stocks(request):
 
 
 def notification(request):
-    notification = Notification.objects.all()
+    notify = Notification.objects.all()
 
     context = {
-        'notify': notification
+        'notify': notify
     }
     return render(request, "dashboard/notification.html", context)
 
 
 def invoice(request):
-    invoide_data = Invoice.objects.all()
+    invoice_data = Invoice.objects.all()
 
     return render(request, "dashboard/invoice.html")
