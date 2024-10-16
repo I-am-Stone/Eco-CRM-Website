@@ -3,10 +3,12 @@ from inventory.models import *
 from .form import CustomerForm
 from django.urls import reverse
 from dashboard.models import *
-from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .utils import create_notification
-from django.urls import path
+
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import ProductInventory
 
 
 def get_cart_items(cart):
@@ -37,6 +39,12 @@ def get_cart_items(cart):
 
 
 def home(request):
+    """
+    Home page
+    :param request:
+    :return:
+    This sends the item details to the template of home page
+    """
     shop = ProductInventory.objects.prefetch_related("media_product_inventory").all()
 
     if request.method == "POST":
@@ -55,11 +63,16 @@ def home(request):
     cart = request.session.get('cart', {})
     cart_items, total_price = get_cart_items(cart)
 
+    paginator = Paginator(shop, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'products': shop,
+        'page_obj': page_obj,
         'cart_items': cart_items,
-        'total_price': total_price
+        'total_price': total_price,
     }
+
     return render(request, "inventory/cart.html", context)
 
 

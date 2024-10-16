@@ -1,39 +1,57 @@
-
 {% extends 'inventory/base.html' %}
 
 {% block content %}
 <section class="section" id="tshirt">
     <h3 class="section-title">T-Shirt</h3>
 
-    {% if products %}
-        {% for item in products %}
-            <div class="item-list">
-                <div class="product-list-item">
-                    <div class="product-list-item-img-wrap">
-                        {% for media in item.media_product_inventory.all %}
-                            <img src="{{ media.image }}" alt="{{ media.alt_text }}" class="product-list-images">
-                        {% endfor %}
-                    </div>
-                    <div id= "add-to-cart-form" class="item-list-content-warp">
-                        <h2 class="item-list-title">{{ item.product.name }}</h2>
-                        <div class="product-list-price">Rs.{{ item.retail_price }}</div>
-                        <p class="paragraph">{{ item.product.description }}</p>
-                        <form class="item-add-to-cart" method="POST" action="{% url 'home' %}">
-                          {% csrf_token %}
-                          <input type="hidden" name="product_id" value="{{ item.product.pk }}">
-                          <input type="number" name="quantity" class="item-count" min="1" value="1">
-                          <input type="submit" data-loading-text="Adding to cart..." class="item-submit btn-design" value="Add to Cart">
-                          <button type="submit" formaction="{% url 'buy_now' %}" class="item-submit btn-design button-filled">Buy Now</button>                        
-                        </form>                      
-                    </div>
-                </div>
+    {% if page_obj %}
+    {% for item in page_obj %}
+    <div class="item-list">
+        <div class="product-list-item">
+            <div class="product-list-item-img-wrap">
+                {% for media in item.media_product_inventory.all %}
+                <img src="{{ media.image }}" alt="{{ media.alt_text }}" class="product-list-images">
+                {% endfor %}
             </div>
-        {% endfor %}
+            <div id="add-to-cart-form" class="item-list-content-warp">
+                <h2 class="item-list-title">{{ item.product.name }}</h2>
+                <div class="product-list-price">Rs.{{ item.retail_price }}</div>
+                <p class="paragraph">{{ item.product.description }}</p>
+                <form class="item-add-to-cart" method="POST" action="{% url 'home' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ item.product.pk }}">
+                    <input type="number" name="quantity" class="item-count" min="1" value="1">
+                    <input type="submit" data-loading-text="Adding to cart..." class="item-submit btn-design" value="Add to Cart">
+                    <button type="submit" formaction="{% url 'buy_now' %}" class="item-submit btn-design button-filled">Buy Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Improved styled paginator with more spacing and design -->
+    <div class="flex justify-center mt-8 mb-8"> <!-- Added mb-8 for bottom padding -->
+        <div class="join">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="join-item btn btn-outline">« Previous</a>
+            {% else %}
+            <button class="join-item btn btn-disabled">« Previous</button>
+            {% endif %}
+
+            <span class="join-item btn">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="join-item btn btn-outline">Next »</a>
+            {% else %}
+            <button class="join-item btn btn-disabled">Next »</button>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <p>No products available.</p>
     {% endif %}
 </section>
 {% endblock %}
-
-
 
 
 
