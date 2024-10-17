@@ -5,7 +5,6 @@ from django.urls import reverse
 from dashboard.models import *
 from django.http import JsonResponse
 from .utils import create_notification
-
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import ProductInventory
