@@ -3470,14 +3470,6 @@ details.collapse summary::-webkit-details-marker {
   font-size: 0.75rem;
 }
 
-.btn-sm {
-  height: 2rem;
-  min-height: 2rem;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  font-size: 0.875rem;
-}
-
 .btn-square:where(.btn-xs) {
   height: 1.5rem;
   width: 1.5rem;
@@ -4479,12 +4471,6 @@ html:has(.drawer-toggle:checked) {
 .from-\[rgba\(9\2c 31\2c 25\2c 0\.85\)\] {
   --tw-gradient-from: rgba(9,31,25,0.85) var(--tw-gradient-from-position);
   --tw-gradient-to: rgba(9, 31, 25, 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-blue-500 {
-  --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 

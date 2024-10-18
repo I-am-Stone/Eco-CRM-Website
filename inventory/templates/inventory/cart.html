@@ -29,13 +29,12 @@
     </div>
     {% endfor %}
 
-    <!-- Improved styled paginator with more spacing and design -->
-    <div class="flex justify-center mt-8 mb-8"> <!-- Added mb-8 for bottom padding -->
+    <div class="flex justify-center mt-8 mb-8">
         <div class="join">
             {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}" class="join-item btn btn-outline">« Previous</a>
             {% else %}
-            <button class="join-item btn btn-disabled">« Previous</button>
+            <button class="join-item btn btn-disabled ">« Previous</button>
             {% endif %}
 
             <span class="join-item btn">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
@@ -52,9 +51,6 @@
     {% endif %}
 </section>
 {% endblock %}
-
-
-
 {% block Hero%}
 <div class="swiper-container ml-14 mr-14">
   <div class="swiper-wrapper">

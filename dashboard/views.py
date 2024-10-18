@@ -1,16 +1,16 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 from inventory.models import *
 from .models import *
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.contrib.auth.hashers import make_password
 
 
-# Create your views here.
 def dashboard(request):
     graph_data = ProductInventory.objects.all().order_by('id')
 
@@ -134,8 +134,33 @@ def inbox(request):
     return render(request, "dashboard/inbox.html", context)
 
 
+@login_required
+@ensure_csrf_cookie
 def categories(request):
     cate = Category.objects.all()
+
+    if request.method == "POST":
+        category_name = request.POST.get('name')
+        safe_url = request.POST.get('slug')
+        parent_id = request.POST.get('parent')
+        status = request.POST.get('is_active')  # Note: changed from 'status' to 'is_active' to match form
+
+        # Handle parent category
+        parent_category = None
+        if parent_id:
+            try:
+                parent_category = Category.objects.get(id=parent_id)
+            except Category.DoesNotExist:
+                pass
+
+        category = Category(
+            name=category_name,
+            slug=safe_url,
+            parent=parent_category,
+            is_active=status == 'True'  # Convert string to boolean
+        )
+        category.save()
+
     context = {
         'items': cate
     }
