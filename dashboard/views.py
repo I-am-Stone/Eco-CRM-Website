@@ -188,3 +188,7 @@ def invoice(request):
     invoice_data = Invoice.objects.all()
 
     return render(request, "dashboard/invoice.html")
+
+
+def add(request):
+    return render(request, "dashboard/add_product.html")
