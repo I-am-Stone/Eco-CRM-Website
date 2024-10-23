@@ -1,8 +1,8 @@
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import ensure_csrf_cookie
-
+from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest
 from inventory.models import *
 from .models import *
 from django.contrib.auth import authenticate, login
@@ -184,10 +184,41 @@ def notification(request):
     return render(request, "dashboard/notification.html", context)
 
 
+@login_required
+@require_http_methods(["GET", "POST"])
 def invoice(request):
-    invoice_data = Invoice.objects.all()
+    """
+    Handle invoice generation and order status update.
+    GET: Display invoice form
+    POST: Update order status and fetch invoice data
+    """
+    invoice_data = None
 
-    return render(request, "dashboard/invoice.html")
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+
+        if not order_id:
+            return HttpResponseBadRequest('Order ID is required')
+
+        try:
+            # Get order and update status
+            order = get_object_or_404(Order, id=order_id)
+            order.status = 'Delivered'
+            order.save()
+
+            # Fetch invoice data using filter
+            invoice_data = Invoice.objects.filter(order_id=order_id)
+
+        except Exception as e:
+            # Log the error here if you have logging configured
+            return HttpResponseBadRequest(f'Error processing invoice: {str(e)}')
+
+    context = {
+        'invoice': invoice_data,
+        'form_submitted': request.method == 'POST'
+    }
+
+    return render(request, "dashboard/invoice.html", context)
 
 
 def add(request):

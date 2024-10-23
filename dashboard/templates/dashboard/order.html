@@ -58,7 +58,13 @@
                         </select>
                     </form>
                 </td>
-                <td><a href="{% url 'invoice'%}">Clicked</a></td>
+                <td>
+                    <form method="POST" action="{% url 'invoice' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_id" value="{{ order.pk }}">
+                        <a href="{% url 'invoice'%}">Clicked</a>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
             </tbody>
