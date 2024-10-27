@@ -41,15 +41,11 @@
       <div class="text-sm space-y-2"> <!-- Reduced spacing -->
        <div>
         <p class="font-semibold text-base">Invoice Number:</p> <!-- Reduced font size -->
-        <p>000000</p>
+        <p>000{{ invoice.invoice_number}}</p>
        </div>
        <div>
         <p class="font-semibold text-base">Date of Issue:</p> <!-- Reduced font size -->
-        <p>00.00.00</p>
-       </div>
-       <div>
-        <p class="font-semibold text-base">Due Date:</p> <!-- Reduced font size -->
-        <p>00.00.00</p>
+        <p>{{ invoice.order }}</p>
        </div>
       </div>
      </div>

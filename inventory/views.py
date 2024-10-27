@@ -81,7 +81,7 @@ def checkout(request):
     form = None
     form_data = {}
     cust_id = None
-    # If request if post, save user data and change progress
+    # If request if post, save user datinvoicea and change progress
     if request.method == "POST":
         form = CustomerForm(request.POST)
         if form.is_valid():

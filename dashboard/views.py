@@ -189,12 +189,18 @@ def invoice(request):
     POST: Update order status and fetch invoice data
     """
     invoice_data = None
+    keys = None
 
     if request.method == "POST":
-        keys = request.POST.get("order_id")
-        print('The order id:',keys)
+        keys = request.POST.get('order_id')
+        print("wtf is going on:", keys)
+        invoice_data = Order.objects.get(id=keys)
 
-    return render(request, "dashboard/invoice.html")
+    context = {
+        'invoice': invoice_data,
+    }
+
+    return render(request, "dashboard/invoice.html",context)
 
 
 def add(request):
