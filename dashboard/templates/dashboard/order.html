@@ -38,7 +38,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for order in page_obj %}
+            {% for order in orders %}
             <tr class="hover">
                 <td>{{ order.customer.pk }}</td>
                 <td>{{ order.customer }}</td>
@@ -62,7 +62,7 @@
                     <form method="POST" action="{% url 'invoice' %}">
                         {% csrf_token %}
                         <input type="hidden" name="order_id" value="{{ order.pk }}">
-                        <a href="{% url 'invoice'%}">Clicked</a>
+                        <a href="{% url 'invoice' %}">View Invoice</a>
                     </form>
                 </td>
             </tr>

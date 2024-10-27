@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required
+# from django.views.decorators.csrf import ensure_csrf_cookie
+# from django.views.decorators.http import require_http_methods
+# from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseBadRequest
 from inventory.models import *
 from .models import *
@@ -134,8 +134,6 @@ def inbox(request):
     return render(request, "dashboard/inbox.html", context)
 
 
-@login_required
-@ensure_csrf_cookie
 def categories(request):
     cate = Category.objects.all()
 
@@ -184,8 +182,6 @@ def notification(request):
     return render(request, "dashboard/notification.html", context)
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
 def invoice(request):
     """
     Handle invoice generation and order status update.
@@ -194,31 +190,11 @@ def invoice(request):
     """
     invoice_data = None
 
-    if request.method == 'POST':
-        order_id = request.POST.get('order_id')
+    if request.method == "POST":
+        keys = request.POST.get("order_id")
+        print('The order id:',keys)
 
-        if not order_id:
-            return HttpResponseBadRequest('Order ID is required')
-
-        try:
-            # Get order and update status
-            order = get_object_or_404(Order, id=order_id)
-            order.status = 'Delivered'
-            order.save()
-
-            # Fetch invoice data using filter
-            invoice_data = Invoice.objects.filter(order_id=order_id)
-
-        except Exception as e:
-            # Log the error here if you have logging configured
-            return HttpResponseBadRequest(f'Error processing invoice: {str(e)}')
-
-    context = {
-        'invoice': invoice_data,
-        'form_submitted': request.method == 'POST'
-    }
-
-    return render(request, "dashboard/invoice.html", context)
+    return render(request, "dashboard/invoice.html")
 
 
 def add(request):
