@@ -15,7 +15,7 @@
       </div>
       <div class="text-right">
        <p class="text-lg font-semibold">Invoice</p> <!-- Reduced font size -->
-       <p class="text-gray-500">#000000</p>
+       <p class="text-gray-500">#00{{ invoice.id}}</p>
       </div>
      </div>
     </div>
@@ -26,17 +26,17 @@
        <p class="font-semibold text-base">Invoice From:</p> <!-- Reduced font size -->
        <p>Unwrapped</p>
        <p>Fake Street 123</p>
-       <p>San Javier, CA 1234</p>
+       <p>Baneshower,Kathmandu</p>
        <p>Phone: (123) 456-7890</p>
-       <p>Email: info@unwrapped.design</p>
+       <p>Email: info@nepaliclothing.design</p>
       </div>
       <div class="text-sm space-y-1"> <!-- Reduced spacing -->
        <p class="font-semibold text-base">Billed To:</p> <!-- Reduced font size -->
-       <p>The Boring Company</p>
-       <p>Tesla Street 007</p>
-       <p>Frisco, CA 0000</p>
-       <p>Phone: (098) 765-4321</p>
-       <p>Email: boring@company.com</p>
+       <p>{{ invoice.customer}}</p>
+       <p>{{ invoice.customer.Street}} {{ invoice.customer.city}}</p>
+       <p>{{ invoice.customer.zip_code }}</p>
+       <p>{{ invoice.customer.phone}}</p>
+       <p>{{ invoice.customer.email }}</p>
       </div>
       <div class="text-sm space-y-2"> <!-- Reduced spacing -->
        <div>
