@@ -194,7 +194,9 @@ def invoice(request):
     if request.method == "POST":
         keys = request.POST.get('order_id')
         print("wtf is going on:", keys)
-        invoice_data = Order.objects.get(id=keys)
+        invoice_data = Order.objects.filter(id=keys)
+
+        print(invoice_data)
 
     context = {
         'invoice': invoice_data,

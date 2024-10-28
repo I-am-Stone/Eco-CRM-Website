@@ -41,11 +41,11 @@
       <div class="text-sm space-y-2"> <!-- Reduced spacing -->
        <div>
         <p class="font-semibold text-base">Invoice Number:</p> <!-- Reduced font size -->
-        <p>000{{ invoice.invoice_number}}</p>
+        <p>000{{ invoice.customer.id}}</p>
        </div>
        <div>
         <p class="font-semibold text-base">Date of Issue:</p> <!-- Reduced font size -->
-        <p>{{ invoice.order }}</p>
+        <p>{{ invoice.created_at }}</p>
        </div>
       </div>
      </div>
@@ -64,32 +64,34 @@
        </thead>
        <tbody>
        <tr>
-        <td class="py-2"> <!-- Reduced padding -->
-         <div class="font-medium">Tesla Truck</div>
-         <div class="text-xs opacity-50 md:hidden">1 unit at $0.00</div> <!-- Reduced font size -->
-        </td>
-        <td class="text-right py-2">48</td>
-        <td class="text-right py-2">$0.00</td>
-        <td class="text-right py-2">$0.00</td>
-       </tr>
-       <tr>
-        <td class="py-2"> <!-- Reduced padding -->
-         <div class="font-medium">Tesla Charging Station</div>
-         <div class="text-xs opacity-50 md:hidden">1 unit at $75.00</div> <!-- Reduced font size -->
-        </td>
-        <td class="text-right py-2">4</td>
-        <td class="text-right py-2">$0.00</td>
-        <td class="text-right py-2">$0.00</td>
-       </tr>
-       <tr>
-        <td class="py-2"> <!-- Reduced padding -->
-         <div class="font-medium">Installation Services</div>
-         <div class="text-xs opacity-50 md:hidden">1 unit at $500.00</div> <!-- Reduced font size -->
-        </td>
-        <td class="text-right py-2">1</td>
-        <td class="text-right py-2">$500.00</td>
-        <td class="text-right py-2">$500.00</td>
-       </tr>
+        {% if invoice.item|length > 1 %}
+        {% for product in invoice.item %}
+        <tr>
+          <td class="py-2">
+            <div class="font-medium">{{ product.name }}</div>
+            <div class="text-xs opacity-50 md:hidden">1 unit at $0.00</div>
+          </td>
+          <td class="text-right py-2">48</td>
+          <td class="text-right py-2">$0.00</td>
+          <td class="text-right py-2">$0.00</td>
+        </tr>
+        {% endfor %}
+      {% elif invoice.item|length == 1 %}
+        <tr>
+          <td class="py-2">
+            <div class="font-medium">{{ invoice.item }}</div>
+            <div class="text-xs opacity-50 md:hidden">1 unit at $0.00</div>
+          </td>
+          <td class="text-right py-2">48</td>
+          <td class="text-right py-2">$0.00</td>
+          <td class="text-right py-2">$0.00</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4" class="py-2 text-center">No items found</td>
+        </tr>
+      {% endif %}
+
        </tbody>
        <tfoot>
        <tr class="bg-base-200">
