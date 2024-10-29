@@ -189,20 +189,22 @@ def invoice(request):
     POST: Update order status and fetch invoice data
     """
     invoice_data = None
-    keys = None
+    order_data = None
+    customer_data = None
 
     if request.method == "POST":
-        keys = request.POST.get('order_id')
-        print("wtf is going on:", keys)
-        invoice_data = Order.objects.filter(id=keys)
+        order_keys = request.POST.get('order_id')
+        cust_key = request.POST.get('customer_id')
+        print("wtf is going on:", order_keys, cust_key)
 
-        print(invoice_data)
+        order_data = Order.Object.get(pk=order_keys)
+        customer_data = Order.Object.get(pk=cust_key)
 
     context = {
         'invoice': invoice_data,
     }
 
-    return render(request, "dashboard/invoice.html",context)
+    return render(request, "dashboard/invoice.html", context)
 
 
 def add(request):

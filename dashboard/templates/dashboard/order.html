@@ -62,6 +62,7 @@
                     <form method="POST" action="{% url 'invoice' %}">
                         {% csrf_token %}
                         <input type="hidden" name="order_id" value="{{ order.pk }}">
+                        <input type="hidden" name="customer_id" value="{{ order.customer.pk }}">
                         <button type="submit">View Invoice</button>
                     </form>
                 </td>
