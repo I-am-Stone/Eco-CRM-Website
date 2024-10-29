@@ -193,17 +193,20 @@ def invoice(request):
     """
     order_data = None
     customer_data = None
+    total_amount = 0
 
     if request.method == "POST":
         order_keys = request.POST.get('order_id')
         cust_key = request.POST.get('customer_id')
-        
+
         # Debug line (consider using logging instead)
         print("Debug info:", order_keys, cust_key)
-        
+
         try:
             order_data = get_object_or_404(Order, pk=order_keys)
             customer_data = get_object_or_404(Customer, pk=cust_key)
+
+            total_amount = order_data.total_price * order_data.item_count
 
             print(order_data)
         except Exception as e:
@@ -213,11 +216,10 @@ def invoice(request):
     context = {
         'order': order_data,
         'customer': customer_data,
+        'amount': total_amount
     }
 
     return render(request, "dashboard/invoice.html", context)
-
-
 
 
 def add(request):

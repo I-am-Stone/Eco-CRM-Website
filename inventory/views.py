@@ -78,7 +78,6 @@ def home(request):
 def checkout(request):
     cart = request.session.get('cart', {})
     cart_items, total_price = get_cart_items(cart)
-    form = None
     form_data = {}
     cust_id = None
     # If request if post, save user datinvoicea and change progress
@@ -180,11 +179,9 @@ def order_info(request):
             product = ProductInventory.objects.prefetch_related("product").get(pk=key)
             stock = Stock.objects.select_for_update().get(product_inventory=product)
 
-            total_price = product.retail_price * quntity
-
             order = Order(
                 item=product.product.name,
-                total_price=total_price,
+                total_price=product.retail_price,
                 item_count=value,
                 product_inventory=product,
                 customer_id=customer_id,
