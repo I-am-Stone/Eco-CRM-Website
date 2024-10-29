@@ -218,5 +218,7 @@ def invoice(request):
     return render(request, "dashboard/invoice.html", context)
 
 
+
+
 def add(request):
     return render(request, "dashboard/add_product.html")

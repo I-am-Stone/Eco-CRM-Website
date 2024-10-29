@@ -172,16 +172,19 @@ def about(request):
 def order_info(request):
     if request.method == "POST":
         cart: dict = request.session.get('cart', {})
-        print(cart)
+        quntity = cart['1']
+        print(cart, quntity)
         customer_id = request.POST.get('cust_id')
 
         for key, value in cart.items():
             product = ProductInventory.objects.prefetch_related("product").get(pk=key)
             stock = Stock.objects.select_for_update().get(product_inventory=product)
 
+            total_price = product.retail_price * quntity
+
             order = Order(
                 item=product.product.name,
-                total_price=product.retail_price,
+                total_price=total_price,
                 item_count=value,
                 product_inventory=product,
                 customer_id=customer_id,
