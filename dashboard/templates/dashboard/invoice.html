@@ -32,20 +32,20 @@
       </div>
       <div class="text-sm space-y-1"> <!-- Reduced spacing -->
        <p class="font-semibold text-base">Billed To:</p> <!-- Reduced font size -->
-       <p>{{ invoice.customer}}</p>
-       <p>{{ invoice.customer.Street}} {{ invoice.customer.city}}</p>
-       <p>{{ invoice.customer.zip_code }}</p>
-       <p>{{ invoice.customer.phone}}</p>
-       <p>{{ invoice.customer.email }}</p>
+       <p>{{ customer}}</p>
+       <p>{{ customer.Street}} {{ customer.city}}</p>
+       <p>{{ customer.zip_code }}</p>
+       <p>{{ customer.phone}}</p>
+       <p>{{ customer.email }}</p>
       </div>
       <div class="text-sm space-y-2"> <!-- Reduced spacing -->
        <div>
         <p class="font-semibold text-base">Invoice Number:</p> <!-- Reduced font size -->
-        <p>000{{ invoice.customer.id}}</p>
+        <p>000{{ customer.id}}</p>
        </div>
        <div>
         <p class="font-semibold text-base">Date of Issue:</p> <!-- Reduced font size -->
-        <p>{{ invoice.created_at }}</p>
+        <p>{{ order.created_at }}</p>
        </div>
       </div>
      </div>
@@ -64,34 +64,15 @@
        </thead>
        <tbody>
        <tr>
-        {% if invoice.item|length > 1 %}
-        {% for product in invoice.item %}
         <tr>
           <td class="py-2">
-            <div class="font-medium">{{ product.name }}</div>
-            <div class="text-xs opacity-50 md:hidden">1 unit at $0.00</div>
+            <div class="font-medium">{{ order.item }}</div>
+            <div class="text-xs opacity-50 md:hidden">{{ order.total_price}}</div>
           </td>
-          <td class="text-right py-2">48</td>
+          <td class="text-right py-2">{{order.item_count}}</td>
           <td class="text-right py-2">$0.00</td>
           <td class="text-right py-2">$0.00</td>
         </tr>
-        {% endfor %}
-      {% elif invoice.item|length == 1 %}
-        <tr>
-          <td class="py-2">
-            <div class="font-medium">{{ invoice.item }}</div>
-            <div class="text-xs opacity-50 md:hidden">1 unit at $0.00</div>
-          </td>
-          <td class="text-right py-2">48</td>
-          <td class="text-right py-2">$0.00</td>
-          <td class="text-right py-2">$0.00</td>
-        </tr>
-      {% else %}
-        <tr>
-          <td colspan="4" class="py-2 text-center">No items found</td>
-        </tr>
-      {% endif %}
-
        </tbody>
        <tfoot>
        <tr class="bg-base-200">

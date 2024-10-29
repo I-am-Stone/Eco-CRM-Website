@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 # from django.views.decorators.csrf import ensure_csrf_cookie
 # from django.views.decorators.http import require_http_methods
 # from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+
 from django.http import HttpResponseBadRequest
 from inventory.models import *
 from .models import *
@@ -188,20 +191,28 @@ def invoice(request):
     GET: Display invoice form
     POST: Update order status and fetch invoice data
     """
-    invoice_data = None
     order_data = None
     customer_data = None
 
     if request.method == "POST":
         order_keys = request.POST.get('order_id')
         cust_key = request.POST.get('customer_id')
-        print("wtf is going on:", order_keys, cust_key)
+        
+        # Debug line (consider using logging instead)
+        print("Debug info:", order_keys, cust_key)
+        
+        try:
+            order_data = get_object_or_404(Order, pk=order_keys)
+            customer_data = get_object_or_404(Customer, pk=cust_key)
 
-        order_data = Order.Object.get(pk=order_keys)
-        customer_data = Order.Object.get(pk=cust_key)
+            print(order_data)
+        except Exception as e:
+            # Handle the error appropriately
+            return HttpResponse(f"Error fetching data: {str(e)}", status=400)
 
     context = {
-        'invoice': invoice_data,
+        'order': order_data,
+        'customer': customer_data,
     }
 
     return render(request, "dashboard/invoice.html", context)
