@@ -1,0 +1,129 @@
+{% extends 'dashboard/index.html' %}
+
+{% block invoice %}
+<section class="py-8 bg-base-200">
+ <div class="max-w-4xl mx-auto bg-base-100 shadow-xl rounded-box mt-8"> <!-- Reduced max-width and top margin -->
+  <article class="overflow-hidden">
+   <div class="rounded-b-box">
+    <div class="p-6"> <!-- Reduced padding -->
+     <div class="flex justify-between items-center mb-6"> <!-- Reduced margin -->
+      <div class="space-y-2 text-base-content"> <!-- Reduced spacing -->
+       <img class="object-cover h-12" src="https://pbs.twimg.com/profile_images/1513243060834123776/dL8-d7zI_400x400.png" alt="Company logo" />
+       <h1 class="text-3xl font-bold tracking-tight uppercase"> <!-- Reduced font size -->
+        Unwrapped.design
+       </h1>
+      </div>
+      <div class="text-right">
+       <p class="text-lg font-semibold">Invoice</p> <!-- Reduced font size -->
+       <p class="text-gray-500">#00{{ invoice.id}}</p>
+      </div>
+     </div>
+    </div>
+
+    <div class="p-6 bg-base-200"> <!-- Reduced padding -->
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-4"> <!-- Adjusted grid and reduced gap -->
+      <div class="text-sm space-y-1"> <!-- Reduced spacing -->
+       <p class="font-semibold text-base">Invoice From:</p> <!-- Reduced font size -->
+       <p>Nepali Cloathing</p>
+       <p>Fake Street 123</p>
+       <p>Baneshower,Kathmandu</p>
+       <p>Phone: (123) 456-7890</p>
+       <p>Email: info@nepaliclothing.design</p>
+      </div>
+      <div class="text-sm space-y-1"> <!-- Reduced spacing -->
+       <p class="font-semibold text-base">Billed To:</p> <!-- Reduced font size -->
+       <p>{{ customer}}</p>
+       <p>{{ customer.Street}} {{ customer.city}}</p>
+       <p>{{ customer.zip_code }}</p>
+       <p>{{ customer.phone}}</p>
+       <p>{{ customer.email }}</p>
+      </div>
+      <div class="text-sm space-y-2"> <!-- Reduced spacing -->
+       <div>
+        <p class="font-semibold text-base">Invoice Number:</p> <!-- Reduced font size -->
+        <p>000{{ customer.id}}</p>
+       </div>
+       <div>
+        <p class="font-semibold text-base">Date of Issue:</p> <!-- Reduced font size -->
+        <p>{{ order.created_at }}</p>
+       </div>
+      </div>
+     </div>
+    </div>
+
+    <div class="p-6"> <!-- Reduced padding -->
+     <div class="overflow-x-auto">
+      <table class="table w-full text-sm"> <!-- Reduced text size -->
+       <thead>
+       <tr class="bg-base-200">
+        <th class="py-2">Description</th> <!-- Reduced padding -->
+        <th class="text-right py-2">Quantity</th>
+        <th class="text-right py-2">Rate</th>
+        <th class="text-right py-2">Amount</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr>
+        <tr>
+          <td class="py-2">
+            <div class="font-medium">{{ order.item }}</div>
+            <div class="text-xs opacity-50 md:hidden">{{ order.total_price}}</div>
+          </td>
+          <td class="text-right py-2">{{order.item_count}}</td>
+          <td class="text-right py-2">$0.00</td>
+          <td class="text-right py-2">$0.00</td>
+        </tr>
+       </tbody>
+       <tfoot>
+       <tr class="bg-base-200">
+        <th colspan="3" class="text-right py-2">Subtotal</th> <!-- Reduced padding -->
+        <td class="text-right py-2">$500.00</td>
+       </tr>
+       <tr>
+        <th colspan="3" class="text-right py-2">Discount (10%)</th>
+        <td class="text-right py-2">$50.00</td>
+       </tr>
+       <tr>
+        <th colspan="3" class="text-right py-2">Tax (8%)</th>
+        <td class="text-right py-2">$36.00</td>
+       </tr>
+       <tr class="bg-base-200">
+        <th colspan="3" class="text-right py-2 font-bold">Total</th>
+        <td class="text-right py-2 font-bold">$486.00</td>
+       </tr>
+       </tfoot>
+      </table>
+     </div>
+    </div>
+
+    <div class="mt-6 p-6"> <!-- Reduced margin and padding -->
+     <div class="border-t pt-4 border-base-300"> <!-- Reduced padding -->
+      <div class="text-sm space-y-2"> <!-- Reduced spacing and font size -->
+       <h3 class="font-semibold text-base">Payment Terms</h3> <!-- Reduced font size -->
+       <p class="text-xs"> <!-- Reduced font size -->
+        Payment terms are 14 days. Late payments are subject to fees and interest as per the Late Payment of Unwrapped Debts Act 0000. Please refer to our full terms for details.
+       </p>
+       <div class="mt-4"> <!-- Reduced margin -->
+        <h3 class="font-semibold text-base">Payment Methods</h3> <!-- Reduced font size -->
+        <p class="text-xs">Please make payment via one of the following methods:</p> <!-- Reduced font size -->
+        <ul class="list-disc list-inside mt-1 text-xs"> <!-- Reduced margin and font size -->
+         <li>Bank Transfer</li>
+         <li>Credit Card</li>
+         <li>PayPal</li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+
+    <div class="mt-6 p-4 bg-base-200 rounded-b-box"> <!-- Reduced margin and padding -->
+     <div class="text-center text-sm"> <!-- Reduced font size -->
+      <p class="font-semibold">Thank you for your business!</p>
+      <p class="mt-1 text-xs">If you have any questions, please contact us at support@unwrapped.design</p> <!-- Reduced margin and font size -->
+     </div>
+    </div>
+   </div>
+  </article>
+ </div>
+</section>
+{% endblock %}

@@ -73,5 +73,11 @@ class ValuesAdmin(admin.ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'city', 'state', 'country', 'created_at','street')
+    list_display = ('name', 'email', 'phone', 'city', 'state', 'country', 'created_at', 'street')
     search_fields = ('name', 'email', 'phone')
+
+
+@admin.register(ContactForm)
+class ContactFormAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'subject', 'created_at', 'message')
+    search_fields = ('name', 'email', 'subject')

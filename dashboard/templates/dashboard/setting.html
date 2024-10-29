@@ -1,0 +1,104 @@
+{% extends 'dashboard/index.html' %}
+
+{% block setting %}
+
+<div id="content" class="p-8">
+    <div class="container mx-auto">
+        <div class="bg-gray-100 shadow-xl rounded-lg p-6">
+            <h1 class="text-4xl font-bold mb-8 text-center text-black-600">CRM Settings</h1>
+
+            <form method="POST" id="crm_form" class="space-y-10" novalidate action="{% url 'setting' %}">
+                {% csrf_token %}
+            
+                <!-- User Information -->
+                <fieldset class="bg-white p-6 rounded-lg shadow-sm">
+                    <legend class="text-2xl font-semibold mb-4 text-gray-700">User Information</legend>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Username -->
+                        <div class="form-control">
+                            <label for="id_username" class="block text-gray-700 font-medium">Username:</label>
+                            <input type="text" name="username" id="id_username" class="input input-bordered w-full mt-1" maxlength="150" required>
+                            <p class="text-sm text-gray-500 mt-1">Required. 150 characters or fewer. Letters, digits, and @/./+/-/_ only.</p>
+                        </div>
+            
+                        <!-- Email -->
+                        <div class="form-control">
+                            <label for="id_email" class="block text-gray-700 font-medium">Email:</label>
+                            <input type="email" name="email" id="id_email" class="input input-bordered w-full mt-1" required>
+                            <p class="text-sm text-gray-500 mt-1">Required. A valid email address.</p>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="space-y-6">
+                    <!-- Usable Password -->
+                    <div class="form-control">
+                        <label class="block text-gray-700 font-medium mb-2">Password-based authentication:</label>
+                        <div id="id_usable_password" class="flex space-x-6">
+                            <label for="id_usable_password_0" class="flex items-center cursor-pointer">
+                                <input type="radio" name="status" value="True" class="radio" id="id_usable_password_0" checked>
+                                <span class="ml-2 text-gray-600">Enabled</span>
+                            </label>
+                            <label for="id_usable_password_1" class="flex items-center cursor-pointer">
+                                <input type="radio" name="status" value="False" class="radio" id="id_usable_password_1">
+                                <span class="ml-2 text-gray-600">Disabled</span>
+                            </label>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">Whether the user can authenticate using a password.</p>
+                    </div>
+                <!-- Authentication Settings -->
+                <fieldset class="bg-white p-6 rounded-lg shadow-sm">
+                    <legend class="text-2xl font-semibold mb-4 text-gray-700">Authentication</legend>
+                    
+                    <div class="space-y-6">
+                        <!-- Password -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Password -->
+                            <div class="form-control">
+                                <label for="id_password1" class="block text-gray-700 font-medium">Password:</label>
+                                <input type="password" name="password1" id="id_password1" class="input input-bordered w-full mt-1" autocomplete="new-password">
+                                <p class="text-sm text-gray-500 mt-1">8 characters minimum. No commonly used passwords.</p>
+                            </div>
+            
+                            <!-- Confirm Password -->
+                            <div class="form-control">
+                                <label for="id_password2" class="block text-gray-700 font-medium">Confirm Password:</label>
+                                <input type="password" name="password2" id="id_password2" class="input input-bordered w-full mt-1" autocomplete="new-password">
+                                <p class="text-sm text-gray-500 mt-1">Enter the same password again for verification.</p>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            
+                <div class="flex justify-center space-x-4 mt-10">
+                    <input type="submit" value="Save" class="btn btn-primary" name="_save">
+                    <input type="submit" value="Save and add another" class="btn btn-secondary" name="_addanother">
+                    <input type="submit" value="Save and continue editing" class="btn btn-accent" name="_continue">
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+<div class="container mx-auto px-4 py-8 shadow-2xl my-40">
+    <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+            <thead>
+            <tr>
+                <th class="bg-primary text-primary-content">User Name</th>
+                <th class="bg-primary text-primary-content">Email</th>
+                <th class="bg-primary text-primary-content">Added Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for usr in user %}
+            <tr class="hover:bg-gray-100">
+                <td>{{ usr.username }}</td>
+                <td>{{ usr.email }}</td>
+                <td>{{ usr.date }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

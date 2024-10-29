@@ -60,16 +60,17 @@
             </div>
         </div>
 
-        <form class="space-y-4">
-            <input type='text' placeholder='Name'
-                   class="w-full text-gray-800 rounded-md py-2.5 px-4 border text-sm outline-none focus:ring focus:ring-blue-500" />
-            <input type='email' placeholder='Email'
-                   class="w-full text-gray-800 rounded-md py-2.5 px-4 border text-sm outline-none focus:ring focus:ring-blue-500" />
-            <input type='text' placeholder='Subject'
-                   class="w-full text-gray-800 rounded-md py-2.5 px-4 border text-sm outline-none focus:ring focus:ring-blue-500" />
-            <textarea placeholder='Message' rows="6"
-                      class="w-full text-gray-800 rounded-md px-4 border text-sm pt-2.5 outline-none focus:ring focus:ring-blue-500"></textarea>
-            <button type='button'
+        <form class="space-y-4" action="{% url 'contact' %}" method="POST">
+            {% csrf_token %}
+            <input type='text' placeholder='Name' name='name'
+                   class="w-full text-white-800 rounded-md py-2.5 px-4 border text-sm outline-none focus:ring focus:ring-blue-500" />
+            <input type='email' placeholder='Email' name='email'
+                   class="w-full text-white-800 rounded-md py-2.5 px-4 border text-sm outline-none focus:ring focus:ring-blue-500" />
+            <input type='text' placeholder='Subject' name='subject'
+                   class="w-full text-white-800 rounded-md py-2.5 px-4 border text-sm outline-none focus:ring focus:ring-blue-500" />
+            <textarea placeholder='Message' rows="6" name='message'
+                      class="w-full text-white-800 rounded-md px-4 border text-sm pt-2.5 outline-none focus:ring focus:ring-blue-500"></textarea>
+            <button type='submit'
                     class="text-white bg-blue-500 hover:bg-blue-600 rounded-md text-sm px-4 py-3 w-full mt-6">Send</button>
         </form>
     </div>

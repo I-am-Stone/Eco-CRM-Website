@@ -235,6 +235,7 @@ class ProductInventory(models.Model):
     )
     is_active = models.BooleanField(
         default=True,
+
         verbose_name=_("product visibility"),
         help_text=_("format: true=product visible"),
     )
@@ -412,3 +413,32 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ContactForm(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=100)
+    subject = models.CharField(max_length=255)
+    message = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Notification(models.Model):
+    NOTIFICATION_TYPES = (
+        ('order', 'Order'),
+        ('message', 'Message'),
+    )
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES, default='message')
+    link = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.message
+
+
+
