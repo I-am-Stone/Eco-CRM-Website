@@ -51,6 +51,7 @@ def home(request):
             product_id = request.POST.get('product_id')
             quantity = int(request.POST.get('quantity', 1))
             cart = request.session.get('cart', {})
+            print(cart)
 
             if product_id in cart:
                 cart[product_id] += quantity
