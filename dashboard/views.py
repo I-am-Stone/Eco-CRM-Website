@@ -223,4 +223,34 @@ def invoice(request):
 
 
 def add(request):
+
+    if request.method == "POST":
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 1))
+        safe_url = request.POST.get('slug')
+
     return render(request, "dashboard/add_product.html")
+
+
+def store_product_data():
+    """
+    This stores data of products in database to be used on the home pages
+    :return:
+    """
+    pass
+
+
+def product_csv_reader():
+    """
+    This reads data from a csv file of the products
+    :return:
+    """
+    pass
+
+
+def product_csv_writer():
+    """
+    This writes data to a csv file of the products
+    :return:
+    """
+    pass

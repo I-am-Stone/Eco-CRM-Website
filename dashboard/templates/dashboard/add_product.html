@@ -9,7 +9,7 @@
                 <div class="badge badge-primary p-4">New Product</div>
             </div>
 
-            <form class="space-y-8">
+            <form class="space-y-8" method="POST" action="{% url 'add' %}">
                 {% csrf_token %}
                 <!-- Progress Steps -->
                 <div class="flex justify-between mb-8">
