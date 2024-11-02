@@ -4245,10 +4245,6 @@ html:has(.drawer-toggle:checked) {
   height: 3rem;
 }
 
-.h-24 {
-  height: 6rem;
-}
-
 .h-5 {
   height: 1.25rem;
 }
@@ -4269,6 +4265,10 @@ html:has(.drawer-toggle:checked) {
   height: 100vh;
 }
 
+.min-h-32 {
+  min-height: 8rem;
+}
+
 .min-h-\[40vh\] {
   min-height: 40vh;
 }
@@ -4277,8 +4277,8 @@ html:has(.drawer-toggle:checked) {
   min-height: 100%;
 }
 
-.min-h-32 {
-  min-height: 8rem;
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-10 {
@@ -4523,6 +4523,10 @@ html:has(.drawer-toggle:checked) {
   white-space: nowrap;
 }
 
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
 .rounded-box {
   border-radius: var(--rounded-box, 1rem);
 }
@@ -4541,10 +4545,6 @@ html:has(.drawer-toggle:checked) {
 
 .rounded-none {
   border-radius: 0px;
-}
-
-.rounded-2xl {
-  border-radius: 1rem;
 }
 
 .rounded-b-box {
@@ -4628,6 +4628,10 @@ html:has(.drawer-toggle:checked) {
   background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
 }
 
+.bg-base-200\/50 {
+  background-color: var(--fallback-b2,oklch(var(--b2)/0.5));
+}
+
 .bg-base-300 {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
@@ -4687,10 +4691,6 @@ html:has(.drawer-toggle:checked) {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-base-200\/50 {
-  background-color: var(--fallback-b2,oklch(var(--b2)/0.5));
-}
-
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -4701,23 +4701,8 @@ html:has(.drawer-toggle:checked) {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-.from-primary {
-  --tw-gradient-from: var(--fallback-p,oklch(var(--p)/1)) var(--tw-gradient-from-position);
-  --tw-gradient-to: var(--fallback-p,oklch(var(--p)/0)) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .to-\[rgba\(15\2c 5\2c 36\2c 1\)\] {
   --tw-gradient-to: rgba(15,5,36,1) var(--tw-gradient-to-position);
-}
-
-.to-secondary {
-  --tw-gradient-to: var(--fallback-s,oklch(var(--s)/1)) var(--tw-gradient-to-position);
-}
-
-.bg-clip-text {
-  -webkit-background-clip: text;
-          background-clip: text;
 }
 
 .fill-current {
@@ -4809,11 +4794,6 @@ html:has(.drawer-toggle:checked) {
   padding-bottom: 2rem;
 }
 
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -4844,10 +4824,6 @@ html:has(.drawer-toggle:checked) {
 
 .pt-40 {
   padding-top: 10rem;
-}
-
-.pt-8 {
-  padding-top: 2rem;
 }
 
 .text-left {
@@ -4968,6 +4944,10 @@ html:has(.drawer-toggle:checked) {
   color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
 }
 
+.text-base-content\/60 {
+  color: var(--fallback-bc,oklch(var(--bc)/0.6));
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(15 23 42 / var(--tw-text-opacity));
@@ -5036,14 +5016,6 @@ html:has(.drawer-toggle:checked) {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-base-content\/60 {
-  color: var(--fallback-bc,oklch(var(--bc)/0.6));
-}
-
-.text-transparent {
-  color: transparent;
 }
 
 .opacity-50 {
