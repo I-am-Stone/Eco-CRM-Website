@@ -223,13 +223,12 @@ def invoice(request):
 
 
 def add(request):
-
     if request.method == "POST":
         web_id = request.POST.get('website_id')
         safe_url = request.POST.get('safe_url')
         sku = request.Post.get('sku')
         upc = request.Post.get('upc')
-
+        product_type = request.Post.get('product_type')
 
 
     return render(request, "dashboard/add_product.html")
