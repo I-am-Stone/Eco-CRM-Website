@@ -223,14 +223,6 @@ def invoice(request):
 
 
 def add(request):
-    if request.method == "POST":
-        web_id = request.POST.get('website_id')
-        safe_url = request.POST.get('safe_url')
-        sku = request.Post.get('sku')
-        upc = request.Post.get('upc')
-        product_type = request.Post.get('product_type')
-
-
     return render(request, "dashboard/add_product.html")
 
 
@@ -256,3 +248,23 @@ def product_csv_writer():
     :return:
     """
     pass
+
+
+def product_data_collector(request):
+    if request.method == "POST":
+        web_id = request.POST.get('website_id')
+        safe_url = request.POST.get('safe_url')
+        product_type = request.POST.get('product_type')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        product_name = request.POST.get('product_name')
+
+
+def inventory_data_collector(request):
+    if request.method == "POST":
+        sku = request.POST.get('sku')
+        upc = request.POST.get('upc')
+        product_type = request.POST.get('product_type')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        product_name = request.POST.get('product_name')
