@@ -19,7 +19,7 @@
         </div>
 
         <!-- Basic Details Form -->
-        <form id="basic-details-form" class="mb-8">
+        <form method="POST" id="basic-details-form" class="mb-8" action="{% url 'basic_details' %}">
             {% csrf_token %}
             <div class="card bg-base-100 shadow-lg">
                 <div class="card-body space-y-6">

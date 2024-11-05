@@ -268,6 +268,9 @@ def product_data_collector(request):
             is_active=visible
         )
         new_product.save()
+        return redirect('add')
+
+    return redirect('add')
 
 
 def inventory_data_collector(request):
