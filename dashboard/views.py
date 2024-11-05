@@ -265,6 +265,13 @@ def inventory_data_collector(request):
         sku = request.POST.get('sku')
         upc = request.POST.get('upc')
         product_type = request.POST.get('product_type')
-        description = request.POST.get('description')
-        category = request.POST.get('category')
-        product_name = request.POST.get('product_name')
+        brand = request.POST.get('brand')
+        weight = request.POST.get('weight')
+        visible = request.POST.get('is_visible')
+        msrp = request.POST.get('msrp')
+        regular_price = request.POST.get('regular_price')
+        sale_price = request.POST.get('sale_price')
+
+def media_collection(request):
+    if request.method == "POST":
+        pass
