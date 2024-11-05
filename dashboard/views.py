@@ -259,6 +259,13 @@ def product_data_collector(request):
         category = request.POST.get('category')
         product_name = request.POST.get('product_name')
 
+        new_product = Product(
+            web_id = web_id,
+            slug = safe_url,
+            name = product_name,
+            description = description,
+            category = category,
+        )
 
 def inventory_data_collector(request):
     if request.method == "POST":
@@ -271,6 +278,8 @@ def inventory_data_collector(request):
         msrp = request.POST.get('msrp')
         regular_price = request.POST.get('regular_price')
         sale_price = request.POST.get('sale_price')
+
+
 
 def media_collection(request):
     if request.method == "POST":
