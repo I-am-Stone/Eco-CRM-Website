@@ -223,7 +223,11 @@ def invoice(request):
 
 
 def add(request):
-    return render(request, "dashboard/add_product.html")
+    categories = Category.objects.all()
+    context = {
+        'cate':categories
+    }
+    return render(request, "dashboard/add_product.html",context)
 
 
 def store_product_data():
