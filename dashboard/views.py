@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-
 from django.http import HttpResponseBadRequest
 from inventory.models import *
 from .models import *
@@ -268,10 +267,11 @@ def product_data_collector(request):
             slug=safe_url,
             name=product_name,
             description=description,
-            category=category,
-            is_active=visible
+            is_active=True
         )
         new_product.save()
+        new_product.category.add(category)
+
         return redirect('add')
 
     return redirect('add')
