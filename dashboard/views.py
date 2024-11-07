@@ -193,17 +193,20 @@ def invoice(request):
     """
     order_data = None
     customer_data = None
+    total_amount = 0
 
     if request.method == "POST":
         order_keys = request.POST.get('order_id')
         cust_key = request.POST.get('customer_id')
-        
+
         # Debug line (consider using logging instead)
         print("Debug info:", order_keys, cust_key)
-        
+
         try:
             order_data = get_object_or_404(Order, pk=order_keys)
             customer_data = get_object_or_404(Customer, pk=cust_key)
+
+            total_amount = order_data.total_price * order_data.item_count
 
             print(order_data)
         except Exception as e:
@@ -213,10 +216,80 @@ def invoice(request):
     context = {
         'order': order_data,
         'customer': customer_data,
+        'amount': total_amount
     }
 
     return render(request, "dashboard/invoice.html", context)
 
 
 def add(request):
-    return render(request, "dashboard/add_product.html")
+    categories = Category.objects.all()
+    context = {
+        'cate':categories
+    }
+    return render(request, "dashboard/add_product.html",context)
+
+
+def store_product_data():
+    """
+    This stores data of products in database to be used on the home pages
+    :return:
+    """
+    pass
+
+
+def product_csv_reader():
+    """
+    This reads data from a csv file of the products
+    :return:
+    """
+    pass
+
+
+def product_csv_writer():
+    """
+    This writes data to a csv file of the products
+    :return:
+    """
+    pass
+
+
+def product_data_collector(request):
+    if request.method == "POST":
+        web_id = request.POST.get('website_id')
+        safe_url = request.POST.get('safe_url')
+        visible = request.POST.get('is_visible')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        product_name = request.POST.get('product_name')
+
+        new_product = Product(
+            web_id=web_id,
+            slug=safe_url,
+            name=product_name,
+            description=description,
+            category=category,
+            is_active=visible
+        )
+        new_product.save()
+        return redirect('add')
+
+    return redirect('add')
+
+
+def inventory_data_collector(request):
+    if request.method == "POST":
+        sku = request.POST.get('sku')
+        upc = request.POST.get('upc')
+        product_type = request.POST.get('product_type')
+        brand = request.POST.get('brand')
+        weight = request.POST.get('weight')
+        visible = request.POST.get('is_visible')
+        msrp = request.POST.get('msrp')
+        regular_price = request.POST.get('regular_price')
+        sale_price = request.POST.get('sale_price')
+
+
+def media_collection(request):
+    if request.method == "POST":
+        pass

@@ -1,219 +1,307 @@
 {% extends 'dashboard/index.html' %}
 
 {% block add %}
-<div class="container mx-auto px-4 py-12">
-    <div class="card bg-base-100 shadow-2xl border border-base-300">
-        <div class="card-body p-8">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Add Product</h2>
-                <div class="badge badge-primary p-4">New Product</div>
-            </div>
-
-            <form class="space-y-8">
-                <!-- Progress Steps -->
-                <div class="flex justify-between mb-8">
-                    <ul class="steps steps-horizontal w-full">
-                        <li class="step step-primary">Basic Info</li>
-                        <li class="step">Details</li>
-                        <li class="step">Pricing</li>
-                        <li class="step">Media</li>
-                    </ul>
-                </div>
-
-                <!-- Basic Product Information -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-medium">Product website ID</span>
-                        </label>
-                        <input type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
-                        <label class="label">
-                            <span class="label-text-alt text-base-content/60">Format: required, unique</span>
-                        </label>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-medium">Product safe URL</span>
-                        </label>
-                        <input type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
-                        <label class="label">
-                            <span class="label-text-alt text-base-content/60">Format: required, letters, numbers, underscores or hyphens</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Inventory Information -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-medium">Stock keeping unit</span>
-                        </label>
-                        <input type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required maxlength="20" />
-                        <label class="label">
-                            <span class="label-text-alt text-base-content/60">Format: required, unique, max-20</span>
-                        </label>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-medium">Universal product code</span>
-                        </label>
-                        <input type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required maxlength="12" />
-                        <label class="label">
-                            <span class="label-text-alt text-base-content/60">Format: required, unique, max-12</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Product Details -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-medium">Product type</span>
-                        </label>
-                        <div class="join w-full">
-                            <select class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                                <option disabled selected>Select type</option>
-                            </select>
-                            <button class="btn btn-lg btn-primary join-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-medium">Product</span>
-                        </label>
-                        <div class="join w-full">
-                            <select class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                                <option disabled selected>Select product</option>
-                            </select>
-                            <button class="btn btn-lg btn-primary join-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-medium">Brand</span>
-                        </label>
-                        <div class="join w-full">
-                            <select class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                                <option disabled selected>Select brand</option>
-                            </select>
-                            <button class="btn btn-lg btn-primary join-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pricing Information -->
-                <div class="bg-base-200/50 p-6 rounded-2xl space-y-6">
-                    <h3 class="text-xl font-semibold mb-4">Pricing Details</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text font-medium">Recommended retail price</span>
-                            </label>
-                            <label class="input-group input-group-lg">
-                                <input type="number" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
-                                <span class="bg-primary text-primary-content">USD</span>
-                            </label>
-                        </div>
-
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text font-medium">Regular store price</span>
-                            </label>
-                            <label class="input-group input-group-lg">
-                                <input type="number" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
-                                <span class="bg-primary text-primary-content">USD</span>
-                            </label>
-                        </div>
-
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text font-medium">Sale price</span>
-                            </label>
-                            <label class="input-group input-group-lg">
-                                <input type="number" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" />
-                                <span class="bg-primary text-primary-content">USD</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Description -->
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text font-medium">Product description</span>
-                    </label>
-                    <textarea class="textarea textarea-bordered min-h-32 focus:textarea-primary transition-all duration-200" required></textarea>
-                    <label class="label">
-                        <span class="label-text-alt text-base-content/60">Format: required</span>
-                    </label>
-                </div>
-
-                <!-- Product Image -->
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text font-medium">Product Image</span>
-                    </label>
-                    <div class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200">
-                        <input type="file" class="file-input file-input-bordered file-input-lg w-full max-w-xs" accept="image/*" />
-                        <p class="mt-2 text-base-content/60">or drag and drop image here</p>
-                    </div>
-                </div>
-
-                <!-- Category Selection -->
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text font-medium">Category</span>
-                    </label>
-                    <select class="select select-bordered select-lg w-full focus:select-primary transition-all duration-200" multiple>
-                        <option>T-shirt</option>
-                        <option>blue tshirt</option>
-                        <option>fjalla</option>
-                        <option>fkla</option>
-                        <option>gray tshirt</option>
-                    </select>
-                    <label class="label">
-                        <span class="label-text-alt text-base-content/60">Hold down "Control" or "Command" on a Mac to select more than one.</span>
-                    </label>
-                </div>
-
-                <!-- Visibility Toggle -->
-                <div class="form-control bg-base-200/50 p-6 rounded-2xl">
-                    <label class="label cursor-pointer justify-start gap-4">
-                        <span class="label-text text-lg font-medium">Product visibility</span>
-                        <input type="checkbox" class="toggle toggle-lg toggle-primary" checked />
-                    </label>
-                </div>
-
-                <!-- Form Actions -->
-                <div class="flex flex-wrap gap-4 pt-8 border-t border-base-300">
-                    <button class="btn btn-primary btn-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        Save
-                    </button>
-                    <button class="btn btn-outline btn-lg">Save and add another</button>
-                    <button class="btn btn-outline btn-lg">Save and continue editing</button>
-                </div>
-            </form>
+<div class="bg-base-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-base-content">Add Product</h2>
+            <div class="text-base-content/60 mt-2">Create a new product listing</div>
         </div>
+
+        <!-- Form Navigation -->
+        <div class="mb-8">
+            <ul class="steps steps-horizontal w-full">
+                <li class="step step-primary">Basic Details</li>
+                <li class="step">Inventory & Pricing</li>
+                <li class="step">Media</li>
+            </ul>
+        </div>
+
+        <!-- Basic Details Form -->
+        <form method="POST" id="basic-details-form" class="mb-8" action="{% url 'basic_details' %}">
+            {% csrf_token %}
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body space-y-6">
+                    <h3 class="card-title text-xl">Basic Details</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium">Product Website ID</span>
+                            </label>
+                            <input name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            <label class="label">
+                                <span class="label-text-alt text-base-content/60">Required, must be unique</span>
+                            </label>
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium">Product Safe URL</span>
+                            </label>
+                            <input name="safe_url" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            <label class="label">
+                                <span class="label-text-alt text-base-content/60">Required, URL-friendly format</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium">Product Name</span>
+                        </label>
+                        <input name="product_name" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                        <label class="label">
+                            <span class="label-text-alt text-base-content/60">Required, maximum 100 characters</span>
+                        </label>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium">Product Description</span>
+                        </label>
+                        <textarea name="description" class="textarea textarea-bordered min-h-32 focus:textarea-primary transition-all duration-200" required></textarea>
+                        <label class="label">
+                            <span class="label-text-alt text-base-content/60">Describe your product in detail</span>
+                        </label>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium">Categories</span>
+                        </label>
+                        <select name="category" class="select select-bordered select-lg w-full focus:select-primary transition-all duration-200" multiple>
+                            {% for cat in cate %}
+                            <option>{{cat.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="label">
+                            <span class="label-text-alt text-base-content/60">Hold Ctrl/Cmd to select multiple categories</span>
+                        </label>
+                    </div>
+                    <div>
+                    
+                        <div class="flex-container checkbox-row">
+                            
+                                <input type="checkbox" name="is_active" id="id_is_active" checked=""><label class="vCheckboxLabel" for="id_is_active">Product visibility</label>
+                            
+                        </div>
+                    
+                        <div class="help" id="id_is_active_helptext">
+                            <div>format: true=product visible</div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-4">
+                        <button type="button" class="btn btn-lg">Cancel</button>
+                        <button type="submit" class="btn btn-lg btn-primary">Save Basic Details</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Inventory and Pricing Form -->
+        <form id="inventory-pricing-form" class="mb-8">
+            {% csrf_token %}
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body space-y-6">
+                    <h3 class="card-title text-xl">Inventory & Pricing Details</h3>
+
+                    <!-- Inventory Section -->
+                    <div class="space-y-6">
+                        <h4 class="text-lg font-medium">Inventory Information</h4>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">SKU</span>
+                                </label>
+                                <input type="text" name="sku" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required maxlength="20" />
+                                <label class="label">
+                                    <span class="label-text-alt text-base-content/60">Stock Keeping Unit (max 20 chars)</span>
+                                </label>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">UPC</span>
+                                </label>
+                                <input type="text" name="upc" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required maxlength="12" />
+                                <label class="label">
+                                    <span class="label-text-alt text-base-content/60">Universal Product Code (12 digits)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">Product Type</span>
+                                </label>
+                                <div class="join w-full">
+                                    <select name="product_type" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
+                                        <option disabled selected>Select type</option>
+                                    </select>
+                                    <button type="button" class="btn btn-lg btn-primary join-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">Brand</span>
+                                </label>
+                                <div class="join w-full">
+                                    <select name="brand" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
+                                        <option disabled selected>Select brand</option>
+                                    </select>
+                                    <button type="button" class="btn btn-lg btn-primary join-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">Weight</span>
+                                </label>
+                                <label class="input-group input-group-lg">
+                                    <input type="number" name="weight" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
+                                    <span class="bg-primary text-primary-content">grams</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-control bg-base-200/50 p-6 rounded-2xl">
+                            <label class="label cursor-pointer justify-start gap-4">
+                                <span class="label-text text-lg font-medium">Product Visibility</span>
+                                <input type="checkbox" name="is_visible" class="toggle toggle-lg toggle-primary" checked />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Section -->
+                    <div class="space-y-6">
+                        <h4 class="text-lg font-medium">Pricing Information</h4>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">MSRP</span>
+                                </label>
+                                <label class="input-group input-group-lg">
+                                    <input type="number" name="msrp" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
+                                    <span class="bg-primary text-primary-content">USD</span>
+                                </label>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">Regular Price</span>
+                                </label>
+                                <label class="input-group input-group-lg">
+                                    <input type="number" name="regular_price" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
+                                    <span class="bg-primary text-primary-content">USD</span>
+                                </label>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium">Sale Price</span>
+                                </label>
+                                <label class="input-group input-group-lg">
+                                    <input type="number" name="sale_price" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" />
+                                    <span class="bg-primary text-primary-content">USD</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-4">
+                        <button type="button" class="btn btn-lg">Cancel</button>
+                        <button type="submit" class="btn btn-lg btn-primary">Save Inventory & Pricing</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Media Form -->
+        <form id="media-form">
+            {% csrf_token %}
+
+            <div class="card bg-base-100 shadow-lg">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-medium">Product Inventory</span>
+                    </label>
+                    <div class="join w-full">
+                        <select name="product_inv" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
+                            <option disabled selected>Select type</option>
+                        </select>
+                        <button type="button" class="btn btn-lg btn-primary join-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body space-y-6">
+                    <h3 class="card-title text-xl">Media</h3>
+
+                    <!-- Main Product Image -->
+                    <div class="space-y-4">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium">Main Product Image</span>
+                            </label>
+                            <div class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200">
+                                <input type="file" name="main_image" class="file-input file-input-bordered file-input-lg w-full max-w-xs" accept="image/*" required />
+                                <p class="mt-2 text-base-content/60">or drag and drop image here</p>
+                            </div>
+                        </div>
+
+                        <!-- Alt Text for Main Image -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium">Alternative Text (Alt Text)</span>
+                            </label>
+                            <input type="text" name="main_image_alt" class="input input-bordered input-lg focus:input-primary transition-all duration-200" placeholder="Describe the image for accessibility" required />
+                            <label class="label">
+                                <span class="label-text-alt text-base-content/60">Provide a clear description of the image for screen readers and SEO</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Additional Product Images -->
+                    <div class="space-y-4">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium">Additional Product Images</span>
+                            </label>
+                            <div class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors duration-200">
+                                <input type="file" name="additional_images[]" class="file-input file-input-bordered file-input-lg w-full max-w-xs" accept="image/*" multiple />
+                                <p class="mt-2 text-base-content/60">Select multiple images or drag and drop them here</p>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Alt Text Fields for Additional Images -->
+                        <div id="additional-alt-texts" class="space-y-4">
+                            <!-- Additional alt text fields will be added here dynamically via JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-4">
+                        <button type="button" class="btn btn-lg">Cancel</button>
+                        <button type="submit" class="btn btn-lg btn-primary">Save Media</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-
 {% endblock %}
