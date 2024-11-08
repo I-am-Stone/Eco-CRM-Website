@@ -15,6 +15,7 @@ urlpatterns = [
     path('notification', views.notification, name='notification'),
     path('aboutus/', views.inbox, name='inbox'),
     path('basic_details/', views.product_data_collector, name='basic_details'),
+    path('inventory/', views.inventory_data_collector, name='inv_details'),
     path('invoice/', views.invoice, name='invoice'),
     path('add_product/', views.add, name='add'),
 

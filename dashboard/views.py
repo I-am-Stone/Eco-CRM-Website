@@ -225,10 +225,12 @@ def add(request):
     categories = Category.objects.all()
     product = Product.objects.all()
     brand = Brand.objects.all()
+    product_type = ProductType.objects.all()
     context = {
         'cate':categories,
         'products':product,
-        'brands':brand
+        'brands':brand,
+        'product_type':product_type,
     }
     return render(request, "dashboard/add_product.html",context)
 
@@ -280,32 +282,53 @@ def product_data_collector(request):
 
     return redirect('add')
 
-
 def inventory_data_collector(request):
     if request.method == "POST":
-        sku = request.POST.get('sku')
-        upc = request.POST.get('upc')
-        product_type = request.POST.get('product_type')
-        product = request.POST.get('product')
-        brand = request.POST.get('brand')
-        weight = request.POST.get('weight')
-        visible = request.POST.get('is_visible')
-        retail_price = request.POST.get('msrp')
-        regular_price = request.POST.get('regular_price')
-        sale_price = request.POST.get('sale_price')
+        try:
+            # Get form data
+            sku = request.POST.get('sku')
+            upc = request.POST.get('upc')
+            product_type_id = request.POST.get('product_type')
+            product_id = request.POST.get('product')
+            brand_id = request.POST.get('brand')
+            weight = request.POST.get('weight')
+            retail_price = request.POST.get('msrp')
+            regular_price = request.POST.get('regular_price')
+            sale_price = request.POST.get('sale_price')
 
-        new_inventory_details = ProductInventory(
-            sku=sku,
-            upc=upc,
-            product_type=product_type,
-            product=product,
-            brand=brand,
-            weight=weight,
-            sale_price=sale_price,
-            store_price=regular_price,
-            retail_price=retail_price,
-        )
+            # Get model instances for foreign keys
+            try:
+                product_type = ProductType.objects.get(pk=product_type_id)
+                product = Product.objects.get(pk=product_id)
+                brand = Brand.objects.get(pk=brand_id)
+            except ObjectDoesNotExist:
+                # Handle the case where related objects don't exist
+                # You might want to add error messages here
+                return redirect('add')
 
+            # Create new inventory instance with proper model instances
+            new_inventory_details = ProductInventory(
+                sku=sku,
+                upc=upc,
+                product_type=product_type,  # Now passing the actual ProductType instance
+                product=product,            # Now passing the actual Product instance
+                brand=brand,                # Now passing the actual Brand instance
+                weight=weight,
+                sale_price=sale_price,
+                store_price=regular_price,
+                retail_price=retail_price,
+                is_active=True,
+            )
+            new_inventory_details.save()
+            
+            # You might want to add a success message here
+            
+        except Exception as e:
+            # Handle any other errors that might occur
+            # You might want to add error messages here
+            print(f"Error creating inventory: {str(e)}")
+            
+    return redirect('add')
 
 def media_collection(request):
     if request.method == "POST":
