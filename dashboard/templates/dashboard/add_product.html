@@ -250,7 +250,7 @@
             </div>
         </form>
         <!-- Media Form -->
-        <form id="media-form">
+        <form method="POST" id="media-form" action="{%url 'media'%}">
             {% csrf_token %}
             <div class="card bg-base-100 shadow-lg">
                 <div class="form-control">
@@ -259,7 +259,9 @@
                     </label>
                     <div class="join w-full">
                         <select name="product_inv" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                            <option disabled selected>Select type</option>
+                            {% for product in product_inv %}
+                            <option value="product.pk">{{product.product}}</option>
+                            {%endfor%}
                         </select>
                         <button type="button" class="btn btn-lg btn-primary join-item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

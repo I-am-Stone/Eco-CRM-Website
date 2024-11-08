@@ -226,11 +226,13 @@ def add(request):
     product = Product.objects.all()
     brand = Brand.objects.all()
     product_type = ProductType.objects.all()
+    product_inventory = ProductInventory.objects.all()
     context = {
         'cate':categories,
         'products':product,
         'brands':brand,
         'product_type':product_type,
+        'product_inv':product_inventory
     }
     return render(request, "dashboard/add_product.html",context)
 
