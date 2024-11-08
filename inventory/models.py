@@ -147,7 +147,8 @@ class Brand(models.Model):
         verbose_name=_("brand name"),
         help_text=_("format: required, unique, max-255"),
     )
-
+    def __str__(self):
+        return self.name
 
 class ProductAttribute(models.Model):
     """
@@ -202,7 +203,6 @@ class ProductInventory(models.Model):
     Product inventory table
     """
 
-    objects = None
     sku = models.CharField(
         max_length=20,
         unique=True,

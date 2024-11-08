@@ -136,11 +136,30 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="form-control">
                                 <label class="label">
+                                    <span class="label-text font-medium">Product</span>
+                                </label>
+                                <div class="join w-full">
+                                    <select name="product" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
+                                        {% for porduct in products %}
+                                        <option value="{{porduct.pk}}">{{porduct.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="button" class="btn btn-lg btn-primary join-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
                                     <span class="label-text font-medium">Product Type</span>
                                 </label>
                                 <div class="join w-full">
                                     <select name="product_type" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                                        <option disabled selected>Select type</option>
+                                        {% for porduct in products %}
+                                        <option value="{{porduct.pk}}">{{porduct.name}}</option>
+                                        {% endfor %}
                                     </select>
                                     <button type="button" class="btn btn-lg btn-primary join-item">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -156,7 +175,9 @@
                                 </label>
                                 <div class="join w-full">
                                     <select name="brand" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                                        <option disabled selected>Select brand</option>
+                                        {%for brand in brands%}
+                                        <option value="{{brand.pk}}">{{brand.name}}</option>
+                                        {% endfor %}
                                     </select>
                                     <button type="button" class="btn btn-lg btn-primary join-item">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -192,31 +213,31 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="form-control">
                                 <label class="label">
-                                    <span class="label-text font-medium">MSRP</span>
+                                    <span class="label-text font-medium">Retail Price</span>
                                 </label>
                                 <label class="input-group input-group-lg">
                                     <input type="number" name="msrp" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
-                                    <span class="bg-primary text-primary-content">USD</span>
+                                    <span class="bg-primary text-primary-content">RS.</span>
                                 </label>
                             </div>
 
                             <div class="form-control">
                                 <label class="label">
-                                    <span class="label-text font-medium">Regular Price</span>
+                                    <span class="label-text font-medium">Sales Price</span>
                                 </label>
                                 <label class="input-group input-group-lg">
                                     <input type="number" name="regular_price" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
-                                    <span class="bg-primary text-primary-content">USD</span>
+                                    <span class="bg-primary text-primary-content">RS.</span>
                                 </label>
                             </div>
 
                             <div class="form-control">
                                 <label class="label">
-                                    <span class="label-text font-medium">Sale Price</span>
+                                    <span class="label-text font-medium">Store Price</span>
                                 </label>
                                 <label class="input-group input-group-lg">
                                     <input type="number" name="sale_price" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" />
-                                    <span class="bg-primary text-primary-content">USD</span>
+                                    <span class="bg-primary text-primary-content">RS.</span>
                                 </label>
                             </div>
                         </div>

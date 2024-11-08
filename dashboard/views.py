@@ -223,8 +223,12 @@ def invoice(request):
 
 def add(request):
     categories = Category.objects.all()
+    product = Product.objects.all()
+    brand = Brand.objects.all()
     context = {
-        'cate':categories
+        'cate':categories,
+        'products':product,
+        'brands':brand
     }
     return render(request, "dashboard/add_product.html",context)
 
@@ -282,12 +286,25 @@ def inventory_data_collector(request):
         sku = request.POST.get('sku')
         upc = request.POST.get('upc')
         product_type = request.POST.get('product_type')
+        product = request.POST.get('product')
         brand = request.POST.get('brand')
         weight = request.POST.get('weight')
         visible = request.POST.get('is_visible')
-        msrp = request.POST.get('msrp')
+        retail_price = request.POST.get('msrp')
         regular_price = request.POST.get('regular_price')
         sale_price = request.POST.get('sale_price')
+
+        new_inventory_details = ProductInventory(
+            sku=sku,
+            upc=upc,
+            product_type=product_type,
+            product=product,
+            brand=brand,
+            weight=weight,
+            sale_price=sale_price,
+            store_price=regular_price,
+            retail_price=retail_price,
+        )
 
 
 def media_collection(request):
