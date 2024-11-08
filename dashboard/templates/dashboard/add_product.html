@@ -260,7 +260,7 @@
                     <div class="join w-full">
                         <select name="product_inv" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
                             {% for product in product_inv %}
-                            <option value="product.pk">{{product.product}}</option>
+                            <option value="{{product.id}}">{{product.product}}</option>
                             {%endfor%}
                         </select>
                         <button type="button" class="btn btn-lg btn-primary join-item">

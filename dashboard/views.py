@@ -334,4 +334,21 @@ def inventory_data_collector(request):
 
 def media_collection(request):
     if request.method == "POST":
-        pass
+        product = request.POST.get('product_inv')
+        image = request.POST.get('main_image')
+        alt_text = request.POST.get('main_image_alt')
+        print(product)
+
+        product = ProductInventory.objects.get(pk=product)
+
+        new_image = Media(
+            product = product,
+            image = image,
+            alt_text = alt_text,
+        )
+        new_image.save()
+        return redirect('add')
+
+    return redirect('add')
+
+        
