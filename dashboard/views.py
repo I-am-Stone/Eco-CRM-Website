@@ -257,7 +257,7 @@ def product_data_collector(request):
     if request.method == "POST":
         web_id = request.POST.get('website_id')
         safe_url = request.POST.get('safe_url')
-        visible = request.POST.get('is_visible')
+        # visible = request.POST.get('is_visible')
         description = request.POST.get('description')
         category = request.POST.get('category')
         product_name = request.POST.get('product_name')

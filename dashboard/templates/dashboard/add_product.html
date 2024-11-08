@@ -66,14 +66,13 @@
                             <span class="label-text-alt text-base-content/60">Describe your product in detail</span>
                         </label>
                     </div>
-
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text font-medium">Categories</span>
                         </label>
                         <select name="category" class="select select-bordered select-lg w-full focus:select-primary transition-all duration-200" multiple>
                             {% for cat in cate %}
-                            <option>{{cat.name}}</option>
+                            <option value="{{cat.pk}}">{{cat.name}}</option>
                             {% endfor %}
                         </select>
                         <label class="label">
@@ -222,7 +221,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="flex justify-end gap-4">
                         <button type="button" class="btn btn-lg">Cancel</button>
                         <button type="submit" class="btn btn-lg btn-primary">Save Inventory & Pricing</button>
@@ -230,11 +228,9 @@
                 </div>
             </div>
         </form>
-
         <!-- Media Form -->
         <form id="media-form">
             {% csrf_token %}
-
             <div class="card bg-base-100 shadow-lg">
                 <div class="form-control">
                     <label class="label">
