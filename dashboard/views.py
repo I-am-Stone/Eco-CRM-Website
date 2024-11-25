@@ -1,16 +1,17 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.shortcuts import redirect
 # from django.views.decorators.csrf import ensure_csrf_cookie
 # from django.views.decorators.http import require_http_methods
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.http import HttpResponseBadRequest
+
 from inventory.models import *
 from .models import *
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.core.paginator import Paginator
 
 
 def dashboard(request):
@@ -222,13 +223,13 @@ def invoice(request):
 
 
 def add(request):
-    categories = Category.objects.all()
+    categories_p = Category.objects.all()
     product = Product.objects.all()
     brand = Brand.objects.all()
     product_type = ProductType.objects.all()
     product_inventory = ProductInventory.objects.all()
     context = {
-        'cate':categories,
+        'cate':categories_p,
         'products':product,
         'brands':brand,
         'product_type':product_type,
@@ -332,23 +333,28 @@ def inventory_data_collector(request):
             
     return redirect('add')
 
+
 def media_collection(request):
     if request.method == "POST":
-        product = request.POST.get('product_inv')
-        image = request.POST.get('main_image')
+        product_id = request.POST.get('product_inv')
         alt_text = request.POST.get('main_image_alt')
-        print(product)
+        image = request.FILES.get('main_image')  # Use request.FILES to get the uploaded image
+        print('outputted this img ', image)
+        # Fetch the ProductInventory object
+        product = get_object_or_404(ProductInventory, pk=product_id)
+        print("let she this bullshit tooo:",request.FILES)
 
-        product = ProductInventory.objects.get(pk=product)
-
+        # Create and save the Media instance
         new_image = Media(
-            product = product,
-            image = image,
-            alt_text = alt_text,
+            product_inventory=product,
+            image=image,  # Save the uploaded image
+            alt_text=alt_text,
         )
         new_image.save()
-        return redirect('add')
+
+        return redirect('add')  # Redirect to the desired URL after saving
 
     return redirect('add')
+
 
         

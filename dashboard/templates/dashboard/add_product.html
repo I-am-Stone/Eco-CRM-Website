@@ -250,7 +250,7 @@
             </div>
         </form>
         <!-- Media Form -->
-        <form method="POST" id="media-form" action="{%url 'media'%}">
+        <form method="POST" id="media-form" action="{%url 'media'%}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card bg-base-100 shadow-lg">
                 <div class="form-control">
