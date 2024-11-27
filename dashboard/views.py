@@ -46,7 +46,8 @@ def add_product(request):
             'added_date': added_date,
             'active_status': active_status,
             'product_type': product_type,
-            'brand': brand
+            'brand': brand,
+            'id':product.pk
         })
 
     context = {
@@ -228,12 +229,22 @@ def add(request):
     brand = Brand.objects.all()
     product_type = ProductType.objects.all()
     product_inventory = ProductInventory.objects.all()
+    edit_mode_valid = request.GET.get('mode') == "edit" and int(request.GET.get('id', 0)) != 0
+    edit_info = {
+        'edit_mode':  edit_mode_valid,
+        'pd_id': int(request.GET.get('id', 0))
+    }
+    if edit_mode_valid:
+        # Query the product info
+        pd = None
+        edit_info['product_info'] = pd
     context = {
         'cate':categories_p,
         'products':product,
         'brands':brand,
         'product_type':product_type,
-        'product_inv':product_inventory
+        'product_inv':product_inventory,
+        'edit_info': edit_info
     }
     return render(request, "dashboard/add_product.html",context)
 
@@ -357,4 +368,13 @@ def media_collection(request):
     return redirect('add')
 
 
-        
+def product_update(request):
+    if request.method == "POST":
+        product_id = request.POST.get('product_id')
+        product_inventory = ProductInventory.objects.get(pk=product_id)
+        web_id = product_inventory.product.web_id
+        context = {
+            'edit': product_inventory,
+            'edit_mode': True
+        }
+        return render(request, "dashboard/add_product.html", context)

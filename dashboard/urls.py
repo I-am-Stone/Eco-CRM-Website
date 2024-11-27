@@ -19,6 +19,7 @@ urlpatterns = [
     path('media/', views.media_collection, name='media'),
     path('invoice/', views.invoice, name='invoice'),
     path('add_product/', views.add, name='add'),
+    path('edit_product/', views.add, name='edit_product'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
