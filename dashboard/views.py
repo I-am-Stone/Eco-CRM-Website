@@ -234,6 +234,7 @@ def add(request):
         'edit_mode':  edit_mode_valid,
         'pd_id': int(request.GET.get('id', 0))
     }
+    # this is a change man
     if edit_mode_valid:
         # Query the product info
         pd = None
