@@ -234,11 +234,10 @@ def add(request):
         'edit_mode':  edit_mode_valid,
         'pd_id': int(request.GET.get('id', 0))
     }
-    #fuck this lmao
-    # this is a change man
+
     if edit_mode_valid:
         # Query the product info
-        pd = None
+        pd = ProductInventory.objects.get(pk=edit_info['pd_id'])
         edit_info['product_info'] = pd
     context = {
         'cate':categories_p,
@@ -370,13 +369,13 @@ def media_collection(request):
     return redirect('add')
 
 
-def product_update(request):
-    if request.method == "POST":
-        product_id = request.POST.get('product_id')
-        product_inventory = ProductInventory.objects.get(pk=product_id)
-        web_id = product_inventory.product.web_id
-        context = {
-            'edit': product_inventory,
-            'edit_mode': True
-        }
-        return render(request, "dashboard/add_product.html", context)
+# def product_update(request):
+#     if request.method == "POST":
+#         product_id = request.POST.get('product_id')
+#         product_inventory = ProductInventory.objects.get(pk=product_id)
+#         web_id = product_inventory.product.web_id
+#         context = {
+#             'edit': product_inventory,
+#             'edit_mode': True
+#         }
+#         return render(request, "dashboard/add_product.html", context)

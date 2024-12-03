@@ -54,11 +54,7 @@
                     <td>{{ item.active_status }}</td>
                     <td>{{ item.product_type }}</td>
                     <td>
-                        <form method="POST" action="{% url 'edit_product' %}">
-                            {% csrf_token %}
-                            <input name="product_id" type="hidden" value="{{ item.pk }}">
-                            <a href="{% url 'add' %}?mode=edit&id={{ item.id }}" type='submit' class="btn btn-neutral">Edit</>
-                        </form>
+                        <a href="{% url 'add' %}?mode=edit&id={{ item.id }}" type='submit' class="btn btn-neutral">Edit</>
                     </td>
                 </tr>
                 {% endfor %}

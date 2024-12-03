@@ -22,12 +22,12 @@
         <form method="POST" id="basic-details-form" class="mb-8" action="{% url 'basic_details' %}"
               {% if edit %}data-edit-mode="true"{% endif %}>
             {% csrf_token %}
-            {% if edit %}
+            {% if edit_info %}
             <input name="product_id" type="hidden" value="{{ edit.pk }}">
             {% endif %}
             <div class="card bg-base-100 shadow-lg">
                 <div class="card-body space-y-6">
-                    {% if edit_mode %}
+                    {% if edit_info %}
                     <h3 class="card-title text-xl">Edit Product Basic Details</h3>
                     {% else %}
                     <h3 class="card-title text-xl">Basic Details</h3>
