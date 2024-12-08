@@ -237,7 +237,7 @@ def add(request):
 
     if edit_mode_valid:
         # Query the product info
-        pd = ProductInventory.objects.get(pk=edit_info['pd_id'])
+        pd = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk=edit_info['pd_id'])
         edit_info['product_info'] = pd
     context = {
         'cate':categories_p,

@@ -20,7 +20,7 @@
 
         <!-- Basic Details Form -->
         <form method="POST" id="basic-details-form" class="mb-8" action="{% url 'basic_details' %}"
-              {% if edit %}data-edit-mode="true"{% endif %}>
+              {% if edit_info %}data-edit-mode="true"{% endif %}>
             {% csrf_token %}
             {% if edit_info %}
             <input name="product_id" type="hidden" value="{{ edit.pk }}">
@@ -37,7 +37,11 @@
                             <label class="label">
                                 <span class="label-text font-medium">Product Website ID</span>
                             </label>
-                            <input value="{{ edit.product.web_id }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            {% if edit_info %}
+                            <input value="{{ edit_info.product.web_id }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            {% else %}
+                            <input value="{{ edit_info.pr }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            {%endif%}
                             <label class="label">
                                 <span class="label-text-alt text-base-content/60">Required, must be unique</span>
                             </label>
