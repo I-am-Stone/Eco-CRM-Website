@@ -20,14 +20,14 @@
 
         <!-- Basic Details Form -->
         <form method="POST" id="basic-details-form" class="mb-8" action="{% url 'basic_details' %}"
-              {% if edit_info %}data-edit-mode="true"{% endif %}>
+              {% if edit_info.edit_mode %}data-edit-mode="true"{% endif %}>
             {% csrf_token %}
-            {% if edit_info %}
+            {% if edit_info.edit_mode %}
             <input name="product_id" type="hidden" value="{{ edit.pk }}">
             {% endif %}
             <div class="card bg-base-100 shadow-lg">
                 <div class="card-body space-y-6">
-                    {% if edit_info %}
+                    {% if edit_info.edit_mode %}
                     <h3 class="card-title text-xl">Edit Product Basic Details</h3>
                     {% else %}
                     <h3 class="card-title text-xl">Basic Details</h3>
@@ -37,7 +37,7 @@
                             <label class="label">
                                 <span class="label-text font-medium">Product Website ID</span>
                             </label>
-                            {% if edit_info %}
+                            {% if edit_info.edit_mode %}
                             <input value="{{ edit_info.product_info.product.web_id }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
                             {% else %}
                             <input value="{{ product_info.pr }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
