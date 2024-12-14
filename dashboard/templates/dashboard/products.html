@@ -39,8 +39,10 @@
                     <th class="bg-primary text-primary-content">Added Date</th>
                     <th class="bg-primary text-primary-content">Active/Inactive</th>
                     <th class="bg-primary text-primary-content">Product Type</th>
+                    <th class="bg-primary text-primary-content">Edit</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for item in items %}
                 <tr class="hover:bg-gray-100">
@@ -51,12 +53,15 @@
                     <td>{{ item.added_date }}</td>
                     <td>{{ item.active_status }}</td>
                     <td>{{ item.product_type }}</td>
+                    <td>
+                        <a href="{% url 'add' %}?mode=edit&id={{ item.id }}" type='submit' class="btn btn-neutral">Edit</>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         <div class="flex justify-center space-x-4 mt-10">
-                <a href="{% url 'add' %}"><button class="btn btn-primary">Add Product</button></a>
+            <a href="{% url 'add' %}"><button class="btn btn-primary">Add Product</button></a>
         </div>
     </div>
 

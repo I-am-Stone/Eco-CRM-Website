@@ -19,18 +19,29 @@
         </div>
 
         <!-- Basic Details Form -->
-        <form method="POST" id="basic-details-form" class="mb-8" action="{% url 'basic_details' %}">
+        <form method="POST" id="basic-details-form" class="mb-8" action="{% url 'basic_details' %}"
+              {% if edit_info.edit_mode %}data-edit-mode="true"{% endif %}>
             {% csrf_token %}
+            {% if edit_info.edit_mode %}
+            <input name="product_id" type="hidden" value="{{ edit.pk }}">
+            {% endif %}
             <div class="card bg-base-100 shadow-lg">
                 <div class="card-body space-y-6">
+                    {% if edit_info.edit_mode %}
+                    <h3 class="card-title text-xl">Edit Product Basic Details</h3>
+                    {% else %}
                     <h3 class="card-title text-xl">Basic Details</h3>
-
+                    {% endif %}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text font-medium">Product Website ID</span>
                             </label>
-                            <input name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            {% if edit_info.edit_mode %}
+                            <input value="{{ edit_info.product_info.product.web_id }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            {% else %}
+                            <input value="{{ product_info.pr }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            {%endif%}
                             <label class="label">
                                 <span class="label-text-alt text-base-content/60">Required, must be unique</span>
                             </label>
@@ -66,14 +77,13 @@
                             <span class="label-text-alt text-base-content/60">Describe your product in detail</span>
                         </label>
                     </div>
-
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text font-medium">Categories</span>
                         </label>
                         <select name="category" class="select select-bordered select-lg w-full focus:select-primary transition-all duration-200" multiple>
                             {% for cat in cate %}
-                            <option>{{cat.name}}</option>
+                            <option value="{{cat.pk}}">{{cat.name}}</option>
                             {% endfor %}
                         </select>
                         <label class="label">
@@ -102,7 +112,7 @@
         </form>
 
         <!-- Inventory and Pricing Form -->
-        <form id="inventory-pricing-form" class="mb-8">
+        <form method="POST" id="inventory-pricing-form" class="mb-8" action="{% url 'inv_details' %}">
             {% csrf_token %}
             <div class="card bg-base-100 shadow-lg">
                 <div class="card-body space-y-6">
@@ -137,11 +147,30 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="form-control">
                                 <label class="label">
+                                    <span class="label-text font-medium">Product</span>
+                                </label>
+                                <div class="join w-full">
+                                    <select name="product" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
+                                        {% for porduct in products %}
+                                        <option value="{{porduct.pk}}">{{porduct.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="button" class="btn btn-lg btn-primary join-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
                                     <span class="label-text font-medium">Product Type</span>
                                 </label>
                                 <div class="join w-full">
                                     <select name="product_type" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                                        <option disabled selected>Select type</option>
+                                        {% for type in product_type %}
+                                        <option value="{{ type.pk }}">{{ type.name }}</option>
+                                        {% endfor %}
                                     </select>
                                     <button type="button" class="btn btn-lg btn-primary join-item">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -157,7 +186,9 @@
                                 </label>
                                 <div class="join w-full">
                                     <select name="brand" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                                        <option disabled selected>Select brand</option>
+                                        {%for brand in brands%}
+                                        <option value="{{brand.pk}}">{{brand.name}}</option>
+                                        {% endfor %}
                                     </select>
                                     <button type="button" class="btn btn-lg btn-primary join-item">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -193,36 +224,35 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="form-control">
                                 <label class="label">
-                                    <span class="label-text font-medium">MSRP</span>
+                                    <span class="label-text font-medium">Retail Price</span>
                                 </label>
                                 <label class="input-group input-group-lg">
                                     <input type="number" name="msrp" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
-                                    <span class="bg-primary text-primary-content">USD</span>
+                                    <span class="bg-primary text-primary-content">RS.</span>
                                 </label>
                             </div>
 
                             <div class="form-control">
                                 <label class="label">
-                                    <span class="label-text font-medium">Regular Price</span>
+                                    <span class="label-text font-medium">Sales Price</span>
                                 </label>
                                 <label class="input-group input-group-lg">
                                     <input type="number" name="regular_price" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" required />
-                                    <span class="bg-primary text-primary-content">USD</span>
+                                    <span class="bg-primary text-primary-content">RS.</span>
                                 </label>
                             </div>
 
                             <div class="form-control">
                                 <label class="label">
-                                    <span class="label-text font-medium">Sale Price</span>
+                                    <span class="label-text font-medium">Store Price</span>
                                 </label>
                                 <label class="input-group input-group-lg">
                                     <input type="number" name="sale_price" step="0.01" max="999.99" class="input input-bordered input-lg w-full focus:input-primary transition-all duration-200" />
-                                    <span class="bg-primary text-primary-content">USD</span>
+                                    <span class="bg-primary text-primary-content">RS.</span>
                                 </label>
                             </div>
                         </div>
                     </div>
-
                     <div class="flex justify-end gap-4">
                         <button type="button" class="btn btn-lg">Cancel</button>
                         <button type="submit" class="btn btn-lg btn-primary">Save Inventory & Pricing</button>
@@ -230,11 +260,9 @@
                 </div>
             </div>
         </form>
-
         <!-- Media Form -->
-        <form id="media-form">
+        <form method="POST" id="media-form" action="{%url 'media'%}" enctype="multipart/form-data">
             {% csrf_token %}
-
             <div class="card bg-base-100 shadow-lg">
                 <div class="form-control">
                     <label class="label">
@@ -242,7 +270,9 @@
                     </label>
                     <div class="join w-full">
                         <select name="product_inv" class="select select-bordered select-lg join-item w-full focus:select-primary transition-all duration-200">
-                            <option disabled selected>Select type</option>
+                            {% for product in product_inv %}
+                            <option value="{{product.id}}">{{product.product}}</option>
+                            {%endfor%}
                         </select>
                         <button type="button" class="btn btn-lg btn-primary join-item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

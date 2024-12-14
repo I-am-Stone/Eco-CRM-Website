@@ -1,17 +1,17 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.shortcuts import redirect
 # from django.views.decorators.csrf import ensure_csrf_cookie
 # from django.views.decorators.http import require_http_methods
 # from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
 
-from django.http import HttpResponseBadRequest
 from inventory.models import *
 from .models import *
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.core.paginator import Paginator
 
 
 def dashboard(request):
@@ -46,7 +46,8 @@ def add_product(request):
             'added_date': added_date,
             'active_status': active_status,
             'product_type': product_type,
-            'brand': brand
+            'brand': brand,
+            'id':product.pk
         })
 
     context = {
@@ -223,9 +224,29 @@ def invoice(request):
 
 
 def add(request):
-    categories = Category.objects.all()
+    categories_p = Category.objects.all()
+    product = Product.objects.all()
+    brand = Brand.objects.all()
+    product_type = ProductType.objects.all()
+    product_inventory = ProductInventory.objects.all()
+    edit_mode_valid = request.GET.get('mode') == "edit" and int(request.GET.get('id', 0)) != 0
+    edit_info = {
+        'edit_mode':  edit_mode_valid,
+        'pd_id': int(request.GET.get('id', 0))
+    }
+
+    if edit_mode_valid:
+        # Query the product info
+        pd = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk=edit_info['pd_id'])
+        edit_info['product_info'] = pd
+    print(edit_info)
     context = {
-        'cate':categories
+        'cate':categories_p,
+        'products':product,
+        'brands':brand,
+        'product_type':product_type,
+        'product_inv':product_inventory,
+        'edit_info': edit_info
     }
     return render(request, "dashboard/add_product.html",context)
 
@@ -258,7 +279,7 @@ def product_data_collector(request):
     if request.method == "POST":
         web_id = request.POST.get('website_id')
         safe_url = request.POST.get('safe_url')
-        visible = request.POST.get('is_visible')
+        # visible = request.POST.get('is_visible')
         description = request.POST.get('description')
         category = request.POST.get('category')
         product_name = request.POST.get('product_name')
@@ -268,28 +289,94 @@ def product_data_collector(request):
             slug=safe_url,
             name=product_name,
             description=description,
-            category=category,
-            is_active=visible
+            is_active=True
         )
         new_product.save()
+        new_product.category.add(category)
+
         return redirect('add')
 
     return redirect('add')
 
-
 def inventory_data_collector(request):
     if request.method == "POST":
-        sku = request.POST.get('sku')
-        upc = request.POST.get('upc')
-        product_type = request.POST.get('product_type')
-        brand = request.POST.get('brand')
-        weight = request.POST.get('weight')
-        visible = request.POST.get('is_visible')
-        msrp = request.POST.get('msrp')
-        regular_price = request.POST.get('regular_price')
-        sale_price = request.POST.get('sale_price')
+        try:
+            # Get form data
+            sku = request.POST.get('sku')
+            upc = request.POST.get('upc')
+            product_type_id = request.POST.get('product_type')
+            product_id = request.POST.get('product')
+            brand_id = request.POST.get('brand')
+            weight = request.POST.get('weight')
+            retail_price = request.POST.get('msrp')
+            regular_price = request.POST.get('regular_price')
+            sale_price = request.POST.get('sale_price')
+
+            # Get model instances for foreign keys
+            try:
+                product_type = ProductType.objects.get(pk=product_type_id)
+                product = Product.objects.get(pk=product_id)
+                brand = Brand.objects.get(pk=brand_id)
+            except ObjectDoesNotExist:
+                # Handle the case where related objects don't exist
+                # You might want to add error messages here
+                return redirect('add')
+
+            # Create new inventory instance with proper model instances
+            new_inventory_details = ProductInventory(
+                sku=sku,
+                upc=upc,
+                product_type=product_type,  # Now passing the actual ProductType instance
+                product=product,            # Now passing the actual Product instance
+                brand=brand,                # Now passing the actual Brand instance
+                weight=weight,
+                sale_price=sale_price,
+                store_price=regular_price,
+                retail_price=retail_price,
+                is_active=True,
+            )
+            new_inventory_details.save()
+            
+            # You might want to add a success message here
+            
+        except Exception as e:
+            # Handle any other errors that might occur
+            # You might want to add error messages here
+            print(f"Error creating inventory: {str(e)}")
+            
+    return redirect('add')
 
 
 def media_collection(request):
     if request.method == "POST":
-        pass
+        product_id = request.POST.get('product_inv')
+        alt_text = request.POST.get('main_image_alt')
+        image = request.FILES.get('main_image')  # Use request.FILES to get the uploaded image
+        print('outputted this img ', image)
+        # Fetch the ProductInventory object
+        product = get_object_or_404(ProductInventory, pk=product_id)
+        print("let she this bullshit tooo:",request.FILES)
+
+        # Create and save the Media instance
+        new_image = Media(
+            product_inventory=product,
+            image=image,  # Save the uploaded image
+            alt_text=alt_text,
+        )
+        new_image.save()
+
+        return redirect('add')  # Redirect to the desired URL after saving
+
+    return redirect('add')
+
+
+# def product_update(request):
+#     if request.method == "POST":
+#         product_id = request.POST.get('product_id')
+#         product_inventory = ProductInventory.objects.get(pk=product_id)
+#         web_id = product_inventory.product.web_id
+#         context = {
+#             'edit': product_inventory,
+#             'edit_mode': True
+#         }
+#         return render(request, "dashboard/add_product.html", context)

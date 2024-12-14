@@ -81,7 +81,7 @@ def checkout(request):
     cart_items, total_price = get_cart_items(cart)
     form_data = {}
     cust_id = None
-    # If request if post, save user datinvoicea and change progress
+    # If request if post, save user data invoice and change progress
     if request.method == "POST":
         form = CustomerForm(request.POST)
         if form.is_valid():
@@ -172,8 +172,8 @@ def about(request):
 def order_info(request):
     if request.method == "POST":
         cart: dict = request.session.get('cart', {})
-        quntity = cart['1']
-        print(cart, quntity)
+        quantity = cart['1']
+        print(cart, quantity)
         customer_id = request.POST.get('cust_id')
 
         for key, value in cart.items():
