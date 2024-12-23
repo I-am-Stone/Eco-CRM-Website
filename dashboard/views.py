@@ -140,6 +140,18 @@ def inbox(request):
 
 def categories(request):
     cate = Category.objects.all()
+    edit_mode_is_valid = request.GET.get('mode') == "edit" and int(request.GET.get('id', 0)) != 0
+
+    edit_info = {
+            'edit_mode':edit_mode_is_valid,
+            'cat_id':int(request.GET.get('id',0))
+        }
+
+    if edit_mode_is_valid:
+            cat = Category.objects.filter(pk=edit_info['cat_id'])
+            edit_info['category_info'] = cat
+    print(edit_info)
+
 
     if request.method == "POST":
         category_name = request.POST.get('name')
@@ -147,7 +159,7 @@ def categories(request):
         parent_id = request.POST.get('parent')
         status = request.POST.get('is_active')  # Note: changed from 'status' to 'is_active' to match form
 
-        # Handle parent category
+        
         parent_category = None
         if parent_id:
             try:
@@ -164,7 +176,8 @@ def categories(request):
         category.save()
 
     context = {
-        'items': cate
+        'items': cate,
+        'edit_info':edit_info
     }
     return render(request, "dashboard/categories.html", context)
 
