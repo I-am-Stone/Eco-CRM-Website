@@ -16,38 +16,52 @@
                 {% else %}
                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">Add New Category</h2>
                 {%endif%}
-                <form action="{% url 'categories' %}" method="POST">                    
+                <form action="{% url 'categories' %}" method="POST">
                     {% csrf_token %}
+                    <input type="hidden" name="category_id" value="{% if edit_info.edit_mode %}{{ edit_info.category_info.id }}{% endif %}">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
-                            <input value = '{%if edit_info.edit_mode %}{{edit_info.category_info.name}}{%else%}{%endif%}' type="text" name="name" id="name" required class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Category Safe URL</label>
-                            <input type="text" name="slug" id="slug" required class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label for="parent" class="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
-                            <select name="parent" id="parent" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">None</option>
-                                {% for category in items %}
-                                <option value="{{ category.id }}">{{ category.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div>
-                            <label for="is_active" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                            <select name="is_active" id="is_active" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="True">Active</option>
-                                <option value="False">Inactive</option>
-                            </select>
-                        </div>
+                      <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
+                        <input type="text" 
+                               name="name" 
+                               id="name" 
+                               required 
+                               value="{% if edit_info.edit_mode %}{{ edit_info.category_info.name }}{% endif %}"
+                               class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      </div>
+                      <div>
+                        <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Category Safe URL</label>
+                        <input type="text" 
+                               name="slug" 
+                               id="slug" 
+                               required 
+                               value="{% if edit_info.edit_mode %}{{ edit_info.category_info.slug }}{% endif %}"
+                               class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      </div>
+                      <div>
+                        <label for="parent" class="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
+                        <select name="parent" id="parent" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option value="">None</option>
+                          {% for category in items %}
+                            <option value="{{ category.id }}"
+                                    {% if edit_info.edit_mode and edit_info.category_info.parent.id == category.id %}selected{% endif %}>
+                              {{ category.name }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div>
+                        <label for="is_active" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select name="is_active" id="is_active" class="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option value="True" {% if edit_info.edit_mode and edit_info.category_info.is_active %}selected{% endif %}>Active</option>
+                          <option value="False" {% if edit_info.edit_mode and not edit_info.category_info.is_active %}selected{% endif %}>Inactive</option>
+                        </select>
+                      </div>
                     </div>
                     <div class="mt-6">
-                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                            Add Category
-                        </button>
+                      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+                        {% if edit_info.edit_mode %}Update{% else %}Add{% endif %} Category
+                      </button>
                     </div>
                 </form>
             </div>

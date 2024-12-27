@@ -158,7 +158,8 @@ def categories(request):
         category_name = request.POST.get('name')
         safe_url = request.POST.get('slug')
         parent_id = request.POST.get('parent')
-        status = request.POST.get('is_active')  # Note: changed from 'status' to 'is_active' to match form
+        status = request.POST.get('is_active')
+        category_id = request.POST.get('category_id')
 
         
         parent_category = None
@@ -167,13 +168,25 @@ def categories(request):
                 parent_category = Category.objects.get(id=parent_id)
             except Category.DoesNotExist:
                 pass
+        
+        if category_id:
+            try:
+                category = Category.objects.get(id=category_id)
+                category.name = category_name
+                category.slug = safe_url
+                category.parent = parent_category
+                category.is_active = status == 'True'
+                category.save()
+            except Category.DoesNotExist:
+                pass
+        else:
+            category = Category(
+                name=category_name,
+                slug=safe_url,
+                parent=parent_category,
+                is_active=status == 'True'  
+            )
 
-        category = Category(
-            name=category_name,
-            slug=safe_url,
-            parent=parent_category,
-            is_active=status == 'True'  # Convert string to boolean
-        )
         category.save()
 
     context = {
