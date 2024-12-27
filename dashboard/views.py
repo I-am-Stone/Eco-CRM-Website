@@ -149,7 +149,7 @@ def categories(request):
     print(edit_info)
 
     if edit_mode_is_valid:
-            cat = Category.objects.filter(pk=edit_info['cat_id'])
+            cat = Category.objects.get(pk=edit_info['cat_id'])
             edit_info['category_info'] = cat
     print(edit_info)
 
