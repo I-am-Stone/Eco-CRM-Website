@@ -11,18 +11,20 @@ from .models import ProductInventory
 
 
 def get_cart_items(cart):
+    if not cart:
+        return [], 0
+        
     cart_items = []
     total_price = 0
-
     product_ids = cart.keys()
     products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
+    
     for product in products:
         quantity = cart[str(product.pk)]
         item_total = product.retail_price * quantity
         product_name = product.product.name
-        media_info = [{'url': media.image, 'alt_text': media.alt_text} for media in
-                      product.media_product_inventory.all()]
-
+        media_info = [{'url': media.image, 'alt_text': media.alt_text} 
+                     for media in product.media_product_inventory.all()]
         cart_items.append({
             'product': product,
             'quantity': quantity,
@@ -31,11 +33,23 @@ def get_cart_items(cart):
             'media_info': media_info,
             'retail_price': product.retail_price,
         })
-
         total_price += item_total
-
     return cart_items, total_price
 
+def add_product_to_carts(request):
+    cart = request.session.get('cart', {})
+    
+    if request.method == "POST" and 'product_id' in request.POST:
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 1))
+        
+        if product_id in cart:
+            cart[product_id] += quantity
+        else:
+            cart[product_id] = quantity
+        request.session['cart'] = cart
+    
+    return cart
 
 def home(request):
     """
@@ -44,35 +58,19 @@ def home(request):
     :return:
     This sends the item details to the template of home page
     """
-    shop = ProductInventory.objects.prefetch_related("media_product_inventory").all()
-
-    if request.method == "POST":
-        if 'product_id' in request.POST:
-            product_id = request.POST.get('product_id')
-            quantity = int(request.POST.get('quantity', 1))
-            cart = request.session.get('cart', {})
-            print(cart)
-
-            if product_id in cart:
-                cart[product_id] += quantity
-            else:
-                cart[product_id] = quantity
-
-            request.session['cart'] = cart
-
-    cart = request.session.get('cart', {})
+    shop = ProductInventory.objects.prefetch_related("media_product_inventory").all().order_by('id')  # Add ordering
+    cart = add_product_to_carts(request)
     cart_items, total_price = get_cart_items(cart)
-
+    
     paginator = Paginator(shop, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
+    
     context = {
         'page_obj': page_obj,
         'cart_items': cart_items,
         'total_price': total_price,
     }
-
     return render(request, "inventory/cart.html", context)
 
 
@@ -143,6 +141,8 @@ def buy_now(request):
 
 
 def contact(request):
+    cart = add_product_to_carts(request)
+    cart_items, total_price = get_cart_items(cart)
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -161,8 +161,12 @@ def contact(request):
             notification_type='message',
             link=f'/dashboard/orders/{contest.pk}/'  # Adjust this URL as needed
         )
+    context = {
+        'cart_items':cart_items,
+        'total_price': total_price,
+    }
 
-    return render(request, "inventory/contact.html")
+    return render(request, "inventory/contact.html",context)
 
 
 def about(request):
