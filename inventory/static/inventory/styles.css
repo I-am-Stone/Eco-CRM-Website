@@ -78,12 +78,12 @@ body {
 
 }
 
-.cart-section{
+.drawer-card-section{
     font-family: cursive;
     padding: 3%;
 }
 
-.closer{
+.cart-closer{
     padding: 3%;
 }
 
@@ -120,27 +120,6 @@ body {
     to {
         transform: rotate(0deg);
     }
-}
-
-.orbit-path, .orbit-path-2 {
-    position: absolute;
-    bottom: 0;
-    height: 400px;
-    opacity: 1;
-}
-
-.orbit-path {
-    left: auto;
-    top: 15%;
-    right: -240px;
-    animation: rotatePlanets 10s infinite linear;
-}
-
-.orbit-path-2 {
-    left: auto;
-    top: 17%;
-    right: -210px;
-    animation: rotatePlanets 10s infinite linear;
 }
 
 
