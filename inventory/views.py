@@ -8,7 +8,8 @@ from .utils import create_notification
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import ProductInventory
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 def get_cart_items(cart):
     if not cart:
@@ -107,6 +108,7 @@ def checkout(request):
             cust_id = new_customer.pk  # Set id of just inserted customer
             form_data = form.cleaned_data
 
+            
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
@@ -205,3 +207,5 @@ def order_info(request):
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+

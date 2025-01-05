@@ -155,15 +155,8 @@ def categories(request):
 
 
     if request.method == "POST":
-        action = request.POST.get('action')
         category_id = request.POST.get('category_id')
 
-        if action == 'delete' and category_id:
-            try:
-                category = Category.objects.get(id=category_id)
-                category.delete()                    
-            except:
-                pass
         category_name = request.POST.get('name')
         safe_url = request.POST.get('slug')
         parent_id = request.POST.get('parent')
@@ -185,7 +178,7 @@ def categories(request):
                 category.name = category_name
                 category.slug = safe_url
                 category.parent = parent_category
-                category.is_active = status == 'True'
+                category.is_active = status 
                 category.save()
             except Category.DoesNotExist:
                 pass
@@ -194,7 +187,7 @@ def categories(request):
                 name=category_name,
                 slug=safe_url,
                 parent=parent_category,
-                is_active=status == 'True'  
+                is_active=status
             )
 
             category.save()

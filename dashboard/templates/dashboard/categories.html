@@ -62,16 +62,6 @@
                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
                                 {% if edit_info.edit_mode %}Update{% else %}Add{% endif %} Category
                         </button>
-                      {% if edit_info.edit_mode %}
-                        <form action="{% url 'categories' %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category? This action cannot be undone.');">
-                            {% csrf_token %}
-                            <input type="hidden" name="category_id" value="{{ edit_info.category_info.id }}">
-                            <input type="hidden" name="action" value="delete">
-                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                                Delete Category
-                            </button>
-                        </form>
-                      {%endif%}
                     </div>
                 </form>
             </div>
