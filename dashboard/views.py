@@ -81,7 +81,6 @@ def signin(request):
             login(request, user)
             return redirect('dashboard')
         else:
-            # Generic error message for invalid credentials
             messages.error(request, "Invalid username or password")
             return redirect('signin')
 
@@ -110,7 +109,6 @@ def setting(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        # Check if passwords match
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists.')
@@ -230,7 +228,6 @@ def invoice(request):
         order_keys = request.POST.get('order_id')
         cust_key = request.POST.get('customer_id')
 
-        # Debug line (consider using logging instead)
         print("Debug info:", order_keys, cust_key)
 
         try:
@@ -241,7 +238,6 @@ def invoice(request):
 
             print(order_data)
         except Exception as e:
-            # Handle the error appropriately
             return HttpResponse(f"Error fetching data: {str(e)}", status=400)
 
     context = {
@@ -254,7 +250,7 @@ def invoice(request):
 
 
 def add(request):
-    categories_p = Category.objects.all()
+    categories_p = Category.objects.filter(is_active=True)
     product = Product.objects.all()
     brand = Brand.objects.all()
     product_type = ProductType.objects.all()
@@ -266,10 +262,16 @@ def add(request):
     }
 
     if edit_mode_valid:
-        # Query the product info
-        pd = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk=edit_info['pd_id'])
+        pd = ProductInventory.objects.select_related(
+            'product', 'product_type', 'brand'
+        ).prefetch_related(
+            'media_product_inventory'
+        ).get(pk=edit_info['pd_id'])
         edit_info['product_info'] = pd
     print(edit_info)
+
+    if request.method == 'POST':
+        pass
     context = {
         'cate':categories_p,
         'products':product,
@@ -342,23 +344,19 @@ def inventory_data_collector(request):
             regular_price = request.POST.get('regular_price')
             sale_price = request.POST.get('sale_price')
 
-            # Get model instances for foreign keys
             try:
                 product_type = ProductType.objects.get(pk=product_type_id)
                 product = Product.objects.get(pk=product_id)
                 brand = Brand.objects.get(pk=brand_id)
             except ObjectDoesNotExist:
-                # Handle the case where related objects don't exist
-                # You might want to add error messages here
                 return redirect('add')
 
-            # Create new inventory instance with proper model instances
             new_inventory_details = ProductInventory(
                 sku=sku,
                 upc=upc,
-                product_type=product_type,  # Now passing the actual ProductType instance
-                product=product,            # Now passing the actual Product instance
-                brand=brand,                # Now passing the actual Brand instance
+                product_type=product_type,  
+                product=product,           
+                brand=brand,                
                 weight=weight,
                 sale_price=sale_price,
                 store_price=regular_price,
@@ -367,11 +365,8 @@ def inventory_data_collector(request):
             )
             new_inventory_details.save()
             
-            # You might want to add a success message here
             
         except Exception as e:
-            # Handle any other errors that might occur
-            # You might want to add error messages here
             print(f"Error creating inventory: {str(e)}")
             
     return redirect('add')
@@ -383,11 +378,10 @@ def media_collection(request):
         alt_text = request.POST.get('main_image_alt')
         image = request.FILES.get('main_image')  # Use request.FILES to get the uploaded image
         print('outputted this img ', image)
-        # Fetch the ProductInventory object
+
         product = get_object_or_404(ProductInventory, pk=product_id)
         print("let she this bullshit tooo:",request.FILES)
 
-        # Create and save the Media instance
         new_image = Media(
             product_inventory=product,
             image=image,  # Save the uploaded image
@@ -395,18 +389,8 @@ def media_collection(request):
         )
         new_image.save()
 
-        return redirect('add')  # Redirect to the desired URL after saving
+        return redirect('add')  
 
     return redirect('add')
 
 
-# def product_update(request):
-#     if request.method == "POST":
-#         product_id = request.POST.get('product_id')
-#         product_inventory = ProductInventory.objects.get(pk=product_id)
-#         web_id = product_inventory.product.web_id
-#         context = {
-#             'edit': product_inventory,
-#             'edit_mode': True
-#         }
-#         return render(request, "dashboard/add_product.html", context)
