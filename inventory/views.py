@@ -66,13 +66,14 @@ def home(request):
     paginator = Paginator(shop, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     context = {
         'page_obj': page_obj,
         'cart_items': cart_items,
         'total_price': total_price,
     }
-    return render(request, "inventory/cart.html", context)
+
+    return render(request, "inventory/product.html", context)
 
 
 def checkout(request):
@@ -172,7 +173,15 @@ def contact(request):
 
 
 def about(request):
-    return render(request, "inventory/about.html")
+    cart = add_product_to_carts(request)
+    cart_items, total_price = get_cart_items(cart)
+
+    context = {
+        'cart_items':cart_items,
+        'total_price': total_price,
+    }
+    
+    return render(request, "inventory/about.html",context)
 
 
 def order_info(request):
