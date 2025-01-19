@@ -5,9 +5,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import redirect
-# from django.views.decorators.csrf import ensure_csrf_cookie
-# from django.views.decorators.http import require_http_methods
-# from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods
+import logging
 from django.shortcuts import render, get_object_or_404
 
 from inventory.models import *
@@ -69,7 +72,8 @@ def orders(request):
     }
     return render(request, "dashboard/order.html", context)
 
-
+@csrf_protect
+@require_http_methods(["GET", "POST"])
 def signin(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -81,7 +85,6 @@ def signin(request):
             login(request, user)
             return redirect('dashboard')
         else:
-            # Generic error message for invalid credentials
             messages.error(request, "Invalid username or password")
             return redirect('signin')
 
@@ -110,7 +113,6 @@ def setting(request):
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        # Check if passwords match
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists.')
@@ -140,31 +142,61 @@ def inbox(request):
 
 def categories(request):
     cate = Category.objects.all()
+    edit_mode_is_valid = request.GET.get('mode') == "edit" and int(request.GET.get('id', 0)) != 0
+
+    edit_info = {
+            'edit_mode':edit_mode_is_valid,
+            'cat_id':int(request.GET.get('id',0))
+        }
+    print(edit_info)
+
+    if edit_mode_is_valid:
+            cat = Category.objects.get(pk=edit_info['cat_id'])
+            edit_info['category_info'] = cat
+    print(edit_info)
+
 
     if request.method == "POST":
+        category_id = request.POST.get('category_id')
+
         category_name = request.POST.get('name')
         safe_url = request.POST.get('slug')
         parent_id = request.POST.get('parent')
-        status = request.POST.get('is_active')  # Note: changed from 'status' to 'is_active' to match form
+        status = request.POST.get('is_active')
 
-        # Handle parent category
+        
+
+        
         parent_category = None
         if parent_id:
             try:
                 parent_category = Category.objects.get(id=parent_id)
             except Category.DoesNotExist:
                 pass
+        
+        if category_id:
+            try:
+                category = Category.objects.get(id=category_id)
+                category.name = category_name
+                category.slug = safe_url
+                category.parent = parent_category
+                category.is_active = status 
+                category.save()
+            except Category.DoesNotExist:
+                pass
+        else:
+            category = Category(
+                name=category_name,
+                slug=safe_url,
+                parent=parent_category,
+                is_active=status
+            )
 
-        category = Category(
-            name=category_name,
-            slug=safe_url,
-            parent=parent_category,
-            is_active=status == 'True'  # Convert string to boolean
-        )
-        category.save()
+            category.save()
 
     context = {
-        'items': cate
+        'items': cate,
+        'edit_info':edit_info
     }
     return render(request, "dashboard/categories.html", context)
 
@@ -200,7 +232,6 @@ def invoice(request):
         order_keys = request.POST.get('order_id')
         cust_key = request.POST.get('customer_id')
 
-        # Debug line (consider using logging instead)
         print("Debug info:", order_keys, cust_key)
 
         try:
@@ -211,7 +242,6 @@ def invoice(request):
 
             print(order_data)
         except Exception as e:
-            # Handle the error appropriately
             return HttpResponse(f"Error fetching data: {str(e)}", status=400)
 
     context = {
@@ -224,7 +254,7 @@ def invoice(request):
 
 
 def add(request):
-    categories_p = Category.objects.all()
+    categories_p = Category.objects.filter(is_active=True)
     product = Product.objects.all()
     brand = Brand.objects.all()
     product_type = ProductType.objects.all()
@@ -236,10 +266,16 @@ def add(request):
     }
 
     if edit_mode_valid:
-        # Query the product info
-        pd = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk=edit_info['pd_id'])
+        pd = ProductInventory.objects.select_related(
+            'product', 'product_type', 'brand'
+        ).prefetch_related(
+            'media_product_inventory'
+        ).get(pk=edit_info['pd_id'])
         edit_info['product_info'] = pd
     print(edit_info)
+
+    if request.method == 'POST':
+        pass
     context = {
         'cate':categories_p,
         'products':product,
@@ -279,17 +315,20 @@ def product_data_collector(request):
     if request.method == "POST":
         web_id = request.POST.get('website_id')
         safe_url = request.POST.get('safe_url')
-        # visible = request.POST.get('is_visible')
+        is_active = request.POST.get('is_active') == 'true'
         description = request.POST.get('description')
         category = request.POST.get('category')
         product_name = request.POST.get('product_name')
+
+        print('visibity',is_active)
+        is_active = is_active == 'true'
 
         new_product = Product(
             web_id=web_id,
             slug=safe_url,
             name=product_name,
             description=description,
-            is_active=True
+            is_active=is_active
         )
         new_product.save()
         new_product.category.add(category)
@@ -311,37 +350,31 @@ def inventory_data_collector(request):
             retail_price = request.POST.get('msrp')
             regular_price = request.POST.get('regular_price')
             sale_price = request.POST.get('sale_price')
+            is_active = request.POST.get('is_active') == 'true'
 
-            # Get model instances for foreign keys
             try:
                 product_type = ProductType.objects.get(pk=product_type_id)
                 product = Product.objects.get(pk=product_id)
                 brand = Brand.objects.get(pk=brand_id)
             except ObjectDoesNotExist:
-                # Handle the case where related objects don't exist
-                # You might want to add error messages here
                 return redirect('add')
 
-            # Create new inventory instance with proper model instances
             new_inventory_details = ProductInventory(
                 sku=sku,
                 upc=upc,
-                product_type=product_type,  # Now passing the actual ProductType instance
-                product=product,            # Now passing the actual Product instance
-                brand=brand,                # Now passing the actual Brand instance
+                product_type=product_type,  
+                product=product,           
+                brand=brand,                
                 weight=weight,
                 sale_price=sale_price,
                 store_price=regular_price,
                 retail_price=retail_price,
-                is_active=True,
+                is_active=is_active,
             )
             new_inventory_details.save()
             
-            # You might want to add a success message here
             
         except Exception as e:
-            # Handle any other errors that might occur
-            # You might want to add error messages here
             print(f"Error creating inventory: {str(e)}")
             
     return redirect('add')
@@ -351,32 +384,23 @@ def media_collection(request):
     if request.method == "POST":
         product_id = request.POST.get('product_inv')
         alt_text = request.POST.get('main_image_alt')
-        image = request.FILES.get('main_image')  # Use request.FILES to get the uploaded image
+        image = request.FILES.get('main_image')
+        is_feature = request.POST.get("is_feature") == "true"
         print('outputted this img ', image)
-        # Fetch the ProductInventory object
+
         product = get_object_or_404(ProductInventory, pk=product_id)
         print("let she this bullshit tooo:",request.FILES)
 
-        # Create and save the Media instance
         new_image = Media(
             product_inventory=product,
             image=image,  # Save the uploaded image
             alt_text=alt_text,
+            is_feature = is_feature,
         )
         new_image.save()
 
-        return redirect('add')  # Redirect to the desired URL after saving
+        return redirect('add')  
 
     return redirect('add')
 
 
-# def product_update(request):
-#     if request.method == "POST":
-#         product_id = request.POST.get('product_id')
-#         product_inventory = ProductInventory.objects.get(pk=product_id)
-#         web_id = product_inventory.product.web_id
-#         context = {
-#             'edit': product_inventory,
-#             'edit_mode': True
-#         }
-#         return render(request, "dashboard/add_product.html", context)

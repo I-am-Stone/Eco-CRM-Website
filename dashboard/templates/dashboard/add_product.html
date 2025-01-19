@@ -37,11 +37,7 @@
                             <label class="label">
                                 <span class="label-text font-medium">Product Website ID</span>
                             </label>
-                            {% if edit_info.edit_mode %}
-                            <input value="{{ edit_info.product_info.product.web_id }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
-                            {% else %}
-                            <input value="{{ product_info.pr }}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
-                            {%endif%}
+                            <input value="{% if edit_info.edit_mode %}{{ edit_info.product_info.product.web_id }}{% endif %}" name="website_id" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
                             <label class="label">
                                 <span class="label-text-alt text-base-content/60">Required, must be unique</span>
                             </label>
@@ -51,7 +47,7 @@
                             <label class="label">
                                 <span class="label-text font-medium">Product Safe URL</span>
                             </label>
-                            <input name="safe_url" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                            <input value="{% if edit_info.edit_mode %}{{ edit_info.product_info.product.slug }}{% endif %}" name="safe_url" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
                             <label class="label">
                                 <span class="label-text-alt text-base-content/60">Required, URL-friendly format</span>
                             </label>
@@ -62,7 +58,7 @@
                         <label class="label">
                             <span class="label-text font-medium">Product Name</span>
                         </label>
-                        <input name="product_name" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
+                        <input value="{% if edit_info.edit_mode %}{{ edit_info.product_info.product.name }}{% endif %}" name="product_name" type="text" class="input input-bordered input-lg focus:input-primary transition-all duration-200" required />
                         <label class="label">
                             <span class="label-text-alt text-base-content/60">Required, maximum 100 characters</span>
                         </label>
@@ -72,7 +68,8 @@
                         <label class="label">
                             <span class="label-text font-medium">Product Description</span>
                         </label>
-                        <textarea name="description" class="textarea textarea-bordered min-h-32 focus:textarea-primary transition-all duration-200" required></textarea>
+                        <textarea name="description" class="textarea textarea-bordered min-h-32 focus:textarea-primary transition-all duration-200" required>{% if edit_info.edit_mode %}{{ edit_info.product_info.product.description }}{% endif %}
+                        </textarea>
                         <label class="label">
                             <span class="label-text-alt text-base-content/60">Describe your product in detail</span>
                         </label>
@@ -91,21 +88,17 @@
                         </label>
                     </div>
                     <div>
-                    
                         <div class="flex-container checkbox-row">
-                            
-                                <input type="checkbox" name="is_active" id="id_is_active" checked=""><label class="vCheckboxLabel" for="id_is_active">Product visibility</label>
-                            
-                        </div>
-                    
+                            <input type="checkbox" name="is_active" id="visibility-checkbox" checked>
+                            <label class="CheckboxLabel" for="visibility-checkbox">Product visibility</label>
+                        </div>                  
                         <div class="help" id="id_is_active_helptext">
                             <div>format: true=product visible</div>
                         </div>
                     </div>
-
                     <div class="flex justify-end gap-4">
                         <button type="button" class="btn btn-lg">Cancel</button>
-                        <button type="submit" class="btn btn-lg btn-primary">Save Basic Details</button>
+                        <button type="submit" class="btn btn-lg btn-primary">{%if edit_info.edit_mode%}Update Basic Details{%else%}Save Basic Details{%endif%}</button>
                     </div>
                 </div>
             </div>
@@ -209,11 +202,13 @@
                             </div>
                         </div>
 
-                        <div class="form-control bg-base-200/50 p-6 rounded-2xl">
-                            <label class="label cursor-pointer justify-start gap-4">
-                                <span class="label-text text-lg font-medium">Product Visibility</span>
-                                <input type="checkbox" name="is_visible" class="toggle toggle-lg toggle-primary" checked />
-                            </label>
+                        <div>
+                            <div class="flex-container checkbox-row">
+                                <input type="checkbox" name="is_active" id="checkbox" checked=""><label class="vCheckboxLabel" for="id_is_active">Product visibility</label>
+                            </div>                   
+                            <div class="help" id="id_is_active_helptext">
+                                <div>format: true=product visible</div>
+                            </div>
                         </div>
                     </div>
 
@@ -322,6 +317,18 @@
                         <!-- Dynamic Alt Text Fields for Additional Images -->
                         <div id="additional-alt-texts" class="space-y-4">
                             <!-- Additional alt text fields will be added here dynamically via JavaScript -->
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex-container checkbox-row">
+                            <input
+                                type="checkbox"
+                                name="is_feature"
+                                id="checkbox"
+                                value="true"
+                                onchange="updateCheckboxValue(this)"
+                            />
+                            <label class="CheckboxLabel" for="id_feature">Featured Product</label>
                         </div>
                     </div>
 

@@ -8,7 +8,7 @@
     {% for item in page_obj %}
     <div class="item-list">
         <div class="product-list-item">
-            <div class="product-list-item-img-wrap">
+            <div class="product-list-item-img-wrap overflow-x-scroll flex">
                 {% for media in item.media_product_inventory.all %}
                 <img src="{{ media.image }}" alt="{{ media.alt_text }}" class="product-list-images">
                 {% endfor %}
@@ -51,6 +51,8 @@
     {% endif %}
 </section>
 {% endblock %}
+
+
 {% block Hero%}
 <div class="swiper-container ml-14 mr-14">
   <div class="swiper-wrapper">
