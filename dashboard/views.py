@@ -315,7 +315,7 @@ def product_data_collector(request):
     if request.method == "POST":
         web_id = request.POST.get('website_id')
         safe_url = request.POST.get('safe_url')
-        # visible = request.POST.get('is_visible')
+        visible = request.POST.get('is_visible') == 'true'
         description = request.POST.get('description')
         category = request.POST.get('category')
         product_name = request.POST.get('product_name')
@@ -325,7 +325,7 @@ def product_data_collector(request):
             slug=safe_url,
             name=product_name,
             description=description,
-            is_active=True
+            is_active=visible
         )
         new_product.save()
         new_product.category.add(category)
@@ -347,6 +347,7 @@ def inventory_data_collector(request):
             retail_price = request.POST.get('msrp')
             regular_price = request.POST.get('regular_price')
             sale_price = request.POST.get('sale_price')
+            is_active = request.POST.get('is_active') == 'true'
 
             try:
                 product_type = ProductType.objects.get(pk=product_type_id)
@@ -365,7 +366,7 @@ def inventory_data_collector(request):
                 sale_price=sale_price,
                 store_price=regular_price,
                 retail_price=retail_price,
-                is_active=True,
+                is_active=is_active,
             )
             new_inventory_details.save()
             
@@ -380,7 +381,8 @@ def media_collection(request):
     if request.method == "POST":
         product_id = request.POST.get('product_inv')
         alt_text = request.POST.get('main_image_alt')
-        image = request.FILES.get('main_image')  # Use request.FILES to get the uploaded image
+        image = request.FILES.get('main_image')
+        is_feature = request.POST.get("is_feature") == "true"
         print('outputted this img ', image)
 
         product = get_object_or_404(ProductInventory, pk=product_id)
@@ -390,6 +392,7 @@ def media_collection(request):
             product_inventory=product,
             image=image,  # Save the uploaded image
             alt_text=alt_text,
+            is_feature = is_feature,
         )
         new_image.save()
 
