@@ -3,3 +3,6 @@ staticfiles/
 staticfiles/
 dashboard/__pycache__
 inventory/__pycache__
+  dashboard/migrations/__pycache__/
+dashboard/migrations/__pycache__/C
+dashboard/migrations/__pycache__/
