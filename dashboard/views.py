@@ -315,17 +315,20 @@ def product_data_collector(request):
     if request.method == "POST":
         web_id = request.POST.get('website_id')
         safe_url = request.POST.get('safe_url')
-        visible = request.POST.get('is_visible') == 'true'
+        is_active = request.POST.get('is_active') == 'true'
         description = request.POST.get('description')
         category = request.POST.get('category')
         product_name = request.POST.get('product_name')
+
+        print('visibity',is_active)
+        is_active = is_active == 'true'
 
         new_product = Product(
             web_id=web_id,
             slug=safe_url,
             name=product_name,
             description=description,
-            is_active=visible
+            is_active=is_active
         )
         new_product.save()
         new_product.category.add(category)
