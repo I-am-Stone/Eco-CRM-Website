@@ -26,12 +26,31 @@ def dashboard(request):
     return render(request, "dashboard/side.html", context)
 
 
-def add_product(request):
+def products(request):
+    """
+    View function to handle product inventory listing and deletion.
+    Supports pagination and product deletion via GET parameters.
+    """
     items = []
     products = ProductInventory.objects.all()
     paginator = Paginator(products, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+
+    product_id =int(request.GET.get('id', 0)) != 0
+    
+    if request.GET.get('mode') == "delete" and int(product_id) > 0:
+        try:
+            product = ProductInventory.objects.get(pk=int(product_id))
+            product_name = product.product.name
+            product.delete()
+            messages.success(request, f'Product "{product_name}" successfully deleted.')
+            return redirect('products')
+        except ProductInventory.DoesNotExist:
+            messages.error(request, 'Product not found.')
+            return redirect('products')
+
 
     for product in products:
         product_name = product.product.name
@@ -265,6 +284,7 @@ def add(request):
         'pd_id': int(request.GET.get('id', 0))
     }
 
+
     if edit_mode_valid:
         pd = ProductInventory.objects.select_related(
             'product', 'product_type', 'brand'
@@ -272,6 +292,8 @@ def add(request):
             'media_product_inventory'
         ).get(pk=edit_info['pd_id'])
         edit_info['product_info'] = pd
+        
+
     print(edit_info)
 
     if request.method == 'POST':

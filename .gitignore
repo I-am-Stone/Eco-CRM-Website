@@ -3,6 +3,8 @@ staticfiles/
 staticfiles/
 dashboard/__pycache__
 inventory/__pycache__
-  dashboard/migrations/__pycache__/
-dashboard/migrations/__pycache__/C
 dashboard/migrations/__pycache__/
+ecommerce/__pycache__/
+ theme/__pycache__/
+theme/
+inventory/migrations/__pycache__/

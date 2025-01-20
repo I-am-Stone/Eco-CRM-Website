@@ -14,3 +14,26 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Checkbox not found - check your HTML ID');
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function(){
+    const product_action = document.getElementById('action');
+    console.log(product_action.value);
+
+    if (product_action){
+        console.log("initial Value:",product_action)
+        product_action.addEventListener('change', function () {
+            console.log('Updated value:', product_action.value);
+            const SelectedValue = this.value
+            if (SelectedValue) {
+                window.location.href = SelectedValue;
+            }else{
+                console.log('no valid option')
+            }
+        });
+
+    }else {
+        console.log('Select element not found - check your HTML ID');
+    }
+
+});
