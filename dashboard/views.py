@@ -31,52 +31,52 @@ def products(request):
     View function to handle product inventory listing and deletion.
     Supports pagination and product deletion via GET parameters.
     """
-    items = []
-    products = ProductInventory.objects.all()
-    paginator = Paginator(products, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    try:
+        # Get all products first
+        products_queryset = ProductInventory.objects.select_related('product', 'brand').all()
+        
+        # Handle deletion if requested
+        product_id = request.GET.get('id', '0')
+        if request.GET.get('mode') == "delete" and product_id.isdigit() and int(product_id) > 0:
+            try:
+                product = products_queryset.get(pk=int(product_id))
+                product_name = product.product.name
+                product.delete()
+                messages.success(request, f'Product "{product_name}" successfully deleted.')
+                # Refresh queryset after deletion
+                products_queryset = ProductInventory.objects.select_related('product', 'brand').all()
+            except ProductInventory.DoesNotExist:
+                messages.error(request, 'Product not found.')
 
+        # Handle pagination
+        paginator = Paginator(products_queryset, 10)
+        page_number = request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
 
-    product_id =int(request.GET.get('id', 0)) != 0
-    
-    if request.GET.get('mode') == "delete" and int(product_id) > 0:
-        try:
-            product = ProductInventory.objects.get(pk=int(product_id))
-            product_name = product.product.name
-            product.delete()
-            messages.success(request, f'Product "{product_name}" successfully deleted.')
-            return redirect('products')
-        except ProductInventory.DoesNotExist:
-            messages.error(request, 'Product not found.')
-            return redirect('products')
+        # Process all products for display
+        items = []
+        for product in page_obj:
+            items.append({
+                'product_name': product.product.name,
+                'product_price': product.retail_price,
+                'product_description': product.product.description,
+                'added_date': product.created_at,
+                'active_status': product.is_active,
+                'product_type': product.product_type,
+                'brand': product.brand,
+                'id': product.pk
+            })
 
+        context = {
+            'items': items,
+            'page_obj': page_obj
+        }
+        
+        return render(request, "dashboard/products.html", context)
 
-    for product in products:
-        product_name = product.product.name
-        price = product.retail_price
-        product_description = product.product.description
-        added_date = product.created_at
-        active_status = product.is_active
-        product_type = product.product_type
-        brand = product.brand
-
-        items.append({
-            'product_name': product_name,
-            'product_price': price,
-            'product_description': product_description,
-            'added_date': added_date,
-            'active_status': active_status,
-            'product_type': product_type,
-            'brand': brand,
-            'id':product.pk
-        })
-
-    context = {
-        'items': items,
-        'page_obj': page_obj
-    }
-    return render(request, "dashboard/products.html", context)
+    except Exception as e:
+        messages.error(request, f'An error occurred: {str(e)}')
+        return redirect('products')
 
 
 def orders(request):
