@@ -5,6 +5,5 @@ dashboard/__pycache__
 inventory/__pycache__
 dashboard/migrations/__pycache__/
 ecommerce/__pycache__/
- theme/__pycache__/
-theme/
+theme/__pycache__/
 inventory/migrations/__pycache__/
