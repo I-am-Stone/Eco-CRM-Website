@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from inventory.models import *
 
 def get_cart_items(cart):
@@ -39,8 +39,16 @@ def add_product_to_carts(request):
         else:
             cart[product_id] = quantity
         request.session['cart'] = cart
+
+    cart_items, total_price = get_cart_items(cart)
+    print(cart_items)
+
+    context = {
+        'cart_items':cart_items,
+        'total_price':total_price
+    }
+    return redirect("inventory:home", context)
     
-    return jsonify(cart)
 
 def remove_from_cart(request):
     if request.method == "POST":

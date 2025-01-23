@@ -3,6 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
+app_name = 'inventory'
 urlpatterns = [
                   path('', views.home, name='home'),
                 #   path('cart/', views.add_product_to_carts, name='cart'),
