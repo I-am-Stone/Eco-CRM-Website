@@ -11,46 +11,6 @@ from .models import ProductInventory
 from django.core.mail import send_mail
 from django.conf import settings
 
-def get_cart_items(cart):
-    if not cart:
-        return [], 0
-        
-    cart_items = []
-    total_price = 0
-    product_ids = cart.keys()
-    products = ProductInventory.objects.prefetch_related("media_product_inventory").filter(pk__in=product_ids)
-    
-    for product in products:
-        quantity = cart[str(product.pk)]
-        item_total = product.retail_price * quantity
-        product_name = product.product.name
-        media_info = [{'url': media.image, 'alt_text': media.alt_text} 
-                     for media in product.media_product_inventory.all()]
-        cart_items.append({
-            'product': product,
-            'quantity': quantity,
-            'item_total': item_total,
-            'product_name': product_name,
-            'media_info': media_info,
-            'retail_price': product.retail_price,
-        })
-        total_price += item_total
-    return cart_items, total_price
-
-def add_product_to_carts(request):
-    cart = request.session.get('cart', {})
-    
-    if request.method == "POST" and 'product_id' in request.POST:
-        product_id = request.POST.get('product_id')
-        quantity = int(request.POST.get('quantity', 1))
-        
-        if product_id in cart:
-            cart[product_id] += quantity
-        else:
-            cart[product_id] = quantity
-        request.session['cart'] = cart
-    
-    return cart
 
 def home(request):
     """
@@ -60,8 +20,6 @@ def home(request):
     This sends the item details to the template of home page
     """
     shop = ProductInventory.objects.prefetch_related("media_product_inventory").all().order_by('id')  # Add ordering
-    cart = add_product_to_carts(request)
-    cart_items, total_price = get_cart_items(cart)
     
     paginator = Paginator(shop, 2)
     page_number = request.GET.get('page')
@@ -69,16 +27,12 @@ def home(request):
 
     context = {
         'page_obj': page_obj,
-        'cart_items': cart_items,
-        'total_price': total_price,
     }
 
     return render(request, "inventory/product.html", context)
 
 
 def checkout(request):
-    cart = request.session.get('cart', {})
-    cart_items, total_price = get_cart_items(cart)
     form_data = {}
     cust_id = None
     # If request if post, save user data invoice and change progress
@@ -111,8 +65,6 @@ def checkout(request):
 
             
     context = {
-        'cart_items': cart_items,
-        'total_price': total_price,
         'step': request.GET.get('step', 'fill_info'),
         'form_data': form_data,
         'cust_id': cust_id
@@ -120,16 +72,6 @@ def checkout(request):
     return render(request, "inventory/checkout.html", context)
 
 
-def remove_from_cart(request):
-    if request.method == "POST":
-        remove_item_id = request.POST.get('remove_item_id')
-        cart = request.session.get('cart', {})
-
-        if remove_item_id in cart:
-            del cart[remove_item_id]
-            request.session['cart'] = cart
-
-    return redirect('home')
 
 
 def buy_now(request):
@@ -144,8 +86,6 @@ def buy_now(request):
 
 
 def contact(request):
-    cart = add_product_to_carts(request)
-    cart_items, total_price = get_cart_items(cart)
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -165,20 +105,14 @@ def contact(request):
             link=f'/dashboard/orders/{contest.pk}/'  # Adjust this URL as needed
         )
     context = {
-        'cart_items':cart_items,
-        'total_price': total_price,
     }
 
     return render(request, "inventory/contact.html",context)
 
 
 def about(request):
-    cart = add_product_to_carts(request)
-    cart_items, total_price = get_cart_items(cart)
 
     context = {
-        'cart_items':cart_items,
-        'total_price': total_price,
     }
     
     return render(request, "inventory/about.html",context)

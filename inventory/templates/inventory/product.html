@@ -16,7 +16,7 @@
                 <h2 class="item-list-title">{{ item.product.name }}</h2>
                 <div class="product-list-price">Rs.{{ item.retail_price }}</div>
                 <p class="paragraph">{{ item.product.description }}</p>
-                <form class="item-add-to-cart" method="POST" action="{% url 'home' %}">
+                <form class="item-add-to-cart" method="POST" action="{% url 'cart' %}">
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ item.product.pk }}">
                     <input type="number" name="quantity" class="item-count" min="1" value="1">

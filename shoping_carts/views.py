@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from inventory.models import *
-# Create your views here.
-
 
 def get_cart_items(cart):
     if not cart:
@@ -42,7 +40,7 @@ def add_product_to_carts(request):
             cart[product_id] = quantity
         request.session['cart'] = cart
     
-    return cart
+    return jsonify(cart)
 
 def remove_from_cart(request):
     if request.method == "POST":
@@ -53,4 +51,3 @@ def remove_from_cart(request):
             del cart[remove_item_id]
             request.session['cart'] = cart
 
-    return redirect('home')

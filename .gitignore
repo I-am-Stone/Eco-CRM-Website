@@ -9,3 +9,4 @@ theme/__pycache__/
 inventory/migrations/__pycache__/
 shoping_carts/__pycache__/
 shoping_carts/migrations/__pycache__/
+order_service/__pycache__/
