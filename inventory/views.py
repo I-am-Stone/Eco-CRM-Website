@@ -4,7 +4,6 @@ from .form import CustomerForm
 from django.urls import reverse
 from dashboard.models import *
 from django.http import JsonResponse
-from .utils import create_notification
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import ProductInventory
@@ -99,11 +98,6 @@ def contact(request):
             message=message,
         )
         contest.save()
-        create_notification(
-            f"New order placed for {contest.email} by {contest.email}",
-            notification_type='message',
-            link=f'/dashboard/orders/{contest.pk}/'  # Adjust this URL as needed
-        )
     context = {
     }
 
