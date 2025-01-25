@@ -38,11 +38,11 @@ def products(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    delet_info = {
+    delete_info = {
         'product_id': int(request.GET.get('id', 0)) != 0
     }
     if delete_mode:
-        product = ProductInventory.objects.filter(pk=delet_info['product_id'])
+        product = ProductInventory.objects.filter(pk=delete_info['product_id'])
         product.delete()
 
 

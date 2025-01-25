@@ -1959,10 +1959,6 @@ html {
   .btn-accent {
     --btn-color: var(--fallback-a);
   }
-
-  .btn-neutral {
-    --btn-color: var(--fallback-n);
-  }
 }
 
 @supports (color: color-mix(in oklab, black, black)) {
@@ -2039,10 +2035,6 @@ html {
   .btn-accent {
     --btn-color: var(--a);
   }
-
-  .btn-neutral {
-    --btn-color: var(--n);
-  }
 }
 
 .btn-secondary {
@@ -2055,12 +2047,6 @@ html {
   --tw-text-opacity: 1;
   color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
   outline-color: var(--fallback-a,oklch(var(--a)/1));
-}
-
-.btn-neutral {
-  --tw-text-opacity: 1;
-  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
-  outline-color: var(--fallback-n,oklch(var(--n)/1));
 }
 
 .btn.glass {
@@ -3700,6 +3686,10 @@ html:has(.drawer-toggle:checked) {
   width: 3rem;
 }
 
+.w-48 {
+  width: 12rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -3718,10 +3708,6 @@ html:has(.drawer-toggle:checked) {
 
 .w-full {
   width: 100%;
-}
-
-.w-48 {
-  width: 12rem;
 }
 
 .max-w-2xl {

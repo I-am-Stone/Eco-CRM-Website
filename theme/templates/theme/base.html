@@ -29,16 +29,16 @@
 
         <!-- Brand Logo -->
         <div class="flex-1 nav-brand">
-            <a class="btn btn-ghost font-thin" href="{% url 'home' %}">Nepali Clothing</a>
+            <a class="btn btn-ghost font-thin" href="{% url 'inventory:home' %}">Nepali Clothing</a>
         </div>
 
         <!-- Navigation Links -->
         <div class="nav-list">
             <ul class="flex nav-item">
-                <li class="nav-link"><a href="{% url 'home' %}">Home</a></li>
+                <li class="nav-link"><a href="{% url 'inventory:home' %}">Home</a></li>
                 <li class="nav-link"><a href="#tshirt">T-Shirt</a></li>
-                <li class="nav-link"><a href="{% url 'about' %}">About us</a></li>
-                <li class="nav-link"><a href="{% url 'contact' %}">Contact us</a></li>
+                <li class="nav-link"><a href="{% url 'inventory:about' %}">About us</a></li>
+                <li class="nav-link"><a href="{% url 'inventory:contact' %}">Contact us</a></li>
             </ul>
         </div>
 
@@ -103,7 +103,7 @@
                     <strong>Total Price: Rs.{{ total_price }}</strong>
                 </div>
                 <div class="cart-footer">
-                    <a href="{% url 'checkout' %}" class="checkout-btn">Checkout</a>
+                    <a href="{% url 'inventory:checkout' %}" class="checkout-btn">Checkout</a>
                 </div>
             {% else %}
                 <p>Your cart is empty.</p>

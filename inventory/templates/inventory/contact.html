@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <form class="space-y-4" action="{% url 'contact' %}" method="POST">
+        <form class="space-y-4" action="{% url 'inventory:contact' %}" method="POST">
             {% csrf_token %}
             <input type='text' placeholder='Name' name='name'
                    class="w-full text-white-800 rounded-md py-2.5 px-4 border text-sm outline-none focus:ring focus:ring-blue-500" />

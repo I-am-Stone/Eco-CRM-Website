@@ -16,12 +16,12 @@
                 <h2 class="item-list-title">{{ item.product.name }}</h2>
                 <div class="product-list-price">Rs.{{ item.retail_price }}</div>
                 <p class="paragraph">{{ item.product.description }}</p>
-                <form class="item-add-to-cart" method="POST" action="{% url 'cart' %}">
+                <form class="item-add-to-cart" method="POST" action="#">
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ item.product.pk }}">
                     <input type="number" name="quantity" class="item-count" min="1" value="1">
                     <input type="submit" data-loading-text="Adding to cart..." class="item-submit btn-design" value="Add to Cart">
-                    <button type="submit" formaction="{% url 'buy_now' %}" class="item-submit btn-design button-filled">Buy Now</button>
+                    <button type="submit" formaction="{% url 'inventory:buy_now' %}" class="item-submit btn-design button-filled">Buy Now</button>
                 </form>
             </div>
         </div>
