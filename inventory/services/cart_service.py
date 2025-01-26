@@ -51,13 +51,18 @@ class CartService:
         }
     
     @classmethod
-    def remove_from_cart(request):
+    def remove_from_cart(cls, request):
+        cart = request.session.get('cart', {})
         if request.method == "POST":
             remove_item_id = request.POST.get('remove_item_id')
-            cart = request.session.get('cart', {})
-
             if remove_item_id in cart:
                 del cart[remove_item_id]
                 request.session['cart'] = cart
+        
+        cart_items, total_price = cls.get_cart_items(cart)
+        return {
+            'cart_items': cart_items,
+            'total_price': total_price
+        }
 
 

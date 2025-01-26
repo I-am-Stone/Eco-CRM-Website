@@ -39,13 +39,8 @@ def home(request):
     return render(request, "inventory/product.html", context)
 
 def remove_from_cart(request):
-    if request.method == "POST":
-        remove_item_id = request.POST.get('remove_item_id')
-        cart = request.session.get('cart', {})
-
-    if remove_item_id in cart:
-        del cart[remove_item_id]
-        request.session['cart'] = cart
+    cart = CartService.remove_from_cart(request)
+    return redirect('inventory:home')
 
 def checkout(request):
     form_data = {}
