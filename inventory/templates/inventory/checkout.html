@@ -141,7 +141,7 @@
             {% endif %}
             
             <div class="text-center">
-                <form method="POST" action="{% url 'order_info' %}">
+                <form method="POST" action="{% url 'inventory:order_info' %}">
                     {% csrf_token %}
                     <input type="hidden" name="cust_id" value="{{ cust_id }}">
                     <button type="submit" class="btn btn-primary rounded-none" {% if cust_id is None %}disabled{% endif %}>Place Order</button>

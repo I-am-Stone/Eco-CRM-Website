@@ -91,11 +91,14 @@ def buy_now(request):
 
         cart = {product_id: quantity}
         request.session['cart'] = cart
-        return redirect('checkout')
-    return redirect('home')
+        print(cart)
+        return redirect('inventory:checkout')
+    return redirect('inventory:home')
 
 
 def contact(request):
+    cart = CartService.add_product_to_carts(request)
+
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -110,14 +113,21 @@ def contact(request):
         )
         contest.save()
     context = {
+        'cart_items':cart['cart_items'],
+        'total_price':cart['total_price'],
+
     }
 
     return render(request, "inventory/contact.html",context)
 
 
 def about(request):
+    cart = CartService.add_product_to_carts(request)
 
     context = {
+        'cart_items':cart['cart_items'],
+        'total_price':cart['total_price'],
+
     }
     
     return render(request, "inventory/about.html",context)
@@ -146,12 +156,6 @@ def order_info(request):
 
             stock.units -= int(value)
             stock.save()
-            create_notification(
-                f"New order placed for {order.item} by {order.customer}",
-                notification_type='order',
-                link=reverse('orders')  # Adjust this URL as needed
-            )
-
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
