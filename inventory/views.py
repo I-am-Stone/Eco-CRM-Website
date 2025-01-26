@@ -9,7 +9,33 @@ from django.shortcuts import render
 from .models import ProductInventory
 from django.core.mail import send_mail
 from django.conf import settings
+from .services import cart_service 
 
+def add_product_to_carts(request):
+    cart = request.session.get('cart', {})
+
+    if request.method == "POST" and 'product_id' in request.POST:
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 1))
+
+        if product_id in cart:
+            cart[product_id] += quantity
+        else:
+            cart[product_id] = quantity
+        request.session['cart'] = cart
+
+        return request.session.get('cart',{})
+    
+def remove_from_cart(request):
+    if request.method == "POST":
+        remove_item_id = request.POST.get('remove_item_id')
+        cart = request.session.get('cart', {})
+
+        if remove_item_id in cart:
+            del cart[remove_item_id]
+            request.session['cart'] = cart
+
+            redirect('home')
 
 def home(request):
     """
@@ -20,12 +46,16 @@ def home(request):
     """
     shop = ProductInventory.objects.prefetch_related("media_product_inventory").all().order_by('id')  # Add ordering
     
+    cart = add_product_to_carts(request)
     paginator = Paginator(shop, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    cart_item, total_price = cart_service.get_cart_items(cart)
     context = {
         'page_obj': page_obj,
+        'cart_items': cart_item,
+        'total_price': total_price,
     }
 
     return render(request, "inventory/product.html", context)

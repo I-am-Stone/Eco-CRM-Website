@@ -10,3 +10,4 @@ inventory/migrations/__pycache__/
 shopping_carts/__pycache__/
 shopping_carts/migrations/__pycache__/
 order_service/__pycache__/
+inventory/services/__pycache__/

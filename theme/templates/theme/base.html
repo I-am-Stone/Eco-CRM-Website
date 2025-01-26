@@ -92,7 +92,7 @@
                                 <div>Quantity: {{ item.quantity }}</div>
                                 <div>Total: Rs.{{ item.item_total }}</div>
                                 <div>{{ item.product_name }}</div>
-                                <form method="post" action="{% url 'remove_from_cart' %}">
+                                <form method="post" action="{% url 'inventory:remove_from_cart' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="remove_item_id" value="{{ item.product.id }}">
                                     <button type="submit" class="remove-item-btn">Remove</button>
