@@ -43,6 +43,7 @@ def remove_from_cart(request):
     return redirect('inventory:home')
 
 def checkout(request):
+    cart = CartService.add_product_to_carts(request)
     form_data = {}
     cust_id = None
     # If request if post, save user data invoice and change progress
@@ -77,7 +78,9 @@ def checkout(request):
     context = {
         'step': request.GET.get('step', 'fill_info'),
         'form_data': form_data,
-        'cust_id': cust_id
+        'cust_id': cust_id,
+        'cart_items':cart['cart_items'],
+        'total_price':cart['total_price'],
     }
     return render(request, "inventory/checkout.html", context)
 
