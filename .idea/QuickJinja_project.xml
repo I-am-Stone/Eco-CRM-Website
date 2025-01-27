@@ -4,7 +4,7 @@
     <option name="settings">
       <QuickJinjaProjectSettings>
         <option name="loadVariablesFromFile" value="true" />
-        <option name="templateFilePath" value="$PROJECT_DIR$/dashboard/views.py" />
+        <option name="templateFilePath" value="$PROJECT_DIR$/dashboard/templates/dashboard/add_product.html" />
       </QuickJinjaProjectSettings>
     </option>
   </component>

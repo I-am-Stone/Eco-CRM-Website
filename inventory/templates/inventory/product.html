@@ -19,7 +19,9 @@
                 <form class="item-add-to-cart" method="POST" action="{%url 'inventory:home'%}">
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ item.product.pk }}">
-                    <input type="number" name="quantity" class="item-count" min="1" value="1">
+                    <label>
+                        <input type="number" name="quantity" class="item-count" min="1" value="1">
+                    </label>
                     <input type="submit" data-loading-text="Adding to cart..." class="item-submit btn-design" value="Add to Cart">
                     <button type="submit" formaction="{% url 'inventory:buy_now' %}" class="item-submit btn-design button-filled">Buy Now</button>
                 </form>
@@ -60,21 +62,21 @@
         <h3 class="font-bold text-lg">Plain White T-shirt</h3>
         <p>This is a description of the first t-shirt in the swiper.</p>
       </div>
-      <img src="t-shirt" alt="tshirt" class="shadow-lg rounded-md flex-1" />
+      <img src="#" alt="tshirt" class="shadow-lg rounded-md flex-1" />
     </div>
     <div class="swiper-slide flex items-center justify-center">
       <div class="flex-1 mr-8 ml-8">
         <h3 class="font-bold text-lg">Plain Black T-shirt</h3>
         <p>Best Quality tshirt.</p>
       </div>
-      <img src="t-shirt" alt="tshirt" class="shadow-lg rounded-md flex-1" />
+      <img src="#" alt="tshirt" class="shadow-lg rounded-md flex-1" />
     </div>
     <div class="swiper-slide flex items-center justify-center">
       <div class="flex-1 mr-8 ml-8">
         <h3 class="font-bold text-lg">Tshirt 3</h3>
         <p>This is a description of the third t-shirt in the swiper.</p>
       </div>
-      <img src="t-shirt" alt="tshirt" class="shadow-lg rounded-md flex-1" />
+      <img src="#" alt="tshirt" class="shadow-lg rounded-md flex-1" />
     </div>
   </div>
 </div>

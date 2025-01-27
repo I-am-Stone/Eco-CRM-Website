@@ -62,11 +62,11 @@
                                 <input class="text-field mt-2" type="text" name="address" required
                                        {% if step == 'buy' %}disabled value="{{ form_data.street }}"{% endif %}>
                             </label>
-                            <div class="checkoutrow">
-                                <div class="checkoutcolumn">
+                            <div class=".check-out-row">
+                                <div class="check-out-column">
                                     <label class="text-field-label">CITY *</label>
-                                    <select class="text-field size" name="city" id="citySelect" required
-                                            {% if step == 'buy' %}disabled{% endif %}>
+                                    <label for="citySelect"></label><select class="text-field size" name="city" id="citySelect" required
+                                                                            {% if step == 'buy' %}disabled{% endif %}>
                                     <option value="">city</option>
                                     <option value="Bagmati" {% if form_data.city == 'Bagmati' %}selected{% endif %}>Kathmandu</option>
                                     <option value="Banapa" {% if form_data.city == 'Banapa' %}selected{% endif %}>Banapa</option>
@@ -74,25 +74,29 @@
                                     <option value="Kathmandu" {% if form_data.city == 'Kathmandu' %}selected{% endif %}>Kathmandu</option>
                                     </select>
                                 </div>
-                                <div class="checkoutcolumn">
+                                <div class="check-out-column">
                                     <label class="text-field-label">STATE/PROVINCE *</label>
-                                    <select class="text-field size" name="state" id="stateSelect" required
-                                            {% if step == 'buy' %}disabled{% endif %}>
+                                    <label for="stateSelect"></label><select class="text-field size" name="state" id="stateSelect" required
+                                                                             {% if step == 'buy' %}disabled{% endif %}>
                                     <option value="">Select State/Province</option>
                                     <option value="Bagmati" {% if form_data.state == 'Bagmati' %}selected{% endif %}>Bagmati</option>
                                     </select>
                                 </div>
-                                <div class="checkoutcolumn">
+                                <div class="check-out-column">
                                     <label class="text-field-label">ZIP/POSTAL CODE *</label>
-                                    <input class="text-field size mt-2" type="text" name="zip" required
-                                           {% if step == 'buy' %}disabled value="{{ form_data.zip_code }}"{% endif %}>
+                                    <label>
+                                        <input class="text-field size mt-2" type="text" name="zip" required
+                                               {% if step == 'buy' %}disabled value="{{ form_data.zip_code }}"{% endif %}>
+                                    </label>
                                 </div>
                             </div>
                             <label class="text-field-label">COUNTRY * {{ cust_id }}</label>
-                            <input class="text-field mt-2" type="text" name="country" required
-                                   {% if step == 'buy' %}disabled value="{{ form_data.country }}"{% endif %}>
+                            <label>
+                                <input class="text-field mt-2" type="text" name="country" required
+                                       {% if step == 'buy' %}disabled value="{{ form_data.country }}"{% endif %}>
+                            </label>
                             {% if cust_id is None %}
-                            <input type="submit" data-loading-text="submitting..." class="item-submit btn-design" value="submit" onclick="color_change()">
+                            <input type="submit" data-loading-text="submitting..." class="item-submit btn-design" value="submit">
                             {% endif %}
                         </fieldset>
                     </form>
@@ -132,7 +136,7 @@
             {% else %}
                 <div class="border-b border-black pb-4 mb-4">
                     <div class="text-lg">Poster</div>
-                    <img src="path/to/poster.jpg" alt="Poster Image" class="w-full h-auto mt-2">
+                    <img src="https://via.placeholder.com/150" alt="Poster Image" class="w-full h-auto mt-2">
                 </div>
                 <div class="border-b border-black pb-4 mb-4">
                     <div class="text-lg">Total</div>

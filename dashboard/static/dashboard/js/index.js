@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
         product_action.addEventListener('change', function () {
             console.log('Updated value:', product_action.value);
             const SelectedValue = this.value
+            console.log(SelectedValue)
             if (SelectedValue) {
                 window.location.href = SelectedValue;
             }else{

@@ -1,15 +1,11 @@
 from django.shortcuts import render, redirect
 from inventory.models import *
-from .form import CustomerForm
-from django.urls import reverse
 from dashboard.models import *
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from django.shortcuts import render
 from .models import ProductInventory
-from django.core.mail import send_mail
-from django.conf import settings
-from .services.cart_service import CartService 
+from .services.cart_service import CartService
+from .services.order_service import CheckoutService
 
 
 def home(request):
@@ -39,42 +35,15 @@ def home(request):
     return render(request, "inventory/product.html", context)
 
 def remove_from_cart(request):
-    cart = CartService.remove_from_cart(request)
+    CartService.remove_from_cart(request)
     return redirect('inventory:home')
 
 def checkout(request):
     cart = CartService.add_product_to_carts(request)
-    form_data = {}
-    cust_id = None
+
+    form_data, cust_id = CheckoutService.save_customer_data(request)
     # If request if post, save user data invoice and change progress
-    if request.method == "POST":
-        form = CustomerForm(request.POST)
-        if form.is_valid():
-            # Process the valid form data
-            email = form.cleaned_data['email']
-            name = form.cleaned_data['name']
-            street = form.cleaned_data['street']
-            city = form.cleaned_data['city']
-            state = form.cleaned_data['state']
-            phone = form.cleaned_data['phone']
-            zip_code = form.cleaned_data['zip']
-            country = form.cleaned_data['country']
 
-            new_customer = Customer(
-                email=email,
-                name=name,
-                phone=phone,
-                street=street,
-                city=city,
-                state=state,
-                zip_code=zip_code,
-                country=country
-            )
-            new_customer.save()
-            cust_id = new_customer.pk  # Set id of just inserted customer
-            form_data = form.cleaned_data
-
-            
     context = {
         'step': request.GET.get('step', 'fill_info'),
         'form_data': form_data,

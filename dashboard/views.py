@@ -277,6 +277,7 @@ def add(request):
         'edit_mode':  edit_mode_valid,
         'pd_id': int(request.GET.get('id', 0))
     }
+    print(edit_info)
 
 
     if edit_mode_valid:
