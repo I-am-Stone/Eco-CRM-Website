@@ -203,6 +203,7 @@ class ProductInventory(models.Model):
     Product inventory table
     """
 
+    objects = None
     sku = models.CharField(
         max_length=20,
         unique=True,
@@ -353,6 +354,7 @@ class Media(models.Model):
 
 
 class Stock(models.Model):
+    objects = None
     product_inventory = models.OneToOneField(
         ProductInventory,
         related_name="product_inventory",

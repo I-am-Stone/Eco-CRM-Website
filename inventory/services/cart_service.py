@@ -1,5 +1,4 @@
 from inventory.models import *
-import logging
 
 
 class CartService:

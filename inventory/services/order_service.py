@@ -34,6 +34,11 @@ class CheckoutService:
                 new_customer.save()
                 cust_id = new_customer.pk  # Set id of just inserted customer
                 form_data = form.cleaned_data
-
         return form_data, cust_id
+    @staticmethod
+    def save_order_data(cls, cust_id, cart_items, total_price):
+        new_order = Order(customer_id=cust_id, item_count=len(cart_items), total_price=total_price)
+        new_order.save()
+        for item in cart_items:
+            new_order.items.add(item)
 

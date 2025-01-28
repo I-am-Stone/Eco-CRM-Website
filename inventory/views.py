@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from .models import ProductInventory
 from .services.cart_service import CartService
 from .services.order_service import CheckoutService
-
+from .services.contact_service import ContactService
 
 def home(request):
     """
@@ -63,7 +63,6 @@ def buy_now(request):
 
         cart = {product_id: quantity}
         request.session['cart'] = cart
-        print(cart)
         return redirect('inventory:checkout')
     return redirect('inventory:home')
 
@@ -77,13 +76,7 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        contest = ContactForm(
-            email=email,
-            name=name,
-            subject=subject,
-            message=message,
-        )
-        contest.save()
+        ContactService.create(name=name, email=email, subject=subject, message=message)
     context = {
         'cart_items':cart['cart_items'],
         'total_price':cart['total_price'],
@@ -123,7 +116,8 @@ def order_info(request):
                 product_inventory=product,
                 customer_id=customer_id,
                 status=Order.status,
-            )
+            )    @st
+
             order.save()
 
             stock.units -= int(value)
