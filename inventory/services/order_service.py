@@ -35,3 +35,5 @@ class CheckoutService:
                 cust_id = new_customer.pk  # Set id of just inserted customer
                 form_data = form.cleaned_data
 
+        return form_data, cust_id
+
