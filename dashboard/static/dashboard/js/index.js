@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     const visibilityCheckbox = document.getElementById('visibility-checkbox');
     
