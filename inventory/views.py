@@ -107,22 +107,10 @@ def order_info(request):
 
         for key, value in cart.items():
             product = ProductInventory.objects.prefetch_related("product").get(pk=key)
-            stock = Stock.objects.select_for_update().get(product_inventory=product)
-
-            order = Order(
-                item=product.product.name,
-                total_price=product.retail_price,
-                item_count=value,
-                product_inventory=product,
-                customer_id=customer_id,
-                status=Order.status,
-            )    @st
-
-            order.save()
-
-            stock.units -= int(value)
-            stock.save()
-        return JsonResponse({'status': 'success'})
+            
+            CheckoutService.save_order_data(cust_id=customer_id, cart_items=cart, total_price=product.retail_price, product=stock, status=Order.status)    
+            
+            return redirect('dashboard:checkout')
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
 

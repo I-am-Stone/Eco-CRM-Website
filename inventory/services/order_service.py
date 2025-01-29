@@ -1,5 +1,5 @@
 from inventory.form import CustomerForm
-from dashboard.models import *
+from dashboard.models import Order, Customer
 
 class CheckoutService:
 
@@ -36,8 +36,14 @@ class CheckoutService:
                 form_data = form.cleaned_data
         return form_data, cust_id
     @staticmethod
-    def save_order_data(cls, cust_id, cart_items, total_price):
-        new_order = Order(customer_id=cust_id, item_count=len(cart_items), total_price=total_price)
+    def save_order_data(cust_id, cart_items, total_price, product,status):
+        new_order = Order(
+            customer_id=cust_id, 
+            item_count=len(cart_items), 
+            total_price=total_price,
+            product_inventory=product,
+            status=status,
+            )
         new_order.save()
         for item in cart_items:
             new_order.items.add(item)
