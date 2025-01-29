@@ -2,7 +2,6 @@ from inventory.models import ContactForm
 
 
 class ContactService:
-
     
     @classmethod
     def create(cls, email, name, subject, message):

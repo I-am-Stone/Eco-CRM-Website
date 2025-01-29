@@ -74,6 +74,17 @@ def products(request):
 
 
 def orders(request):
+    """
+    Handles the orders page.
+    This function renders the orders page and displays a list of all orders in the database
+    ordered by the latest created order first. The list is paginated and displays 10 orders per page.
+    
+    Parameters:
+    request (HttpRequest): The request sent to the server.
+    
+    Returns:
+    HttpResponse: A rendered template of the orders page.
+    """
     orders_collection = Order.objects.select_related('customer').all().order_by('-created_at')
     paginator = Paginator(orders_collection, 10)
 
@@ -88,6 +99,19 @@ def orders(request):
 @csrf_protect
 @require_http_methods(["GET", "POST"])
 def signin(request):
+    """
+    Handles the sign in page.
+    This function renders the sign in page and if the request method is POST, it attempts to 
+    authenticate the user with the provided username and password. If the authentication is 
+    successful, the user is logged in and redirected to the dashboard page. If the authentication 
+    fails, an error message is displayed and the user is redirected back to the sign in page.
+    
+    Parameters:
+    request (HttpRequest): The request sent to the server.
+    
+    Returns:
+    HttpResponse: A rendered template of the sign in page.
+    """
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -105,6 +129,19 @@ def signin(request):
 
 
 def order_status(request, order_id):
+    """
+    Handles updating the status of an order.
+
+    GET: Renders a form to update the status of an order.
+    POST: Updates the status of an order and redirects to the orders page.
+
+    Parameters:
+    request (HttpRequest): The request sent to the server.
+    order_id (int): The id of the order to be updated.
+
+    Returns:
+    HttpResponse: A rendered template of the order status update form, or a redirect to the orders page.
+    """
     if request.method == 'POST':
         print(f"Attempting to update order with id: {order_id}")
         order = get_object_or_404(Order, id=order_id)
@@ -119,6 +156,22 @@ def order_status(request, order_id):
 
 
 def setting(request):
+    """
+    Handles the settings page for user management.
+
+    This function renders the settings page where users can be created with details like username,
+    email, and password. It supports the creation of staff and non-staff users based on form input.
+    If the request method is POST, it validates the form data, checks for username uniqueness, and
+    creates a new user if the passwords match and the username is not already taken. Appropriate 
+    success or error messages are displayed based on the operation result.
+
+    Parameters:
+    request (HttpRequest): The request sent to the server.
+
+    Returns:
+    HttpResponse: A rendered template of the settings page with user details.
+    """
+
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -154,6 +207,22 @@ def inbox(request):
 
 
 def categories(request):
+    """
+    Handles the categories page.
+
+    This function renders the categories page which displays a list of categories. It also
+    supports creating new categories and updating existing ones. If the request method is GET,
+    it renders the categories page with a list of categories. If the request method is POST,
+    it validates the form data, checks for category name uniqueness, and creates a new category
+    or updates an existing one if the category name is not already taken. Appropriate success or
+    error messages are displayed based on the operation result.
+
+    Parameters:
+    request (HttpRequest): The request sent to the server.
+
+    Returns:
+    HttpResponse: A rendered template of the categories page with a list of categories.
+    """
     cate = Category.objects.all()
     edit_mode_is_valid = request.GET.get('mode') == "edit" and int(request.GET.get('id', 0)) != 0
 
@@ -267,6 +336,11 @@ def invoice(request):
 
 
 def add(request):
+    """
+    Handle product addition and editing
+    GET: Display add/edit product form
+    POST: Validate and save product data
+    """
     categories_p = Category.objects.filter(is_active=True)
     product = Product.objects.all()
     brand = Brand.objects.all()
@@ -329,6 +403,11 @@ def product_csv_writer():
 
 
 def product_data_collector(request):
+    """
+    Collects the data from the add product form and saves it in the database as a new product.
+    If the request method is POST, it saves the data in the database and redirects to the add product page.
+    If the request method is not POST, it redirects to the add product page.
+    """
     if request.method == "POST":
         web_id = request.POST.get('website_id')
         safe_url = request.POST.get('safe_url')
@@ -355,6 +434,23 @@ def product_data_collector(request):
     return redirect('add')
 
 def inventory_data_collector(request):
+    """
+    Collects inventory data from the request and saves it to the database.
+
+    This function handles the POST request to collect inventory data from the 
+    form and create a new ProductInventory record in the database. It retrieves
+    data such as SKU, UPC, product type, product, brand, weight, and pricing 
+    details from the request. If the form data is valid, a new ProductInventory 
+    object is created and saved. If any required objects do not exist, the 
+    function redirects to the add product page.
+
+    Parameters:
+    request (HttpRequest): The request object containing POST data.
+
+    Returns:
+    HttpResponseRedirect: Redirects to the add product page.
+    """
+
     if request.method == "POST":
         try:
             # Get form data
@@ -398,6 +494,26 @@ def inventory_data_collector(request):
 
 
 def media_collection(request):
+    """
+    Handles requests for media collection associated with a product inventory.
+    
+    This view processes POST requests to add a new media item, including image,
+    alt text, and feature status, to the specified product inventory.
+
+    Parameters:
+    - request: HttpRequest object containing POST data and uploaded file.
+
+    Behavior:
+    - Extracts product inventory ID, image alt text, image file, and feature status
+      from the POST data.
+    - Retrieves the corresponding ProductInventory instance.
+    - Creates and saves a new Media instance associated with the product inventory.
+    - Redirects to the 'add' page after processing.
+
+    Returns:
+    - Redirects to the 'add' page regardless of request method.
+    """
+
     if request.method == "POST":
         product_id = request.POST.get('product_inv')
         alt_text = request.POST.get('main_image_alt')
